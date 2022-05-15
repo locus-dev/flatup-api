@@ -27,81 +27,71 @@ import locus.dev.flatup.imovel.repository.ImovelRepository;
 @RestController
 public class ImovelController {
 	
-	@Autowired
-	private ImovelRepository imovelRepository;
+	// @Autowired
+	// private ImovelRepository imovelRepository;
 	
 	
 	
-	public ImovelController(ImovelRepository imovelRepository) {
-		super();
-		this.imovelRepository = imovelRepository;
-	}
+	// public ImovelController(ImovelRepository imovelRepository) {
+	// 	super();
+	// 	this.imovelRepository = imovelRepository;
+	// }
 
-	@GetMapping("/listarImovel")
-	public List<Imovel> listarImoveis(){
-		return imovelRepository.findAll();
+	// @GetMapping("/listarImovel")
+	// public List<Imovel> listarImoveis(){
+	// 	return imovelRepository.findAll();
 		
 		
-	}
+	// }
 	
-	@PostMapping(path="/salvarImovel", consumes="application/json")
-	public ResponseEntity<Imovel> salvarImovel(@RequestBody @Valid Imovel imovel) {
+	// @PostMapping(path="/salvarImovel", consumes="application/json")
+	// public ResponseEntity<Imovel> salvarImovel(@RequestBody @Valid Imovel imovel) {
 		
-		imovelRepository.save(imovel);
+	// 	imovelRepository.save(imovel);
 		
 		
-		return ResponseEntity.ok(imovel);
+	// 	return ResponseEntity.ok(imovel);
 				
-	}
+	// }
 	
 	
-	@GetMapping("/cadastro/imovel/{id}")
-	public ResponseEntity<Imovel> buscarImovelPorId(@PathVariable Long id) throws Exception{
-		Imovel imovel = imovelRepository.getById(id);
-		if(imovel == null) {
-			throw new Exception("Imóvel nao encontrado pelo id" + id);
-		}
+	// @GetMapping("/cadastro/imovel/{id}")
+	// public ResponseEntity<Imovel> buscarImovelPorId(@PathVariable Long id) throws Exception{
+	// 	Imovel imovel = imovelRepository.getById(id);
+	// 	if(imovel == null) {
+	// 		throw new Exception("Imóvel nao encontrado pelo id" + id);
+	// 	}
 		
-		return ResponseEntity.ok(imovel);
+	// 	return ResponseEntity.ok(imovel);
 		
-	}
+	// }
 	
-	@PutMapping("/cadastro/imovel/editar/{id}")
-	public ResponseEntity<Imovel>  editarImovelPorId(@PathVariable("id") Long id, @RequestBody @Valid Imovel imovel) throws Exception{
+	// @PutMapping("/cadastro/imovel/editar/{id}")
+	// public ResponseEntity<Imovel>  editarImovelPorId(@PathVariable("id") Long id, @RequestBody @Valid Imovel imovel) throws Exception{
 		
 		
-		Imovel opcionalimovel = imovelRepository.getById(id);		
-		if(opcionalimovel == null) {
-			return ResponseEntity.unprocessableEntity().build();
-		}
-		
-		opcionalimovel.setClimatizado(imovel.getClimatizado());
-		opcionalimovel.setStatusOcupacao(imovel.getStatusOcupacao());
-		opcionalimovel.setIdEnderecoFK(imovel.getIdEnderecoFK());
-		opcionalimovel.setQuantQuarto(imovel.getQuantQuarto());
-		opcionalimovel.setAreaLazer(imovel.getAreaLazer());
-		opcionalimovel.setM2(imovel.getM2());
-		opcionalimovel.setPiscina(imovel.getPiscina());
-		opcionalimovel.setQuantSuite(imovel.getQuantSuite());
+	// 	Imovel opcionalimovel = imovelRepository.getById(id);		
+	// 	if(opcionalimovel == null) {
+	// 		return ResponseEntity.unprocessableEntity().build();
+	// 	}
+			
+	// 	Imovel novoimovel = imovelRepository.save(opcionalimovel);
+	// 	return ResponseEntity.ok(novoimovel);
 		
 		
-		Imovel novoimovel = imovelRepository.save(opcionalimovel);
-		return ResponseEntity.ok(novoimovel);
-		
-		
-	}
+	// }
 	
-	@DeleteMapping("/cadastro/imovel/remover/{id}")
-	public ResponseEntity<Map<String, Boolean>> removerImovelPorId(@PathVariable Long id) throws Exception{
-		Imovel imovel = imovelRepository.getById(id);
-		if(imovel == null) {
-			throw new Exception("Imóvel nao encontrado" + id);
-		}
+	// @DeleteMapping("/cadastro/imovel/remover/{id}")
+	// public ResponseEntity<Map<String, Boolean>> removerImovelPorId(@PathVariable Long id) throws Exception{
+	// 	Imovel imovel = imovelRepository.getById(id);
+	// 	if(imovel == null) {
+	// 		throw new Exception("Imóvel nao encontrado" + id);
+	// 	}
 		
-		imovelRepository.deleteById(id);
-		Map<String, Boolean> responseAwait = new HashMap<>();
-		responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-		return ResponseEntity.ok(responseAwait);
-	}
+	// 	imovelRepository.deleteById(id);
+	// 	Map<String, Boolean> responseAwait = new HashMap<>();
+	// 	responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
+	// 	return ResponseEntity.ok(responseAwait);
+	// }
 
 }

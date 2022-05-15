@@ -27,82 +27,73 @@ import locus.dev.flatup.locacao.repository.LocacaoRepository;
 @RestController
 public class LocacaoController {
 	
-	@Autowired
-	private LocacaoRepository locacaoRepository;
+	// @Autowired
+	// private LocacaoRepository locacaoRepository;
 	
 	
 	
-	public LocacaoController(LocacaoRepository locacaoRepository) {
-		super();
-		this.locacaoRepository = locacaoRepository;
-	}
+	// public LocacaoController(LocacaoRepository locacaoRepository) {
+	// 	super();
+	// 	this.locacaoRepository = locacaoRepository;
+	// }
 
-	@GetMapping("/listarLocacoes")
-	public List<Locacao> listarLocacoes(){
-		return locacaoRepository.findAll();
+	// @GetMapping("/listarLocacoes")
+	// public List<Locacao> listarLocacoes(){
+	// 	return locacaoRepository.findAll();
 		
 		
-	}
+	// }
 	
-	@PostMapping(path="/salvarLocacao", consumes="application/json" )
-	public ResponseEntity<Locacao> salvarLocacao(@RequestBody @Valid Locacao locacao) {
+	// @PostMapping(path="/salvarLocacao", consumes="application/json" )
+	// public ResponseEntity<Locacao> salvarLocacao(@RequestBody @Valid Locacao locacao) {
 		
-		locacaoRepository.save(locacao);
+	// 	locacaoRepository.save(locacao);
 		
-		return ResponseEntity.ok(locacao);
+	// 	return ResponseEntity.ok(locacao);
 				
-	}
+	// }
 	
 	
 	
 	
 	
-	@GetMapping("/cadastro/locacao/{id}")
-	public ResponseEntity<Locacao> buscarLocacaoPorId(@PathVariable Long id) throws Exception{
-		Locacao locacao = locacaoRepository.getById(id);
-		if(locacao == null) {
-			throw new Exception("Locação nao encontrada pelo id" + id);
-		}
+	// @GetMapping("/cadastro/locacao/{id}")
+	// public ResponseEntity<Locacao> buscarLocacaoPorId(@PathVariable Long id) throws Exception{
+	// 	Locacao locacao = locacaoRepository.getById(id);
+	// 	if(locacao == null) {
+	// 		throw new Exception("Locação nao encontrada pelo id" + id);
+	// 	}
 		
-		return ResponseEntity.ok(locacao);
+	// 	return ResponseEntity.ok(locacao);
 		
-	}
+	// }
 	
-	@PutMapping("/cadastro/locacao/editar/{id}")
-	public ResponseEntity<Locacao>  editarLocacaoPorId(@PathVariable("id") Long id, @RequestBody @Valid Locacao locacao) throws Exception{
+	// @PutMapping("/cadastro/locacao/editar/{id}")
+	// public ResponseEntity<Locacao>  editarLocacaoPorId(@PathVariable("id") Long id, @RequestBody @Valid Locacao locacao) throws Exception{
 		
 		
-		Locacao opcionalLocacao = locacaoRepository.getById(id);		
-		if(opcionalLocacao == null) {
-			return ResponseEntity.unprocessableEntity().build();
-		}
-		
-		opcionalLocacao.setIdUsuarioFK(locacao.getIdUsuarioFK());
-		opcionalLocacao.setIdImovelFK(locacao.getIdImovelFK());
-		opcionalLocacao.setIdContratoLocacaoFK(locacao.getIdContratoLocacaoFK());
-		opcionalLocacao.setStatusLocacao(locacao.getStatusLocacao());
-		opcionalLocacao.setQuantPessoa(locacao.getQuantPessoa());
+	// 	Locacao opcionalLocacao = locacaoRepository.getById(id);		
+	// 	if(opcionalLocacao == null) {
+	// 		return ResponseEntity.unprocessableEntity().build();
+	// 	}
+			
+	// 	Locacao novoLocacao = locacaoRepository.save(opcionalLocacao);
+	// 	return ResponseEntity.ok(novoLocacao);
 		
 		
-
-		
-		Locacao novoLocacao = locacaoRepository.save(opcionalLocacao);
-		return ResponseEntity.ok(novoLocacao);
-		
-		
-	}
+	// }
 	
-	@DeleteMapping("/cadastro/locacao/remover/{id}")
-	public ResponseEntity<Map<String, Boolean>> removerLocacaoPorId(@PathVariable Long id) throws Exception{
-		Locacao locacao = locacaoRepository.getById(id);
-		if(locacao == null) {
-			throw new Exception("Locação nao encontrado" + id);
-		}
+	// @DeleteMapping("/cadastro/locacao/remover/{id}")
+	// public ResponseEntity<Map<String, Boolean>> removerLocacaoPorId(@PathVariable Long id) throws Exception{
+	// 	Locacao locacao = locacaoRepository.getById(id);
+	// 	if(locacao == null) {
+	// 		throw new Exception("Locação nao encontrado" + id);
+	// 	}
 		
-		locacaoRepository.deleteById(id);
-		Map<String, Boolean> responseAwait = new HashMap<>();
-		responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-		return ResponseEntity.ok(responseAwait);
-	}
+	// 	locacaoRepository.deleteById(id);
+	// 	Map<String, Boolean> responseAwait = new HashMap<>();
+	// 	responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
+	// 	return ResponseEntity.ok(responseAwait);
+	// }
 
 }

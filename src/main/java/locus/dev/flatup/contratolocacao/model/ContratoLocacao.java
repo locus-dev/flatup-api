@@ -9,100 +9,47 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import locus.dev.flatup.imovel.model.Imovel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table
-@Entity
+@Entity(name = "CONTRATO_LOCACAO")
 public class ContratoLocacao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private Long idLocacao;
 	
 	@OneToOne
+	@JoinColumn(name = "IMOVEL_ID")
 	private Imovel idImovelFK;
 	
-	@Column
-	private String diasLocacao;
+	@Column(name = "DIAS_LOCACAO")
+	private Integer diasLocacao;
 	
-	@Column
-	private String valorLocacao;
+	@Column(name = "VALOR_LOCACAO")
+	private Integer valorLocacao;
 	
-	@Column
+	@Column(name = "CHECK_IN")
 	private LocalDateTime  checkIn;
 	
-	@Column
+	@Column(name = "CHECK_OUT")
 	private LocalDateTime  checkOut;
 	
-	
-	
-
-	public ContratoLocacao() {
-		super();
-	}
-
-	public ContratoLocacao(Long idLocacao, Imovel idImovelFK, String diasLocacao, String valorLocacao, LocalDateTime checkIn,
-			LocalDateTime checkOut) {
-		super();
-		this.idLocacao = idLocacao;
-		this.idImovelFK = idImovelFK;
-		this.diasLocacao = diasLocacao;
-		this.valorLocacao = valorLocacao;
-		this.checkIn = checkIn;
-		this.checkOut = checkOut;
-	}
-
-	public Long getIdLocacao() {
-		return idLocacao;
-	}
-
-	public void setIdLocacao(Long idLocacao) {
-		this.idLocacao = idLocacao;
-	}
-
-	public Imovel getIdImovelFK() {
-		return idImovelFK;
-	}
-
-	public void setIdImovelFK(Imovel idImovelFK) {
-		this.idImovelFK = idImovelFK;
-	}
-
-	public String getDiasLocacao() {
-		return diasLocacao;
-	}
-
-	public void setDiasLocacao(String diasLocacao) {
-		this.diasLocacao = diasLocacao;
-	}
-
-	public String getValorLocacao() {
-		return valorLocacao;
-	}
-
-	public void setValorLocacao(String valorLocacao) {
-		this.valorLocacao = valorLocacao;
-	}
-
-	public LocalDateTime getCheckIn() {
-		return checkIn;
-	}
-
-	public void setCheckIn(LocalDateTime checkIn) {
-		this.checkIn = checkIn;
-	}
-
-	public LocalDateTime getCheckOut() {
-		return checkOut;
-	}
-
-	public void setCheckOut(LocalDateTime checkOut) {
-		this.checkOut = checkOut;
-	}
-	
+	@Column(name = "QUANT_PESSOA")
+	private String quantPessoa;
 }
 	
 	

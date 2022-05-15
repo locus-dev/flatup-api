@@ -4,134 +4,49 @@ package locus.dev.flatup.locacao.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import locus.dev.flatup.contratolocacao.model.ContratoLocacao;
+import locus.dev.flatup.imovel.enums.EnumStatusOcupacao;
 import locus.dev.flatup.imovel.model.Imovel;
 import locus.dev.flatup.usuario.model.Usuario;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Table
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "LOCACAO")
 @Entity
 public class Locacao {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private Long idLocacao;
 	
 	@ManyToOne
+	@JoinColumn(name = "USUARIO_ID")
 	private Usuario idUsuarioFK;
 	
 	@OneToOne
+	@JoinColumn(name = "IMOVEL_ID")
 	private Imovel idImovelFK;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "CONTRATO_LOCACAO_ID")
 	private ContratoLocacao idContratoLocacaoFK;
 	
-	@Column
-	private String statusLocacao;
-	
-	@Column
-	private String quantPessoa;
-	
-	
-	
-
-	public Locacao() {
-		super();
-	}
-
-
-
-	public Locacao(Long idLocacao, Usuario idUsuarioFK, Imovel idImovelFK, ContratoLocacao idContratoLocacaoFK,
-			String statusLocacao, String quantPessoa) {
-		super();
-		this.idLocacao = idLocacao;
-		this.idUsuarioFK = idUsuarioFK;
-		this.idImovelFK = idImovelFK;
-		this.idContratoLocacaoFK = idContratoLocacaoFK;
-		this.statusLocacao = statusLocacao;
-		this.quantPessoa = quantPessoa;
-	}
-
-
-
-	public Long getIdLocacao() {
-		return idLocacao;
-	}
-
-
-
-	public void setIdLocacao(Long idLocacao) {
-		this.idLocacao = idLocacao;
-	}
-
-
-
-	public Usuario getIdUsuarioFK() {
-		return idUsuarioFK;
-	}
-
-
-
-	public void setIdUsuarioFK(Usuario idUsuarioFK) {
-		this.idUsuarioFK = idUsuarioFK;
-	}
-
-
-
-	public Imovel getIdImovelFK() {
-		return idImovelFK;
-	}
-
-
-
-	public void setIdImovelFK(Imovel idImovelFK) {
-		this.idImovelFK = idImovelFK;
-	}
-
-
-
-	public ContratoLocacao getIdContratoLocacaoFK() {
-		return idContratoLocacaoFK;
-	}
-
-
-
-	public void setIdContratoLocacaoFK(ContratoLocacao idContratoLocacaoFK) {
-		this.idContratoLocacaoFK = idContratoLocacaoFK;
-	}
-
-
-
-	public String getStatusLocacao() {
-		return statusLocacao;
-	}
-
-
-
-	public void setStatusLocacao(String statusLocacao) {
-		this.statusLocacao = statusLocacao;
-	}
-
-
-
-	public String getQuantPessoa() {
-		return quantPessoa;
-	}
-
-
-
-	public void setQuantPessoa(String quantPessoa) {
-		this.quantPessoa = quantPessoa;
-	}
-	
-	
+	@Column(name = "STATUS_LOCACAO")
+	@Enumerated(EnumType.STRING)
+	private EnumStatusLocacao statusLocacao;
 }
-
-	
-	

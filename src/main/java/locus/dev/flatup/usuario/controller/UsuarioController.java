@@ -1,10 +1,6 @@
 package locus.dev.flatup.usuario.controller;
 
-
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -16,105 +12,46 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import locus.dev.flatup.pessoa.model.Pessoa;
-import locus.dev.flatup.usuario.model.Usuario;
-import locus.dev.flatup.usuario.repository.UsuarioRepository;
+import locus.dev.flatup.exceptios.NegocioException;
+import locus.dev.flatup.usuario.model.UsuarioDto;
+import locus.dev.flatup.usuario.service.UsuarioService;
 
-
-
-@RestController
+@RestController(value = "/usuario")
 public class UsuarioController {
 	
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UsuarioService service;
 	
-	
-	
-	public UsuarioController(UsuarioRepository usuarioRepository) {
-		super();
-		this.usuarioRepository = usuarioRepository;
-	}
+	@GetMapping("/listar")
+	public ResponseEntity<List<UsuarioDto>> listarUsuarios(){
+		var usuarioDtos = service.listarUsuarios();
 
-	@GetMapping("/listarUsuario")
-	public List<Usuario> listarUsuarios(){
-		return usuarioRepository.findAll();
-		
-		
+		return ResponseEntity.ok(usuarioDtos);
 	}
 	
-	@PostMapping(path = "/salvarUsuario", consumes="application/json")
-	public ResponseEntity<Usuario> salvarUsuario( @RequestBody @Valid Usuario usuario) {
+	@PostMapping("/salvar")
+	public ResponseEntity<UsuarioDto> salvarUsuario( @RequestBody @Valid UsuarioDto usuario) throws NegocioException{
+		var resultado = service.salvar(usuario);
+		return ResponseEntity.ok(resultado);
+	}
 		
-		//Usuario novoUsuario = usuarioRepository.save(usuario);
-		Pessoa p = new Pessoa();
-		p.setIdPessoa(usuario.getPessoa().getIdPessoa());
-		p.setNome(usuario.getPessoa().getNome());
-		p.setCpf(usuario.getPessoa().getCpf());
-		p.setCnpj(usuario.getPessoa().getCnpj());
-		p.setDataNascimento(usuario.getPessoa().getDataNascimento());
-		p.setTelefone(usuario.getPessoa().getTelefone());
-		
-		Usuario s = new Usuario();
-		s.setEmail(usuario.getEmail());
-		s.setSenha(usuario.getSenha());
-		s.setPessoa(p);
-		
-		usuarioRepository.save(s);
-		
-		return ResponseEntity.ok(s);
-		
-		
-		
-				
+	@GetMapping("/encontrar/{id}")
+	public ResponseEntity<UsuarioDto> encontrarUsuario(@PathVariable("id") Long idUsuario) {
+		var usuarioEncontrado = service.encontrarUsuario(idUsuario);
+		return ResponseEntity.ok(usuarioEncontrado);		
 	}
 	
-	
-	
-	@GetMapping("/cadastro/usuario/{id}")
-	public ResponseEntity<Usuario> buscarUsuarioPorId(@PathVariable Long id) throws Exception{
-		Usuario usuario = usuarioRepository.getById(id);
-		if(usuario == null) {
-			throw new Exception("Usuário nao encontrado pelo id" + id);
-		}
-		
-		return ResponseEntity.ok(usuario);
-		
+	@PutMapping("/editar/{id}")
+	public ResponseEntity<UsuarioDto>  editarUsuario(@PathVariable("id") Long id, @RequestBody @Valid UsuarioDto usuario) throws NegocioException {
+		var resultado = service.alterar(id, usuario);
+		return ResponseEntity.ok(resultado);		
 	}
 	
-	@PutMapping("/cadastro/usuario/editar/{id}")
-	public ResponseEntity<Usuario>  editarUsuarioPorId(@PathVariable("id") Long id, @RequestBody @Valid Usuario usuario) throws Exception{
-		
-		
-		Usuario opcionalUsuario = usuarioRepository.getById(id);		
-		if(opcionalUsuario == null) {
-			return ResponseEntity.unprocessableEntity().build();
-		}
-		
-		opcionalUsuario.setEmail(usuario.getEmail());
-		opcionalUsuario.setSenha(usuario.getSenha());
-		opcionalUsuario.setPessoa(usuario.getPessoa());
-	
-		
-		Usuario novoUsuario = usuarioRepository.save(opcionalUsuario);
-		return ResponseEntity.ok(novoUsuario);
-		
-		
+	@DeleteMapping("/remover/{id}")
+	public ResponseEntity<String> removeUsuarioId(@PathVariable("id") Long id) throws NegocioException {
+		service.removerUsuario(id);
+		return ResponseEntity.noContent().build();
 	}
-	
-	@DeleteMapping("/cadastro/usuario/remover/{id}")
-	public ResponseEntity<Map<String, Boolean>> removeUsuarioPeloId(@PathVariable Long id) throws Exception{
-		Usuario usuario = usuarioRepository.getById(id);
-		if(usuario == null) {
-			throw new Exception("Usuario nao encontrado" + id);
-		}
-		
-		usuarioRepository.deleteById(id);
-		Map<String, Boolean> responseAwait = new HashMap<>();
-		responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-		return ResponseEntity.ok(responseAwait);
-	}
-
 }

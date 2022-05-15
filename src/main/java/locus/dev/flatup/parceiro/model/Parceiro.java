@@ -5,83 +5,37 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import locus.dev.flatup.usuario.model.Usuario;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Table
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "PARCEIRO")
 @Entity
 public class Parceiro {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private Long idParceiro;
 	
-	@Column
+	@Column(name = "DESCRICAO")
 	private String descricao;
 	
-	@Column
+	@Column(name = "NOME_FANTASIA")
 	private String nomeFantasia;
 	
-	@Column
+	@Column(name = "CNPJ")
 	private String cnpj;
 	
 	@ManyToOne
+	@JoinColumn(name = "USUARIO_ID")
 	private Usuario idUsuarioFK;
-	
-	
-
-	public Parceiro() {
-		super();
-	}
-
-	public Parceiro(Long idParceiro, String descricao, String nomeFantasia, String cnpj, Usuario idUsuarioFK) {
-		super();
-		this.idParceiro = idParceiro;
-		this.descricao = descricao;
-		this.nomeFantasia = nomeFantasia;
-		this.cnpj = cnpj;
-		this.idUsuarioFK = idUsuarioFK;
-	}
-
-	public Long getIdParceiro() {
-		return idParceiro;
-	}
-
-	public void setIdParceiro(Long idParceiro) {
-		this.idParceiro = idParceiro;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getNomeFantasia() {
-		return nomeFantasia;
-	}
-
-	public void setNomeFantasia(String nomeFantasia) {
-		this.nomeFantasia = nomeFantasia;
-	}
-
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-
-	public Usuario getIdUsuarioFK() {
-		return idUsuarioFK;
-	}
-
-	public void setIdUsuarioFK(Usuario idUsuarioFK) {
-		this.idUsuarioFK = idUsuarioFK;
-	}
 }

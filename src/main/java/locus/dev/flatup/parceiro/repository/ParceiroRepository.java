@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import locus.dev.flatup.parceiro.model.Parceiro;
 
-
-
 @Repository
 public interface ParceiroRepository extends JpaRepository<Parceiro, Long> {
 
