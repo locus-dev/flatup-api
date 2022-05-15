@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import locus.dev.flatup.exceptios.NegocioException;
 import locus.dev.flatup.usuario.model.UsuarioDto;
 import locus.dev.flatup.usuario.service.UsuarioService;
 
-@RestController(value = "/usuario")
+@RestController
+@RequestMapping(value = "/usuario")
 public class UsuarioController {
 	
 	@Autowired

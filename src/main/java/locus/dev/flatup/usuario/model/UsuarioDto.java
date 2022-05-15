@@ -3,6 +3,7 @@ package locus.dev.flatup.usuario.model;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ public class UsuarioDto {
     @NotBlank(message = "O email não pode ser vazio.")
 	private String email;
 	
-    @Min(value = 8, message = "A senha precisa ser a partir de 8 caracteres.")
+    @Size(min = 8, message = "A senha precisa ser a partir de 8 caracteres.")
     @NotBlank(message = "A senha não pode ser vazia.")
 	private String senha;
 }
