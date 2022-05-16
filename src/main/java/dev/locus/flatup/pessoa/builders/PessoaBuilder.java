@@ -2,8 +2,8 @@ package dev.locus.flatup.pessoa.builders;
 
 import org.springframework.stereotype.Component;
 
-import locus.dev.flatup.pessoa.model.Pessoa;
-import locus.dev.flatup.pessoa.model.PessoaDto;
+import dev.locus.flatup.pessoa.model.Pessoa;
+import dev.locus.flatup.pessoa.model.PessoaDto;
 
 @Component
 public class PessoaBuilder {

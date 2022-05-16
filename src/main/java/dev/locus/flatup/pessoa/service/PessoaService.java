@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import locus.dev.flatup.pessoa.builders.PessoaBuilder;
-import locus.dev.flatup.pessoa.model.PessoaDto;
-import locus.dev.flatup.pessoa.repository.PessoaRepository;
+import dev.locus.flatup.pessoa.builders.PessoaBuilder;
+import dev.locus.flatup.pessoa.model.PessoaDto;
+import dev.locus.flatup.pessoa.repository.PessoaRepository;
 
 @Service
 public class PessoaService {

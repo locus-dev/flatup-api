@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import locus.dev.flatup.endereco.model.Endereco;
-import locus.dev.flatup.endereco.repository.EnderecoRepository;
+import dev.locus.flatup.endereco.model.Endereco;
+import dev.locus.flatup.endereco.repository.EnderecoRepository;
 
 @RestController
 public class EnderecoController {

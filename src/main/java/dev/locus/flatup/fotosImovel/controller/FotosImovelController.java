@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import locus.dev.flatup.contratolocacao.model.ContratoLocacao;
-import locus.dev.flatup.fotosImovel.model.FotosImovel;
-import locus.dev.flatup.fotosImovel.repository.FotosImovelRepository;
+import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
+import dev.locus.flatup.fotosImovel.model.FotosImovel;
+import dev.locus.flatup.fotosImovel.repository.FotosImovelRepository;
 
 @RestController
 public class FotosImovelController {

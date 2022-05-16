@@ -11,9 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import locus.dev.flatup.endereco.model.Endereco;
-import locus.dev.flatup.imovel.enums.EnumClimatizado;
-import locus.dev.flatup.imovel.enums.EnumStatusOcupacao;
+import dev.locus.flatup.endereco.model.Endereco;
+import dev.locus.flatup.imovel.enums.EnumClimatizado;
+import dev.locus.flatup.imovel.enums.EnumStatusOcupacao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
