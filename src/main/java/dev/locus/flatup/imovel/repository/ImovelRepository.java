@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import locus.dev.flatup.imovel.model.Imovel;
 
-
-
 @Repository
 public interface ImovelRepository extends JpaRepository<Imovel, Long> {
 

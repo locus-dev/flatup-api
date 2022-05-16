@@ -20,22 +20,22 @@ import lombok.NoArgsConstructor;
 public class PessoaDto {
 
     @NotBlank(message = "O nome não pode estar em branco.")
-	private String nome;
-	
+    private String nome;
+
     @NotNull(message = "A data de nascimento deve ser fornecida.")
-	private LocalDateTime dataNascimento;
-	
+    private LocalDateTime dataNascimento;
+
     @CPF(message = "Cpf inválido, por favor verifique os dados informados.")
     @NotBlank(message = "O cpf deve ser preenchido")
-	private String cpf;
-	
+    private String cpf;
+
     @CNPJ(message = "Cnpj inválido, por favor verifique os dados informados.")
     @NotBlank(message = "O cnpj deve ser preenchido")
-	private String cnpj;
+    private String cnpj;
 
     @NotBlank(message = "O telefone deve ser fornecido.")
-	private String telefone;
-	
-	@NotNull(message = "Os dados de cadastro devem estar relacionados a um usuário.")
-	public Long usuarioId;
+    private String telefone;
+
+    @NotNull(message = "Os dados de cadastro devem estar relacionados a um usuário.")
+    public Long usuarioId;
 }

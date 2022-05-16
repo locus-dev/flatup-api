@@ -1,7 +1,5 @@
 package dev.locus.flatup.locacao.model;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,24 +26,24 @@ import lombok.NoArgsConstructor;
 @Table(name = "LOCACAO")
 @Entity
 public class Locacao {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long idLocacao;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario idUsuarioFK;
-	
+
 	@OneToOne
 	@JoinColumn(name = "IMOVEL_ID")
 	private Imovel idImovelFK;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "CONTRATO_LOCACAO_ID")
 	private ContratoLocacao idContratoLocacaoFK;
-	
+
 	@Column(name = "STATUS_LOCACAO")
 	@Enumerated(EnumType.STRING)
 	private EnumStatusLocacao statusLocacao;

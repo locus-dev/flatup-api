@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import locus.dev.flatup.contratolocacao.model.ContratoLocacao;
 
-
-
 @Repository
 public interface ContratoLocacaoRepository extends JpaRepository<ContratoLocacao, Long> {
 

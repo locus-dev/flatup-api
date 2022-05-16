@@ -1,7 +1,5 @@
 package dev.locus.flatup.pessoa.controller;
 
-
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,71 +21,65 @@ import locus.dev.flatup.pessoa.repository.PessoaRepository;
 
 @RestController
 public class PessoaController {
-	
+
 	// @Autowired
 	// private PessoaRepository pessoaRepository;
-	
-	
-	
+
 	// public PessoaController(PessoaRepository pessoaRepository) {
-	// 	super();
-	// 	this.pessoaRepository = pessoaRepository;
+	// super();
+	// this.pessoaRepository = pessoaRepository;
 	// }
 
 	// @GetMapping("/listarPessoa")
 	// public List<Pessoa> listarPessoas(){
-	// 	return pessoaRepository.findAll();
-		
-		
+	// return pessoaRepository.findAll();
+
 	// }
-	
+
 	// @PostMapping("/salvarPessoa")
 	// public Pessoa salvarPessoa(Pessoa pessoa) {
-	// 	return pessoaRepository.save(pessoa);
-				
+	// return pessoaRepository.save(pessoa);
+
 	// }
-	
-	
-	
-	
-	
+
 	// @GetMapping("/cadastro/pessoa/{id}")
-	// public ResponseEntity<Pessoa> buscarPessoaPorId(@PathVariable Long id) throws Exception{
-	// 	Pessoa pessoa = pessoaRepository.getById(id);
-	// 	if(pessoa == null) {
-	// 		throw new Exception("Parceiro nao encontrado pelo id" + id);
-	// 	}
-		
-	// 	return ResponseEntity.ok(pessoa);
-		
+	// public ResponseEntity<Pessoa> buscarPessoaPorId(@PathVariable Long id) throws
+	// Exception{
+	// Pessoa pessoa = pessoaRepository.getById(id);
+	// if(pessoa == null) {
+	// throw new Exception("Parceiro nao encontrado pelo id" + id);
 	// }
-	
+
+	// return ResponseEntity.ok(pessoa);
+
+	// }
+
 	// @PutMapping("/cadastro/pessoa/editar/{id}")
-	// public ResponseEntity<Pessoa>  editarPessoaPorId(@PathVariable("id") Long id, @RequestBody @Valid Pessoa pessoa) throws Exception{
-		
-		
-	// 	Pessoa opcionalPessoa = pessoaRepository.getById(id);		
-	// 	if(opcionalPessoa == null) {
-	// 		return ResponseEntity.unprocessableEntity().build();
-	// 	}
-		
-	// 	Pessoa novopessoa = pessoaRepository.save(opcionalPessoa);
-	// 	return ResponseEntity.ok(novopessoa);
-		
-		
+	// public ResponseEntity<Pessoa> editarPessoaPorId(@PathVariable("id") Long id,
+	// @RequestBody @Valid Pessoa pessoa) throws Exception{
+
+	// Pessoa opcionalPessoa = pessoaRepository.getById(id);
+	// if(opcionalPessoa == null) {
+	// return ResponseEntity.unprocessableEntity().build();
 	// }
-	
+
+	// Pessoa novopessoa = pessoaRepository.save(opcionalPessoa);
+	// return ResponseEntity.ok(novopessoa);
+
+	// }
+
 	// @DeleteMapping("/cadastro/pessoa/remover/{id}")
-	// public ResponseEntity<Map<String, Boolean>> removerPessoaPeloId(@PathVariable Long id) throws Exception{
-	// 	Pessoa pessoa = pessoaRepository.getById(id);
-	// 	if(pessoa == null) {
-	// 		throw new Exception("Pessoa nao encontrada" + id);
-	// 	}
-		
-	// 	pessoaRepository.deleteById(id);
-	// 	Map<String, Boolean> responseAwait = new HashMap<>();
-	// 	responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-	// 	return ResponseEntity.ok(responseAwait);
+	// public ResponseEntity<Map<String, Boolean>> removerPessoaPeloId(@PathVariable
+	// Long id) throws Exception{
+	// Pessoa pessoa = pessoaRepository.getById(id);
+	// if(pessoa == null) {
+	// throw new Exception("Pessoa nao encontrada" + id);
+	// }
+
+	// pessoaRepository.deleteById(id);
+	// Map<String, Boolean> responseAwait = new HashMap<>();
+	// responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
+	// return ResponseEntity.ok(responseAwait);
 	// }
 
 }

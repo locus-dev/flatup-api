@@ -18,9 +18,9 @@ public class UsuarioDto {
 
     @Email
     @NotBlank(message = "O email não pode ser vazio.")
-	private String email;
-	
+    private String email;
+
     @Size(min = 8, message = "A senha precisa ser a partir de 8 caracteres.")
     @NotBlank(message = "A senha não pode ser vazia.")
-	private String senha;
+    private String senha;
 }

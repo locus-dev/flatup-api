@@ -22,35 +22,36 @@ import locus.dev.flatup.usuario.service.UsuarioService;
 @RestController
 @RequestMapping(value = "/usuario")
 public class UsuarioController {
-	
+
 	@Autowired
 	private UsuarioService service;
-	
+
 	@GetMapping("/listar")
-	public ResponseEntity<List<UsuarioDto>> listarUsuarios(){
+	public ResponseEntity<List<UsuarioDto>> listarUsuarios() {
 		var usuarioDtos = service.listarUsuarios();
 
 		return ResponseEntity.ok(usuarioDtos);
 	}
-	
+
 	@PostMapping("/salvar")
-	public ResponseEntity<UsuarioDto> salvarUsuario( @RequestBody @Valid UsuarioDto usuario) throws NegocioException{
+	public ResponseEntity<UsuarioDto> salvarUsuario(@RequestBody @Valid UsuarioDto usuario) throws NegocioException {
 		var resultado = service.salvar(usuario);
 		return ResponseEntity.ok(resultado);
 	}
-		
+
 	@GetMapping("/encontrar/{id}")
 	public ResponseEntity<UsuarioDto> encontrarUsuario(@PathVariable("id") Long idUsuario) {
 		var usuarioEncontrado = service.encontrarUsuario(idUsuario);
-		return ResponseEntity.ok(usuarioEncontrado);		
+		return ResponseEntity.ok(usuarioEncontrado);
 	}
-	
+
 	@PutMapping("/editar/{id}")
-	public ResponseEntity<UsuarioDto>  editarUsuario(@PathVariable("id") Long id, @RequestBody @Valid UsuarioDto usuario) throws NegocioException {
+	public ResponseEntity<UsuarioDto> editarUsuario(@PathVariable("id") Long id, @RequestBody @Valid UsuarioDto usuario)
+			throws NegocioException {
 		var resultado = service.alterar(id, usuario);
-		return ResponseEntity.ok(resultado);		
+		return ResponseEntity.ok(resultado);
 	}
-	
+
 	@DeleteMapping("/remover/{id}")
 	public ResponseEntity<String> removeUsuarioId(@PathVariable("id") Long id) throws NegocioException {
 		service.removerUsuario(id);

@@ -24,34 +24,29 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="PESSOA")
+@Table(name = "PESSOA")
 public class Pessoa {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long idPessoa;
-	
+
 	@Column(name = "NOME")
 	private String nome;
-	
+
 	@Column(name = "DATA_NASCIMENTO")
 	private Date dataNascimento;
-	
+
 	@Column(name = "CPF")
 	private String cpf;
-	
+
 	@Column(name = "CNPJ")
 	private String cnpj;
-	
+
 	@Column(name = "TELEFONE")
 	private String telefone;
-	
+
 	@OneToOne
 	public Usuario usuario;
 }
-	
-	
-	
-	
-	

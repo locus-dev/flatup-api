@@ -20,16 +20,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "FOTO_IMOVEL")
 public class FotosImovel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long idFoto;
-		
+
 	@OneToOne
 	@JoinColumn(name = "IMOVEL_ID")
 	private Imovel idImovelFK;
-	
+
 	@Column(name = "FOTO")
 	private String foto;
 

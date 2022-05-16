@@ -24,24 +24,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "USUARIO")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long idUsuario;
-	
+
 	@Column(name = "EMAIL")
 	private String email;
-	
+
 	@Column(name = "SENHA")
 	private String senha;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "PESSOA_ID", referencedColumnName = "ID")
 	private Pessoa pessoa;
 }
-	
-	
-	
-
-	

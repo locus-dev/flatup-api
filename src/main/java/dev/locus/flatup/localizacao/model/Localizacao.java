@@ -1,7 +1,5 @@
 package dev.locus.flatup.localizacao.model;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,15 +21,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "LOCALIZACAO")
 public class Localizacao {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long idLocalizacao;
-	
+
 	@Column(name = "LATITUDE")
 	private String latitude;
-	
+
 	@Column(name = "LONGITUDE")
 	private String longitude;
 
@@ -42,9 +40,5 @@ public class Localizacao {
 	@OneToOne
 	@JoinColumn(name = "PARCEIRO_ID")
 	private Parceiro idParceiroFk;
-	
+
 }
-	
-	
-	
-		

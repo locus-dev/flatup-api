@@ -1,7 +1,5 @@
 package dev.locus.flatup.locacao.controller;
 
-
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,78 +20,71 @@ import locus.dev.flatup.contratolocacao.model.ContratoLocacao;
 import locus.dev.flatup.locacao.model.Locacao;
 import locus.dev.flatup.locacao.repository.LocacaoRepository;
 
-
-
 @RestController
 public class LocacaoController {
-	
+
 	// @Autowired
 	// private LocacaoRepository locacaoRepository;
-	
-	
-	
+
 	// public LocacaoController(LocacaoRepository locacaoRepository) {
-	// 	super();
-	// 	this.locacaoRepository = locacaoRepository;
+	// super();
+	// this.locacaoRepository = locacaoRepository;
 	// }
 
 	// @GetMapping("/listarLocacoes")
 	// public List<Locacao> listarLocacoes(){
-	// 	return locacaoRepository.findAll();
-		
-		
+	// return locacaoRepository.findAll();
+
 	// }
-	
+
 	// @PostMapping(path="/salvarLocacao", consumes="application/json" )
-	// public ResponseEntity<Locacao> salvarLocacao(@RequestBody @Valid Locacao locacao) {
-		
-	// 	locacaoRepository.save(locacao);
-		
-	// 	return ResponseEntity.ok(locacao);
-				
+	// public ResponseEntity<Locacao> salvarLocacao(@RequestBody @Valid Locacao
+	// locacao) {
+
+	// locacaoRepository.save(locacao);
+
+	// return ResponseEntity.ok(locacao);
+
 	// }
-	
-	
-	
-	
-	
+
 	// @GetMapping("/cadastro/locacao/{id}")
-	// public ResponseEntity<Locacao> buscarLocacaoPorId(@PathVariable Long id) throws Exception{
-	// 	Locacao locacao = locacaoRepository.getById(id);
-	// 	if(locacao == null) {
-	// 		throw new Exception("Locação nao encontrada pelo id" + id);
-	// 	}
-		
-	// 	return ResponseEntity.ok(locacao);
-		
+	// public ResponseEntity<Locacao> buscarLocacaoPorId(@PathVariable Long id)
+	// throws Exception{
+	// Locacao locacao = locacaoRepository.getById(id);
+	// if(locacao == null) {
+	// throw new Exception("Locação nao encontrada pelo id" + id);
 	// }
-	
+
+	// return ResponseEntity.ok(locacao);
+
+	// }
+
 	// @PutMapping("/cadastro/locacao/editar/{id}")
-	// public ResponseEntity<Locacao>  editarLocacaoPorId(@PathVariable("id") Long id, @RequestBody @Valid Locacao locacao) throws Exception{
-		
-		
-	// 	Locacao opcionalLocacao = locacaoRepository.getById(id);		
-	// 	if(opcionalLocacao == null) {
-	// 		return ResponseEntity.unprocessableEntity().build();
-	// 	}
-			
-	// 	Locacao novoLocacao = locacaoRepository.save(opcionalLocacao);
-	// 	return ResponseEntity.ok(novoLocacao);
-		
-		
+	// public ResponseEntity<Locacao> editarLocacaoPorId(@PathVariable("id") Long
+	// id, @RequestBody @Valid Locacao locacao) throws Exception{
+
+	// Locacao opcionalLocacao = locacaoRepository.getById(id);
+	// if(opcionalLocacao == null) {
+	// return ResponseEntity.unprocessableEntity().build();
 	// }
-	
+
+	// Locacao novoLocacao = locacaoRepository.save(opcionalLocacao);
+	// return ResponseEntity.ok(novoLocacao);
+
+	// }
+
 	// @DeleteMapping("/cadastro/locacao/remover/{id}")
-	// public ResponseEntity<Map<String, Boolean>> removerLocacaoPorId(@PathVariable Long id) throws Exception{
-	// 	Locacao locacao = locacaoRepository.getById(id);
-	// 	if(locacao == null) {
-	// 		throw new Exception("Locação nao encontrado" + id);
-	// 	}
-		
-	// 	locacaoRepository.deleteById(id);
-	// 	Map<String, Boolean> responseAwait = new HashMap<>();
-	// 	responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-	// 	return ResponseEntity.ok(responseAwait);
+	// public ResponseEntity<Map<String, Boolean>> removerLocacaoPorId(@PathVariable
+	// Long id) throws Exception{
+	// Locacao locacao = locacaoRepository.getById(id);
+	// if(locacao == null) {
+	// throw new Exception("Locação nao encontrado" + id);
+	// }
+
+	// locacaoRepository.deleteById(id);
+	// Map<String, Boolean> responseAwait = new HashMap<>();
+	// responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
+	// return ResponseEntity.ok(responseAwait);
 	// }
 
 }

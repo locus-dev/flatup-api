@@ -1,7 +1,5 @@
 package dev.locus.flatup.contratolocacao.model;
 
-
-
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -26,31 +24,28 @@ import lombok.Setter;
 @Table
 @Entity(name = "CONTRATO_LOCACAO")
 public class ContratoLocacao {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long idLocacao;
-	
+
 	@OneToOne
 	@JoinColumn(name = "IMOVEL_ID")
 	private Imovel idImovelFK;
-	
+
 	@Column(name = "DIAS_LOCACAO")
 	private Integer diasLocacao;
-	
+
 	@Column(name = "VALOR_LOCACAO")
 	private Integer valorLocacao;
-	
+
 	@Column(name = "CHECK_IN")
-	private LocalDateTime  checkIn;
-	
+	private LocalDateTime checkIn;
+
 	@Column(name = "CHECK_OUT")
-	private LocalDateTime  checkOut;
-	
+	private LocalDateTime checkOut;
+
 	@Column(name = "QUANT_PESSOA")
 	private String quantPessoa;
 }
-	
-	
-	

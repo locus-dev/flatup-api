@@ -9,7 +9,7 @@ import locus.dev.flatup.usuario.model.UsuarioDto;
 
 @Component
 public class UsuarioBuilder {
-    
+
     public UsuarioDto userDtoBuilder(Usuario usuarioRecebido) {
         return UsuarioDto
                 .builder()

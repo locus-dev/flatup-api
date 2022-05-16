@@ -14,7 +14,7 @@ public enum EnumStatusOcupacao {
 
     @Getter
     private Integer codigo;
-    
+
     @Getter
     private String descricao;
 }

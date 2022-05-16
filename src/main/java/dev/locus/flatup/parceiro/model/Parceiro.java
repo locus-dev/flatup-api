@@ -20,21 +20,21 @@ import lombok.NoArgsConstructor;
 @Table(name = "PARCEIRO")
 @Entity
 public class Parceiro {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long idParceiro;
-	
+
 	@Column(name = "DESCRICAO")
 	private String descricao;
-	
+
 	@Column(name = "NOME_FANTASIA")
 	private String nomeFantasia;
-	
+
 	@Column(name = "CNPJ")
 	private String cnpj;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario idUsuarioFK;

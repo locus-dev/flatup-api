@@ -17,5 +17,5 @@ public enum EnumClimatizado {
 
     @Getter
     private String descricao;
-    
+
 }
