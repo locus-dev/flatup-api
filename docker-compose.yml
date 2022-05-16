@@ -39,3 +39,13 @@ networks:
 volumes:
     postgres:
     pgadmin:
+    container_name: postgres_flatup
+    image: postgres:12
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: flatupdb
+      PGDATA: 
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
