@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import locus.dev.flatup.exceptios.NegocioException;
-import locus.dev.flatup.usuario.model.UsuarioDto;
-import locus.dev.flatup.usuario.service.UsuarioService;
+import dev.locus.flatup.exceptions.NegocioException;
+import dev.locus.flatup.usuario.model.UsuarioDto;
+import dev.locus.flatup.usuario.service.UsuarioService;
 
 @RestController
 @RequestMapping(value = "/usuario")

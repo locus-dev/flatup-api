@@ -1,12 +1,20 @@
 package dev.locus.flatup.endereco.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import dev.locus.flatup.endereco.model.EnderecoDto;
+import dev.locus.flatup.endereco.repository.EnderecoRepository;
+
 @Service
 public class EnderecoService {
   
   @Autowired
   EnderecoRepository repository;
 
-  public List<ParceiroDto> listarEndereco() {
+  public List<EnderecoDto> listarEndereco() {
     return null;
   }
 

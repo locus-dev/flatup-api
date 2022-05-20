@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import locus.dev.flatup.usuario.builder.UsuarioBuilder;
-import locus.dev.flatup.usuario.model.UsuarioDto;
-import locus.dev.flatup.usuario.repository.UsuarioRepository;
+import dev.locus.flatup.usuario.builder.UsuarioBuilder;
+import dev.locus.flatup.usuario.model.UsuarioDto;
+import dev.locus.flatup.usuario.repository.UsuarioRepository;
 
 /**
  * Classe de serviço e por gerenciar as chamadas ao repositório.

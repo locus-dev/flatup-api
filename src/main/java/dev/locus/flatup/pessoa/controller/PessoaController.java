@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import locus.dev.flatup.pessoa.model.Pessoa;
-import locus.dev.flatup.pessoa.repository.PessoaRepository;
+import dev.locus.flatup.pessoa.model.Pessoa;
+import dev.locus.flatup.pessoa.repository.PessoaRepository;
 
 @RestController
 public class PessoaController {

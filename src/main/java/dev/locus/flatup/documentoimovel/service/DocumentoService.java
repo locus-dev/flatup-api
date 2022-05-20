@@ -1,22 +1,31 @@
+package dev.locus.flatup.documentoimovel.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import dev.locus.flatup.documentoimovel.movel.DocumentoImovelDto;
+import dev.locus.flatup.documentoimovel.repository.DocumentoImovelRepository;
+
 public class DocumentoService {
   
   @Autowired
-  DocumentoRepository repository;
+  DocumentoImovelRepository repository;
 
 
-  public List<ParceiroDto> listarDocumento() {
+  public List<DocumentoImovelDto> listarDocumento() {
     return null;
   }
 
-  public DocumentoDto salvar() {
+  public DocumentoImovelDto salvar() {
     return null;
   }
 
-  public DocumentoDto encontrarDocumento() {
+  public DocumentoImovelDto encontrarDocumento() {
     return null;
   }
 
-  public DocumentoDto alterarDocumento() {
+  public DocumentoImovelDto alterarDocumento() {
     return null;
   }
 

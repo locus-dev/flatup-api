@@ -1,5 +1,13 @@
 package dev.locus.flatup.locacao.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import dev.locus.flatup.locacao.model.LocacaoDto;
+import dev.locus.flatup.locacao.repository.LocacaoRepository;
+
 @Service  
 public class LocacaoService {
     
@@ -7,7 +15,7 @@ public class LocacaoService {
   LocacaoRepository repository;
 
 
-  public List<ParceiroDto> listarLocacao() {
+  public List<LocacaoDto> listarLocacao() {
     return null;
   }
 

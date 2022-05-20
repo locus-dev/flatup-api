@@ -1,4 +1,4 @@
-package dev.locus.flatup.documentoImovel.controller;
+package dev.locus.flatup.documentoimovel.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import locus.dev.flatup.documentoImovel.movel.DocumentoImovel;
-import locus.dev.flatup.documentoImovel.repository.DocumentoImovelRepository;
+// import dev.locus.flatup.documentoImovel.movel.DocumentoImovel;
+// import dev.locus.flatup.documentoImovel.repository.DocumentoImovelRepository;
 
 @RestController
 public class DocumentoImovelController {

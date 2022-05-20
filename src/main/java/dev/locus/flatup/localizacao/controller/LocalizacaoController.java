@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import locus.dev.flatup.localizacao.model.Localizacao;
-import locus.dev.flatup.localizacao.repository.LocalizacaoRepository;
+import dev.locus.flatup.localizacao.model.Localizacao;
+import dev.locus.flatup.localizacao.repository.LocalizacaoRepository;
 
 @RestController
 public class LocalizacaoController {

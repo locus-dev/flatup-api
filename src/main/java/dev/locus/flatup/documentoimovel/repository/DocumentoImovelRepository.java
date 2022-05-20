@@ -1,9 +1,9 @@
-package dev.locus.flatup.documentoImovel.repository;
+package dev.locus.flatup.documentoimovel.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import locus.dev.flatup.documentoImovel.movel.DocumentoImovel;
+import dev.locus.flatup.documentoimovel.movel.DocumentoImovel;
 
 @Repository
 public interface DocumentoImovelRepository extends JpaRepository<DocumentoImovel, Long> {

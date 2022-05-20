@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import locus.dev.flatup.usuario.model.Usuario;
-import locus.dev.flatup.usuario.model.UsuarioDto;
+import dev.locus.flatup.usuario.model.Usuario;
+import dev.locus.flatup.usuario.model.UsuarioDto;
 
 @Component
 public class UsuarioBuilder {
