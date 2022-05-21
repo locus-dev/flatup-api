@@ -19,6 +19,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PessoaDto {
 
+    private Long idPessoa;
+    
     @NotBlank(message = "O nome não pode estar em branco.")
     private String nome;
 

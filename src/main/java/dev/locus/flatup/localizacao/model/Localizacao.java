@@ -9,13 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import locus.dev.flatup.imovel.model.Imovel;
-import locus.dev.flatup.parceiro.model.Parceiro;
+import dev.locus.flatup.imovel.model.Imovel;
+import dev.locus.flatup.parceiro.model.Parceiro;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

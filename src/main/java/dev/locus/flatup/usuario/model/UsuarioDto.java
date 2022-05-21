@@ -1,7 +1,6 @@
 package dev.locus.flatup.usuario.model;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -15,6 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioDto {
+
+    private Long idUsuario;
 
     @Email
     @NotBlank(message = "O email não pode ser vazio.")

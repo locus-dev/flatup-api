@@ -8,15 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import locus.dev.flatup.pessoa.model.Pessoa;
+import dev.locus.flatup.pessoa.model.Pessoa;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name = "ENDERECO")
 public class Endereco {
 

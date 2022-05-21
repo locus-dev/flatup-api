@@ -12,19 +12,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import locus.dev.flatup.contratolocacao.model.ContratoLocacao;
-import locus.dev.flatup.imovel.enums.EnumStatusOcupacao;
-import locus.dev.flatup.imovel.model.Imovel;
-import locus.dev.flatup.usuario.model.Usuario;
+import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
+import dev.locus.flatup.imovel.model.Imovel;
+import dev.locus.flatup.usuario.model.Usuario;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "LOCACAO")
 @Entity
+@Table(name = "LOCACAO")
 public class Locacao {
 
 	@Id

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import locus.dev.flatup.parceiro.model.Parceiro;
-import locus.dev.flatup.parceiro.repository.ParceiroRepository;
-import locus.dev.flatup.usuario.repository.UsuarioRepository;
+import dev.locus.flatup.parceiro.model.Parceiro;
+import dev.locus.flatup.parceiro.repository.ParceiroRepository;
+import dev.locus.flatup.usuario.repository.UsuarioRepository;
 
 @RestController
 public class ParceiroController {

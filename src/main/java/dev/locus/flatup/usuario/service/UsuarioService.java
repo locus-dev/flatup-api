@@ -3,12 +3,14 @@ package dev.locus.flatup.usuario.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import locus.dev.flatup.usuario.builder.UsuarioBuilder;
-import locus.dev.flatup.usuario.model.UsuarioDto;
-import locus.dev.flatup.usuario.repository.UsuarioRepository;
+import dev.locus.flatup.usuario.builder.UsuarioBuilder;
+import dev.locus.flatup.usuario.model.UsuarioDto;
+import dev.locus.flatup.usuario.repository.UsuarioRepository;
 
 /**
  * Classe de serviço e por gerenciar as chamadas ao repositório.
@@ -27,44 +29,34 @@ public class UsuarioService {
         List<UsuarioDto> listaUsuarioDtos = new ArrayList<>();
         
         repository.findAll().forEach(usuario -> {
-            listaUsuarioDtos.add(builder.userDtoBuilder(usuario));
+            listaUsuarioDtos.add(builder.builderDto(usuario));
         });
 
         return listaUsuarioDtos;
     }
 
-
+    @Transactional
     public UsuarioDto salvar(UsuarioDto usuarioDto) {
         
-        var usuario = builder.userBuilder(usuarioDto);
-        var usuarioSalvo = builder.userDtoBuilder(repository.save(usuario));
+        var usuario = builder.builderModel(usuarioDto);
+        var usuarioSalvo = builder.builderDto(repository.save(usuario));
         return usuarioSalvo;
     }
 
 
     public UsuarioDto encontrarUsuario(Long idUsuario) {
-        var usuario = repository.findById(idUsuario);
-
-        if(usuario.isPresent()){
-            return builder.userDtoBuilder(usuario.get());
-        }
-        return null;
+        var usuario = repository.findById(idUsuario).orElseThrow();
+        return builder.builderDto(usuario);
     }
 
-
+    @Transactional
     public UsuarioDto alterar(Long idUsuario, UsuarioDto usuarioDto) {
-        var usuarioConsultado = repository.findById(idUsuario);
-        
-        if(usuarioConsultado.isPresent()) {
-            var usuario = usuarioConsultado.get();
-            usuario.setEmail(usuario.getEmail());
-            usuario.setSenha(usuario.getSenha());
-            return builder.userDtoBuilder(repository.save(usuario));
-        }
-        return null;
+        usuarioDto.setIdUsuario(idUsuario);
+        var usuarioAlterado = repository.save(builder.builderModel(usuarioDto));
+        return builder.builderDto(usuarioAlterado);
     }
 
-
+    @Transactional
     public void removerUsuario(Long id) {
         repository.deleteById(id);
     }
