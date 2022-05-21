@@ -9,11 +9,27 @@ import dev.locus.flatup.pessoa.model.PessoaDto;
 public class PessoaBuilder {
 
     public PessoaDto pessoaDtoBuilder(Pessoa usuario) {
-        return null;
+        return PessoaDto
+                .builder()
+                .nome(usuario.getNome())
+                .dataNascimento(usuario.getDataNascimento())
+                .cpf(usuario.getCpf())
+                .cnpj(usuario.getCnpj())
+                .telefone(usuario.getTelefone())
+                .usuarioId(usuario.getUsuarioId())
+                .build();
     }
 
     public Pessoa pessoaBuilder(PessoaDto pessoaDto) {
-        return null;
+        return Pessoa
+                .builder()
+                .nome(usuario.getNome())
+                .dataNascimento(usuario.getDataNascimento())
+                .cpf(usuario.getCpf())
+                .cnpj(usuario.getCnpj())
+                .telefone(usuario.getTelefone())
+                .usuarioId(usuario.getUsuarioId())
+                .build();
     }
 
 }
