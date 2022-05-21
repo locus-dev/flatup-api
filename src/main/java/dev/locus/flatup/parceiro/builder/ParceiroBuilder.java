@@ -10,10 +10,20 @@ import dev.locus.flatup.parceiro.model.ParceiroDto;
 public class ParceiroBuilder {
     
     public ParceiroDto builderDto(Parceiro parceiro){
-        return ParceiroDto.builder().build();
+        return ParceiroDto.builder()
+                .descricao(parceiro.getDescricao())
+                .nomeFantasia(parceiro.getNomeFantasia())
+                .cnpj(parceiro.getCnpj())
+                .idUsuarioFK(parceiro.getIdUsuarioFK())
+                .build();
     }
 
     public Parceiro builderModel(ParceiroDto parceiroDto){
-        return Parceiro.builder().build();
+        return Parceiro.builder()
+                .descricao(parceiroDto.getDescricao())
+                .nomeFantasia(parceiroDto.getNomeFantasia())
+                .cnpj(parceiroDto.getCnpj())
+                .idUsuarioFK(parceiroDto.getIdUsuarioFK())
+                .build();
     }
 }

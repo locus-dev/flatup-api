@@ -10,10 +10,20 @@ import dev.locus.flatup.locacao.model.LocacaoDto;
 public class LocacaoBuilder {
     
     public LocacaoDto builderDto(Locacao locacao){
-        return LocacaoDto.builder().build();
+        return LocacaoDto.builder()
+                .idUsuarioFK(locacao.getIdUsuarioFK())
+                .idImovelFK(locacao.getIdImovelFK())
+                .idContratoLocacaoFK(locacao.getIdContratoLocacaoFK())
+                .statusLocacao(locacao.getStatusLocacao())
+                .build();
     }
 
     public Locacao builderModel(LocacaoDto locacaoDto){
-        return Locacao.builder().build();
+        return Locacao.builder()
+                .idUsuarioFK(locacaoDto.getIdUsuarioFK())
+                .idImovelFK(locacaoDto.getIdImovelFK())
+                .idContratoLocacaoFK(locacaoDto.getIdContratoLocacaoFK())
+                .statusLocacao(locacaoDto.getStatusLocacao())
+                .build();
     }
 }
