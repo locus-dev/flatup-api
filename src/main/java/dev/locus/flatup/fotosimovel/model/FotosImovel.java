@@ -1,4 +1,4 @@
-package dev.locus.flatup.fotosimovel.model;
+package dev.locus.flatup.fotosImovel.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,9 +1,9 @@
-package dev.locus.flatup.documentoimovel.builder;
+package dev.locus.flatup.documentoImovel.builder;
 
 import org.springframework.stereotype.Component;
 
-import dev.locus.flatup.documentoimovel.model.DocumentoImovel;
-import dev.locus.flatup.documentoimovel.model.DocumentoImovelDto;
+import dev.locus.flatup.documentoImovel.model.DocumentoImovel;
+import dev.locus.flatup.documentoImovel.model.DocumentoImovelDto;
 
 @Component
 public class DocumentoImovelBuilder {

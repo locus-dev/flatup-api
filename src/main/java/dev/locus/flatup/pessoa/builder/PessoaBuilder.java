@@ -8,28 +8,28 @@ import dev.locus.flatup.pessoa.model.PessoaDto;
 @Component
 public class PessoaBuilder {
 
-    public PessoaDto builderDto(Pessoa pessoa) {
-        return PessoaDto.builder()
-        .cnpj(null)
-        .cpf(null)
-        .dataNascimento(null)
-        .idPessoa(null)
-        .nome(null)
-        .telefone(null)
-        .usuarioId(null)
-        .build();
+    public PessoaDto pessoaDtoBuilder(Pessoa usuario) {
+        return PessoaDto
+                .builder()
+                .nome(usuario.getNome())
+                .dataNascimento(usuario.getDataNascimento())
+                .cpf(usuario.getCpf())
+                .cnpj(usuario.getCnpj())
+                .telefone(usuario.getTelefone())
+                .usuarioId(usuario.getUsuarioId())
+                .build();
     }
 
-    public Pessoa builderModel(PessoaDto pessoaDto) {
-        return Pessoa.builder()
-        .cnpj(pessoaDto.getCnpj())
-        .cpf(pessoaDto.getCpf())
-        .dataNascimento(pessoaDto.getDataNascimento())
-        .idPessoa(pessoaDto.getIdPessoa())
-        .nome(pessoaDto.getNome())
-        .telefone(pessoaDto.getTelefone())
-        //.usuario(pessoaDto.getUsuarioId()) setar usuário em service
-        .build();
+    public Pessoa pessoaBuilder(PessoaDto pessoaDto) {
+        return Pessoa
+                .builder()
+                .nome(pessoaDto.getNome())
+                .dataNascimento(pessoaDto.getDataNascimento())
+                .cpf(pessoaDto.getCpf())
+                .cnpj(pessoaDto.getCnpj())
+                .telefone(pessoaDto.getTelefone())
+                .usuarioId(pessoaDto.getUsuarioId())
+                .build();
     }
 
 }

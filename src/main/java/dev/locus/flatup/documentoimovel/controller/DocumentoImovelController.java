@@ -1,4 +1,4 @@
-package dev.locus.flatup.documentoimovel.controller;
+package dev.locus.flatup.documentoImovel.controller;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package dev.locus.flatup.documentoimovel.model;
+package dev.locus.flatup.documentoImovel.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

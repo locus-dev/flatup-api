@@ -1,4 +1,4 @@
-package dev.locus.flatup.fotosimovel.repository;
+package dev.locus.flatup.fotosImovel.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

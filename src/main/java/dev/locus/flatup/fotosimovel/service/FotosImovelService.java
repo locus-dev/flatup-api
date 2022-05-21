@@ -1,4 +1,4 @@
-package dev.locus.flatup.fotosimovel.service;
+package dev.locus.flatup.fotosImovel.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.locus.flatup.fotosimovel.builder.FotosImovelBuilder;
-import dev.locus.flatup.fotosimovel.model.FotosImovelDto;
-import dev.locus.flatup.fotosimovel.repository.FotosImovelRepository;
+import dev.locus.flatup.fotosImovel.builder.FotosImovelBuilder;
+import dev.locus.flatup.fotosImovel.model.FotosImovelDto;
+import dev.locus.flatup.fotosImovel.repository.FotosImovelRepository;
 
 @Service
 public class FotosImovelService {

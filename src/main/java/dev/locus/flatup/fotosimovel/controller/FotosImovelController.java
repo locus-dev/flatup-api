@@ -1,4 +1,4 @@
-package dev.locus.flatup.fotosimovel.controller;
+package dev.locus.flatup.fotosImovel.controller;
 
 import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
 import dev.locus.flatup.fotosImovel.model.FotosImovel;

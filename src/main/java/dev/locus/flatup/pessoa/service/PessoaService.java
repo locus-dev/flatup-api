@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.locus.flatup.pessoa.builders.PessoaBuilder;
+import dev.locus.flatup.pessoa.builder.PessoaBuilder;
 import dev.locus.flatup.pessoa.model.PessoaDto;
 import dev.locus.flatup.pessoa.repository.PessoaRepository;
 
@@ -25,7 +25,7 @@ public class PessoaService {
     List<PessoaDto> listaPessoaDtos = new ArrayList<>();
 
     repository.findAll().forEach(pessoa -> {
-      listaPessoaDtos.add(builder.builderDto(pessoa));
+      listaPessoaDtos.add(builder.pessoaDtoBuilder(pessoa));
     });
 
     return listaPessoaDtos;
@@ -34,8 +34,8 @@ public class PessoaService {
   @Transactional
   public PessoaDto salvar(PessoaDto pessoaDto) {
 
-    var pessoa = builder.builderModel(pessoaDto);
-    var pessoaSalvo = builder.builderDto(repository.save(pessoa));
+    var pessoa = builder.pessoaBuilder(pessoaDto);
+    var pessoaSalvo = builder.pessoaDtoBuilder(repository.save(pessoa));
     return pessoaSalvo;
   }
 

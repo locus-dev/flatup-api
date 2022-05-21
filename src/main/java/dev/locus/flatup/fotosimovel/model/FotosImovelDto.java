@@ -1,4 +1,4 @@
-package dev.locus.flatup.fotosimovel.model;
+package dev.locus.flatup.fotosImovel.model;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
