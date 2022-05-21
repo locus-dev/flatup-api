@@ -23,12 +23,12 @@ public class PessoaBuilder {
     public Pessoa pessoaBuilder(PessoaDto pessoaDto) {
         return Pessoa
                 .builder()
-                .nome(usuario.getNome())
-                .dataNascimento(usuario.getDataNascimento())
-                .cpf(usuario.getCpf())
-                .cnpj(usuario.getCnpj())
-                .telefone(usuario.getTelefone())
-                .usuarioId(usuario.getUsuarioId())
+                .nome(pessoaDto.getNome())
+                .dataNascimento(pessoaDto.getDataNascimento())
+                .cpf(pessoaDto.getCpf())
+                .cnpj(pessoaDto.getCnpj())
+                .telefone(pessoaDto.getTelefone())
+                .usuarioId(pessoaDto.getUsuarioId())
                 .build();
     }
 
