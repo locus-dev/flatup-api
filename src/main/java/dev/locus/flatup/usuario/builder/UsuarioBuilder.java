@@ -1,7 +1,5 @@
 package dev.locus.flatup.usuario.builder;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Component;
 
 import dev.locus.flatup.usuario.model.Usuario;
@@ -10,7 +8,7 @@ import dev.locus.flatup.usuario.model.UsuarioDto;
 @Component
 public class UsuarioBuilder {
 
-    public UsuarioDto userDtoBuilder(Usuario usuarioRecebido) {
+    public UsuarioDto builderDto(Usuario usuarioRecebido) {
         return UsuarioDto
                 .builder()
                 .email(usuarioRecebido.getEmail())
@@ -18,7 +16,7 @@ public class UsuarioBuilder {
                 .build();
     }
 
-    public Usuario userBuilder(UsuarioDto usuarioDto) {
+    public Usuario builderModel(UsuarioDto usuarioDto) {
         return Usuario
                 .builder()
                 .email(usuarioDto.getEmail())

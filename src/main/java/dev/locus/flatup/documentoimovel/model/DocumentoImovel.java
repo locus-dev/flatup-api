@@ -1,6 +1,4 @@
-package dev.locus.flatup.contratolocacao.model;
-
-import java.time.LocalDateTime;
+package dev.locus.flatup.documentoimovel.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import dev.locus.flatup.imovel.model.Imovel;
@@ -21,31 +19,22 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
-@Entity(name = "CONTRATO_LOCACAO")
-public class ContratoLocacao {
-
+@Table(name = "DOCUMENTO_IMOVEL")
+@Entity
+public class DocumentoImovel {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	private Long idLocacao;
-
-	@OneToOne
+	private Long idDocumento;
+	
+	@Column(name = "DOCUMENTO")
+	private String documento;
+	
+	@ManyToOne
 	@JoinColumn(name = "IMOVEL_ID")
 	private Imovel idImovelFK;
-
-	@Column(name = "DIAS_LOCACAO")
-	private Integer diasLocacao;
-
-	@Column(name = "VALOR_LOCACAO")
-	private Integer valorLocacao;
-
-	@Column(name = "CHECK_IN")
-	private LocalDateTime checkIn;
-
-	@Column(name = "CHECK_OUT")
-	private LocalDateTime checkOut;
-
-	@Column(name = "QUANT_PESSOA")
-	private String quantPessoa;
 }
+	
+	
+	

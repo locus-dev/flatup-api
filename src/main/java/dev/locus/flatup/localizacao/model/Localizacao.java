@@ -12,10 +12,12 @@ import javax.persistence.Table;
 import dev.locus.flatup.imovel.model.Imovel;
 import dev.locus.flatup.parceiro.model.Parceiro;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

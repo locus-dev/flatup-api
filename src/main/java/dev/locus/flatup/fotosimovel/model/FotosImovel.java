@@ -1,6 +1,4 @@
-package dev.locus.flatup.contratolocacao.model;
-
-import java.time.LocalDateTime;
+package dev.locus.flatup.fotosimovel.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,31 +19,20 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
-@Entity(name = "CONTRATO_LOCACAO")
-public class ContratoLocacao {
+@Entity
+@Table(name = "FOTO_IMOVEL")
+public class FotosImovel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	private Long idLocacao;
+	private Long idFoto;
 
 	@OneToOne
 	@JoinColumn(name = "IMOVEL_ID")
 	private Imovel idImovelFK;
 
-	@Column(name = "DIAS_LOCACAO")
-	private Integer diasLocacao;
+	@Column(name = "FOTO")
+	private String foto;
 
-	@Column(name = "VALOR_LOCACAO")
-	private Integer valorLocacao;
-
-	@Column(name = "CHECK_IN")
-	private LocalDateTime checkIn;
-
-	@Column(name = "CHECK_OUT")
-	private LocalDateTime checkOut;
-
-	@Column(name = "QUANT_PESSOA")
-	private String quantPessoa;
 }
