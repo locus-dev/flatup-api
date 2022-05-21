@@ -1,14 +1,15 @@
 package dev.locus.flatup.localizacao.model;
 
 import javax.validation.constraints.NotBlank;
-
-import org.springframework.lang.NonNull;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class LocalizacaoDto {
@@ -21,10 +22,10 @@ public class LocalizacaoDto {
 	@NotBlank
 	private String longitude;
 
-	@NonNull
+	@NotNull
 	private Long idImovelFk;
 
-	@NonNull
+	@NotNull
 	private Long idParceiroFk;
 
 }

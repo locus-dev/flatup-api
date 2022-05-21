@@ -16,10 +16,12 @@ import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
 import dev.locus.flatup.imovel.model.Imovel;
 import dev.locus.flatup.usuario.model.Usuario;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

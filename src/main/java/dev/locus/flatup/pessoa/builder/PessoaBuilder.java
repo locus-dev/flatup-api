@@ -1,4 +1,4 @@
-package dev.locus.flatup.pessoa.builders;
+package dev.locus.flatup.pessoa.builder;
 
 import org.springframework.stereotype.Component;
 
@@ -8,12 +8,12 @@ import dev.locus.flatup.pessoa.model.PessoaDto;
 @Component
 public class PessoaBuilder {
 
-    public PessoaDto pessoaDtoBuilder(Pessoa usuario) {
-        return null;
+    public PessoaDto pessoaDtoBuilder(Pessoa pessoa) {
+        return PessoaDto.builder().build();
     }
 
     public Pessoa pessoaBuilder(PessoaDto pessoaDto) {
-        return null;
+        return Pessoa.builder().build();
     }
 
 }

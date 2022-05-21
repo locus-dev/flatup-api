@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import dev.locus.flatup.documentoimovel.movel.DocumentoImovelDto;
+import dev.locus.flatup.documentoimovel.model.DocumentoImovelDto;
 import dev.locus.flatup.documentoimovel.repository.DocumentoImovelRepository;
 
 public class DocumentoService {

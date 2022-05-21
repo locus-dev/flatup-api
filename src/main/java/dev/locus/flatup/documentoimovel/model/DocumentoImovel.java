@@ -1,4 +1,4 @@
-package dev.locus.flatup.documentoimovel.movel;
+package dev.locus.flatup.documentoimovel.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +11,12 @@ import javax.persistence.Table;
 
 import dev.locus.flatup.imovel.model.Imovel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "DOCUMENTO_IMOVEL")

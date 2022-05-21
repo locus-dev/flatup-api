@@ -7,12 +7,14 @@ import javax.validation.constraints.NotNull;
 
 import dev.locus.flatup.imovel.model.Imovel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContratoLocacaoDto {
@@ -21,14 +23,19 @@ public class ContratoLocacaoDto {
 
 	@NotNull
 	private Imovel idImovelFK;
+
 	@NotNull
 	private Integer diasLocacao;
+	
 	@NotNull
 	private Integer valorLocacao;
+	
 	@NotNull
 	private LocalDateTime checkIn;
+	
 	@NotNull
 	private LocalDateTime checkOut;
+	
 	@NotBlank
 	private String quantPessoa;
 }

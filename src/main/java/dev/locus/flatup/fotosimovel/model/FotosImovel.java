@@ -11,13 +11,15 @@ import javax.persistence.Table;
 
 import dev.locus.flatup.imovel.model.Imovel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name = "FOTO_IMOVEL")
 public class FotosImovel {
 

@@ -1,7 +1,5 @@
 package dev.locus.flatup.usuario.builder;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Component;
 
 import dev.locus.flatup.usuario.model.Usuario;

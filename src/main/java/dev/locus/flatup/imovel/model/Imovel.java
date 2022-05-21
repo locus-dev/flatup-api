@@ -15,10 +15,12 @@ import dev.locus.flatup.endereco.model.Endereco;
 import dev.locus.flatup.imovel.enums.EnumClimatizado;
 import dev.locus.flatup.imovel.enums.EnumStatusOcupacao;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "IMOVEL")

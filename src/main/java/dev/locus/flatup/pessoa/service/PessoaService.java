@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.locus.flatup.pessoa.builders.PessoaBuilder;
+import dev.locus.flatup.pessoa.builder.PessoaBuilder;
 import dev.locus.flatup.pessoa.model.PessoaDto;
 import dev.locus.flatup.pessoa.repository.PessoaRepository;
 
