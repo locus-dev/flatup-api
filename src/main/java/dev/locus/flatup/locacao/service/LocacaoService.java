@@ -1,10 +1,14 @@
 package dev.locus.flatup.locacao.service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.locus.flatup.locacao.builder.LocacaoBuilder;
 import dev.locus.flatup.locacao.model.LocacaoDto;
 import dev.locus.flatup.locacao.repository.LocacaoRepository;
 
@@ -12,25 +16,43 @@ import dev.locus.flatup.locacao.repository.LocacaoRepository;
 public class LocacaoService {
     
   @Autowired
+  LocacaoBuilder builder;
+
+  @Autowired
   LocacaoRepository repository;
 
+  public List<LocacaoDto> listarLocacaos() {
+    List<LocacaoDto> listaLocacaoDtos = new ArrayList<>();
 
-  public List<LocacaoDto> listarLocacao() {
-    return null;
+    repository.findAll().forEach(Locacao -> {
+      listaLocacaoDtos.add(builder.builderDto(Locacao));
+    });
+
+    return listaLocacaoDtos;
   }
 
-  public LocacaoDto salvar() {
-    return null;
+  @Transactional
+  public LocacaoDto salvar(LocacaoDto locacaoDto) {
+
+    var locacao = builder.builderModel(locacaoDto);
+    var locacaoSalvo = builder.builderDto(repository.save(locacao));
+    return locacaoSalvo;
   }
 
-  public LocacaoDto encontrarLocacao() {
-    return null;
+  public LocacaoDto encontrarLocacao(Long idLocacao) {
+    var locacao = repository.findById(idLocacao).orElseThrow();
+    return builder.builderDto(locacao);
   }
 
-  public LocacaoDto alterarLocacao() {
-    return null;
+  @Transactional
+  public LocacaoDto alterar(Long idLocacao, LocacaoDto locacaoDto) {
+    locacaoDto.setIdLocacao(idLocacao);
+    var locacao = builder.builderModel(locacaoDto);
+    return builder.builderDto(repository.save(locacao));
   }
 
-  public void removerLocacao() {
+  @Transactional
+  public void removerLocacao(Long id) {
+    repository.deleteById(id);
   }
 }

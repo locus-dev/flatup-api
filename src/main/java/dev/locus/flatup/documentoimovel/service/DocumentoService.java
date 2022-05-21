@@ -1,35 +1,56 @@
 package dev.locus.flatup.documentoimovel.service;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import dev.locus.flatup.documentoimovel.builder.DocumentoImovelBuilder;
 import dev.locus.flatup.documentoimovel.model.DocumentoImovelDto;
 import dev.locus.flatup.documentoimovel.repository.DocumentoImovelRepository;
 
 public class DocumentoService {
   
   @Autowired
+  DocumentoImovelBuilder builder;
+
+  @Autowired
   DocumentoImovelRepository repository;
 
+  public List<DocumentoImovelDto> listarDocumentoImovels() {
+    List<DocumentoImovelDto> listaDocumentoImovelDtos = new ArrayList<>();
 
-  public List<DocumentoImovelDto> listarDocumento() {
-    return null;
+    repository.findAll().forEach(documentoImovel -> {
+      listaDocumentoImovelDtos.add(builder.builderDto(documentoImovel));
+    });
+
+    return listaDocumentoImovelDtos;
   }
 
-  public DocumentoImovelDto salvar() {
-    return null;
+  @Transactional
+  public DocumentoImovelDto salvar(DocumentoImovelDto documentoImovelDto) {
+
+    var documentoImovel = builder.builderModel(documentoImovelDto);
+    var documentoImovelSalvo = builder.builderDto(repository.save(documentoImovel));
+    return documentoImovelSalvo;
   }
 
-  public DocumentoImovelDto encontrarDocumento() {
-    return null;
+  public DocumentoImovelDto encontrarDocumentoImovel(Long idDocumentoImovel) {
+    var DocumentoImovel = repository.findById(idDocumentoImovel).orElseThrow();
+    return builder.builderDto(DocumentoImovel);
   }
 
-  public DocumentoImovelDto alterarDocumento() {
-    return null;
+  @Transactional
+  public DocumentoImovelDto alterar(Long idDocumentoImovel, DocumentoImovelDto documentoImovelDto) {
+    documentoImovelDto.setIdDocumento(idDocumentoImovel);
+    var documentoImovel = builder.builderModel(documentoImovelDto);
+    return builder.builderDto(repository.save(documentoImovel));
   }
 
-  public void removerDocumento() {
-  }
-  
+  @Transactional
+  public void removerDocumentoImovel(Long id) {
+    repository.deleteById(id);
+  }  
 }

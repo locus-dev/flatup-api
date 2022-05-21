@@ -3,6 +3,8 @@ package dev.locus.flatup.pessoa.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,50 +15,44 @@ import dev.locus.flatup.pessoa.repository.PessoaRepository;
 @Service
 public class PessoaService {
 
-    @Autowired
-    private PessoaBuilder builder;
+  @Autowired
+  private PessoaBuilder builder;
 
-    @Autowired
-    private PessoaRepository repository;
+  @Autowired
+  private PessoaRepository repository;
 
-    public List<PessoaDto> listarPessoas() {
-        List<PessoaDto> listaPessoaDtos = new ArrayList<>();
+  public List<PessoaDto> listarPessoas() {
+    List<PessoaDto> listaPessoaDtos = new ArrayList<>();
 
-        repository.findAll().forEach(pessoa -> {
-            listaPessoaDtos.add(builder.pessoaDtoBuilder(pessoa));
-        });
+    repository.findAll().forEach(pessoa -> {
+      listaPessoaDtos.add(builder.builderDto(pessoa));
+    });
 
-        return listaPessoaDtos;
-    }
+    return listaPessoaDtos;
+  }
 
-    public PessoaDto salvar(PessoaDto PessoaDto) {
+  @Transactional
+  public PessoaDto salvar(PessoaDto pessoaDto) {
 
-        var pessoa = builder.pessoaBuilder(PessoaDto);
-        var pessoaSalvo = builder.pessoaDtoBuilder(repository.save(pessoa));
-        return pessoaSalvo;
-    }
+    var pessoa = builder.builderModel(pessoaDto);
+    var pessoaSalvo = builder.builderDto(repository.save(pessoa));
+    return pessoaSalvo;
+  }
 
-    public PessoaDto encontrarpessoa(Long idpessoa) {
-        var pessoa = repository.findById(idpessoa);
+  public PessoaDto encontrarPessoa(Long idPessoa) {
+    var pessoa = repository.findById(idPessoa).orElseThrow();
+    return builder.builderDto(pessoa);
+  }
 
-        if (pessoa.isPresent()) {
-            return builder.pessoaDtoBuilder(pessoa.get());
-        }
-        return null;
-    }
+  @Transactional
+  public PessoaDto alterar(Long idPessoa, PessoaDto pessoaDto) {
+    pessoaDto.setIdPessoa(idPessoa);
+    var pessoa = builder.builderModel(pessoaDto);
+    return builder.builderDto(repository.save(pessoa));
+  }
 
-    public PessoaDto alterar(Long idpessoa, PessoaDto PessoaDto) {
-        var pessoaConsultado = repository.findById(idpessoa);
-
-        if (pessoaConsultado.isPresent()) {
-            var pessoa = pessoaConsultado.get();
-            // TODO adicionar builder para preencher dados.
-            return builder.pessoaDtoBuilder(repository.save(pessoa));
-        }
-        return null;
-    }
-
-    public void removerpessoa(Long id) {
-        repository.deleteById(id);
-    }
+  @Transactional
+  public void removerPessoa(Long id) {
+    repository.deleteById(id);
+  }
 }
