@@ -10,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import dev.locus.flatup.documentoimovel.builder.DocumentoImovelBuilder;
 import dev.locus.flatup.documentoimovel.model.DocumentoImovelDto;
 import dev.locus.flatup.documentoimovel.repository.DocumentoImovelRepository;
+import dev.locus.flatup.imovel.repository.ImovelRepository;
 
 public class DocumentoService {
   
   @Autowired
   DocumentoImovelBuilder builder;
+
+  @Autowired
+  ImovelRepository imovelRepository;
 
   @Autowired
   DocumentoImovelRepository repository;
@@ -31,8 +35,8 @@ public class DocumentoService {
 
   @Transactional
   public DocumentoImovelDto salvar(DocumentoImovelDto documentoImovelDto) {
-
-    var documentoImovel = builder.builderModel(documentoImovelDto);
+    var imovel = imovelRepository.findById(documentoImovelDto.getIdImovelFK()).orElseThrow();
+    var documentoImovel = builder.builderModel(documentoImovelDto, imovel);
     var documentoImovelSalvo = builder.builderDto(repository.save(documentoImovel));
     return documentoImovelSalvo;
   }
@@ -45,7 +49,8 @@ public class DocumentoService {
   @Transactional
   public DocumentoImovelDto alterar(Long idDocumentoImovel, DocumentoImovelDto documentoImovelDto) {
     documentoImovelDto.setIdDocumento(idDocumentoImovel);
-    var documentoImovel = builder.builderModel(documentoImovelDto);
+    var imovel = imovelRepository.findById(documentoImovelDto.getIdImovelFK()).orElseThrow();
+    var documentoImovel = builder.builderModel(documentoImovelDto, imovel);
     return builder.builderDto(repository.save(documentoImovel));
   }
 

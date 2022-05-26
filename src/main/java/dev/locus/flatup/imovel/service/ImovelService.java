@@ -8,7 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.locus.flatup.endereco.repository.EnderecoRepository;
 import dev.locus.flatup.imovel.builder.ImovelBuilder;
+import dev.locus.flatup.imovel.enums.EnumClimatizado;
+import dev.locus.flatup.imovel.enums.EnumStatusOcupacao;
 import dev.locus.flatup.imovel.model.ImovelDto;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
 
@@ -20,6 +23,9 @@ public class ImovelService {
 
   @Autowired
   ImovelRepository repository;
+
+  @Autowired
+  EnderecoRepository enderecoRepository;
 
   public List<ImovelDto> listarImovels() {
     List<ImovelDto> listaImovelDtos = new ArrayList<>();
@@ -33,8 +39,9 @@ public class ImovelService {
 
   @Transactional
   public ImovelDto salvar(ImovelDto imovelDto) {
-
-    var imovel = builder.builderModel(imovelDto);
+    var endereco = enderecoRepository.findById(imovelDto.getIdImovel()).orElseThrow();
+    var imovel = builder.builderModel(imovelDto, EnumClimatizado.valueOf(imovelDto.getClimatizado()), endereco,
+        EnumStatusOcupacao.valueOf(imovelDto.getStatusOcupacao()));
     var imovelSalvo = builder.builderDto(repository.save(imovel));
     return imovelSalvo;
   }
@@ -47,7 +54,9 @@ public class ImovelService {
   @Transactional
   public ImovelDto alterar(Long idImovel, ImovelDto imovelDto) {
     imovelDto.setIdImovel(idImovel);
-    var imovel = builder.builderModel(imovelDto);
+    var endereco = enderecoRepository.findById(imovelDto.getIdImovel()).orElseThrow();
+    var imovel = builder.builderModel(imovelDto, EnumClimatizado.valueOf(imovelDto.getClimatizado()), endereco,
+        EnumStatusOcupacao.valueOf(imovelDto.getStatusOcupacao()));
     return builder.builderDto(repository.save(imovel));
   }
 
@@ -55,5 +64,5 @@ public class ImovelService {
   public void removerImovel(Long id) {
     repository.deleteById(id);
   }
-  
+
 }

@@ -3,7 +3,6 @@ package dev.locus.flatup.endereco.model;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import dev.locus.flatup.pessoa.model.Pessoa;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,7 +29,7 @@ public class EnderecoDto {
 	private String cep;
 
 	@NotNull
-	private Pessoa idPessoaFK;
+	private Long idPessoaFK;
 
 	@NotBlank
 	private String numero;
