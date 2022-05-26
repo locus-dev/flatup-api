@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import dev.locus.flatup.fotosimovel.builder.FotosImovelBuilder;
 import dev.locus.flatup.fotosimovel.model.FotosImovelDto;
 import dev.locus.flatup.fotosimovel.repository.FotosImovelRepository;
+import dev.locus.flatup.imovel.model.Imovel;
+import dev.locus.flatup.imovel.repository.ImovelRepository;
 
 @Service
 public class FotosImovelService {
@@ -20,6 +22,9 @@ public class FotosImovelService {
 
   @Autowired
   FotosImovelRepository repository;
+
+  @Autowired
+  ImovelRepository imovelRepository;
 
   public List<FotosImovelDto> listarFotosImovels() {
     List<FotosImovelDto> listaFotosImovelDtos = new ArrayList<>();
@@ -33,8 +38,8 @@ public class FotosImovelService {
 
   @Transactional
   public FotosImovelDto salvar(FotosImovelDto fotosImovelDto) {
-
-    var fotosImovel = builder.builderModel(fotosImovelDto);
+    var imovel = imovelRepository.findById(fotosImovelDto.getIdImovelFK()).orElseThrow();
+    var fotosImovel = builder.builderModel(fotosImovelDto, imovel);
     var fotosImovelSalvo = builder.builderDto(repository.save(fotosImovel));
     return fotosImovelSalvo;
   }
@@ -47,7 +52,8 @@ public class FotosImovelService {
   @Transactional
   public FotosImovelDto alterar(Long idFotosImovel, FotosImovelDto fotosImovelDto) {
     fotosImovelDto.setIdFoto(idFotosImovel);
-    var fotosImovel = builder.builderModel(fotosImovelDto);
+    var imovel = imovelRepository.findById(fotosImovelDto.getIdImovelFK()).orElseThrow();
+    var fotosImovel = builder.builderModel(fotosImovelDto, imovel);
     return builder.builderDto(repository.save(fotosImovel));
   }
 

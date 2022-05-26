@@ -11,12 +11,16 @@ import org.springframework.stereotype.Service;
 import dev.locus.flatup.endereco.builder.EnderecoBuilder;
 import dev.locus.flatup.endereco.model.EnderecoDto;
 import dev.locus.flatup.endereco.repository.EnderecoRepository;
+import dev.locus.flatup.pessoa.repository.PessoaRepository;
 
 @Service
 public class EnderecoService {
   
   @Autowired
   EnderecoBuilder builder;
+
+  @Autowired
+  PessoaRepository pessoaRepository;
 
   @Autowired
   EnderecoRepository repository;
@@ -33,8 +37,8 @@ public class EnderecoService {
 
   @Transactional
   public EnderecoDto salvar(EnderecoDto enderecoDto) {
-
-    var endereco = builder.builderModel(enderecoDto);
+    var pessoa = pessoaRepository.findById(enderecoDto.getIdPessoaFK()).orElseThrow();
+    var endereco = builder.builderModel(enderecoDto, pessoa);
     var enderecoSalvo = builder.builderDto(repository.save(endereco));
     return enderecoSalvo;
   }
@@ -47,7 +51,8 @@ public class EnderecoService {
   @Transactional
   public EnderecoDto alterar(Long idEndereco, EnderecoDto enderecoDto) {
     enderecoDto.setIdEndereco(idEndereco);
-    var endereco = builder.builderModel(enderecoDto);
+    var pessoa = pessoaRepository.findById(enderecoDto.getIdPessoaFK()).orElseThrow();
+    var endereco = builder.builderModel(enderecoDto, pessoa);
     return builder.builderDto(repository.save(endereco));
   }
 

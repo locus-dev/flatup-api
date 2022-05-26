@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import dev.locus.flatup.imovel.model.Imovel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ public class ContratoLocacaoDto {
 	private Long idLocacao;
 
 	@NotNull
-	private Imovel idImovelFK;
+	private Long idImovelFK;
 
 	@NotNull
 	private Integer diasLocacao;

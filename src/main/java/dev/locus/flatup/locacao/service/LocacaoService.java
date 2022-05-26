@@ -8,9 +8,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
+import dev.locus.flatup.contratolocacao.repository.ContratoLocacaoRepository;
+import dev.locus.flatup.imovel.repository.ImovelRepository;
 import dev.locus.flatup.locacao.builder.LocacaoBuilder;
+import dev.locus.flatup.locacao.model.EnumStatusLocacao;
 import dev.locus.flatup.locacao.model.LocacaoDto;
 import dev.locus.flatup.locacao.repository.LocacaoRepository;
+import dev.locus.flatup.usuario.repository.UsuarioRepository;
 
 @Service  
 public class LocacaoService {
@@ -20,6 +25,16 @@ public class LocacaoService {
 
   @Autowired
   LocacaoRepository repository;
+
+  @Autowired
+  ImovelRepository imovelRepository;
+
+  @Autowired
+  UsuarioRepository usuarioRepository;
+
+  @Autowired
+  ContratoLocacaoRepository contratoLocacaoRepository;
+
 
   public List<LocacaoDto> listarLocacaos() {
     List<LocacaoDto> listaLocacaoDtos = new ArrayList<>();
@@ -34,7 +49,11 @@ public class LocacaoService {
   @Transactional
   public LocacaoDto salvar(LocacaoDto locacaoDto) {
 
-    var locacao = builder.builderModel(locacaoDto);
+    var usuario = usuarioRepository.findById(locacaoDto.getIdUsuarioFK()).orElseThrow();
+    var imovel = imovelRepository.findById(locacaoDto.getIdImovelFK()).orElseThrow();
+    var contratolocacao = contratoLocacaoRepository.findById(locacaoDto.getIdContratoLocacaoFK()).orElseThrow();
+
+    var locacao = builder.builderModel(locacaoDto, imovel, contratolocacao, usuario, EnumStatusLocacao.valueOf(locacaoDto.getStatusLocacao()));
     var locacaoSalvo = builder.builderDto(repository.save(locacao));
     return locacaoSalvo;
   }
@@ -46,8 +65,12 @@ public class LocacaoService {
 
   @Transactional
   public LocacaoDto alterar(Long idLocacao, LocacaoDto locacaoDto) {
+    var usuario = usuarioRepository.findById(locacaoDto.getIdUsuarioFK()).orElseThrow();
+    var imovel = imovelRepository.findById(locacaoDto.getIdImovelFK()).orElseThrow();
+    var contratolocacao = contratoLocacaoRepository.findById(locacaoDto.getIdContratoLocacaoFK()).orElseThrow();
+
     locacaoDto.setIdLocacao(idLocacao);
-    var locacao = builder.builderModel(locacaoDto);
+    var locacao = builder.builderModel(locacaoDto, imovel, contratolocacao, usuario, EnumStatusLocacao.valueOf(locacaoDto.getStatusLocacao()));
     return builder.builderDto(repository.save(locacao));
   }
 

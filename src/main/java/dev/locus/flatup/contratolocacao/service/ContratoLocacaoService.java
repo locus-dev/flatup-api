@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import dev.locus.flatup.contratolocacao.builder.ContratoLocacaoBuilder;
 import dev.locus.flatup.contratolocacao.model.ContratoLocacaoDto;
 import dev.locus.flatup.contratolocacao.repository.ContratoLocacaoRepository;
+import dev.locus.flatup.imovel.repository.ImovelRepository;
 
 @Service
 public class ContratoLocacaoService {
@@ -20,6 +21,9 @@ public class ContratoLocacaoService {
 
   @Autowired
   ContratoLocacaoRepository repository;
+
+  @Autowired
+  ImovelRepository imovelRepository;
 
   public List<ContratoLocacaoDto> listarContratoLocacaos() {
     List<ContratoLocacaoDto> listaContratoLocacaoDtos = new ArrayList<>();
@@ -32,11 +36,11 @@ public class ContratoLocacaoService {
   }
 
   @Transactional
-  public ContratoLocacaoDto salvar(ContratoLocacaoDto ContratoLocacaoDto) {
-
-    var ContratoLocacao = builder.builderModel(ContratoLocacaoDto);
-    var ContratoLocacaoSalvo = builder.builderDto(repository.save(ContratoLocacao));
-    return ContratoLocacaoSalvo;
+  public ContratoLocacaoDto salvar(ContratoLocacaoDto contratoLocacaoDto) {
+    var imovel = imovelRepository.findById(contratoLocacaoDto.getIdImovelFK()).orElseThrow();
+    var contratoLocacao = builder.builderModel(contratoLocacaoDto, imovel);
+    var contratoLocacaoSalvo = builder.builderDto(repository.save(contratoLocacao));
+    return contratoLocacaoSalvo;
   }
 
   public ContratoLocacaoDto encontrarContratoLocacao(Long idContratoLocacao) {
@@ -47,8 +51,9 @@ public class ContratoLocacaoService {
   @Transactional
   public ContratoLocacaoDto alterar(Long idContratoLocacao, ContratoLocacaoDto contratoLocacaoDto) {
     contratoLocacaoDto.setIdLocacao(idContratoLocacao);
-    var contratolocacao = builder.builderModel(contratoLocacaoDto);
-    return builder.builderDto(repository.save(contratolocacao));
+    var imovel = imovelRepository.findById(contratoLocacaoDto.getIdImovelFK()).orElseThrow();
+    var contratoLocacao = builder.builderModel(contratoLocacaoDto, imovel);
+    return builder.builderDto(repository.save(contratoLocacao));
   }
 
   @Transactional
