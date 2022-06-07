@@ -50,7 +50,7 @@ public class ParceiroService {
 
   @Transactional
   public ParceiroDto alterar(Long idParceiro, ParceiroDto parceiroDto) {
-    var usuario = usuarioRepository.findById(parceiroDto.getIdParceiro()).orElseThrow();
+    var usuario = usuarioRepository.findById(parceiroDto.getIdUsuarioFK()).orElseThrow();
     parceiroDto.setIdParceiro(idParceiro);
     var parceiro = builder.builderModel(parceiroDto, usuario);
     return builder.builderDto(repository.save(parceiro));

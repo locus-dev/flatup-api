@@ -1,8 +1,6 @@
 package dev.locus.flatup.parceiro.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -14,81 +12,46 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.locus.flatup.parceiro.model.Parceiro;
-import dev.locus.flatup.parceiro.repository.ParceiroRepository;
-import dev.locus.flatup.usuario.repository.UsuarioRepository;
+import dev.locus.flatup.parceiro.model.ParceiroDto;
+import dev.locus.flatup.parceiro.service.ParceiroService;
 
 @RestController
+@RequestMapping(value = "/parceiro")
 public class ParceiroController {
 
-	// @Autowired
-	// private ParceiroRepository parceiroRepository;
+	@Autowired
+	private ParceiroService parceiroService;
 
-	// @Autowired
-	// private UsuarioRepository usuarioRepository;
+	@GetMapping("/listar")
+	public List<ParceiroDto> listarParceiros() {
+		return parceiroService.listarParceiros();
+	}
 
-	// public ParceiroController(ParceiroRepository parceiroRepository) {
-	// super();
-	// this.parceiroRepository = parceiroRepository;
-	// }
+	@PostMapping("/salvar")
+	public ResponseEntity<ParceiroDto> salvarParceiro(@RequestBody @Valid ParceiroDto parceiroDto) {
+		var parceiro = parceiroService.salvar(parceiroDto);
+		return ResponseEntity.ok(parceiro);
+	}
 
-	// @GetMapping("/listarParceiros")
-	// public List<Parceiro> listarParceiros(){
-	// return parceiroRepository.findAll();
+	@GetMapping("/encontrar/{id}")
+	public ResponseEntity<ParceiroDto> buscarParceiroPorId(@PathVariable Long id) throws Exception {
+		var parceiro = parceiroService.encontrarParceiro(id);
+		return ResponseEntity.ok(parceiro);
+	}
 
-	// }
+	@PutMapping("/editar/{id}")
+	public ResponseEntity<ParceiroDto> editarParceiroPorId(@PathVariable("id") Long id,
+			@RequestBody @Valid ParceiroDto parceiro) throws Exception {
+		var novoParceiro = parceiroService.alterar(id, parceiro);
+		return ResponseEntity.ok(novoParceiro);
+	}
 
-	// @PostMapping(path="/salvarParceiro" , consumes="application/json")
-	// public ResponseEntity<Parceiro> salvarParceiro(@RequestBody @Valid Parceiro
-	// parceiro) {
-	// //Usuario optUsuario = usuarioRepository.findById(parceiro.getIdUsuarioFK());
-
-	// parceiroRepository.save(parceiro);
-
-	// return ResponseEntity.ok(parceiro);
-
-	// }
-
-	// @GetMapping("/cadastro/parceiro/{id}")
-	// public ResponseEntity<Parceiro> buscarParceiroPorId(@PathVariable Long id)
-	// throws Exception{
-	// Parceiro parceiro = parceiroRepository.getById(id);
-	// if(parceiro == null) {
-	// throw new Exception("Parceiro nao encontrado pelo id" + id);
-	// }
-
-	// return ResponseEntity.ok(parceiro);
-
-	// }
-
-	// @PutMapping("/cadastro/parceiro/editar/{id}")
-	// public ResponseEntity<Parceiro> editarParceiroPorId(@PathVariable("id") Long
-	// id, @RequestBody @Valid Parceiro parceiro) throws Exception{
-
-	// Parceiro opcionalParceiro = parceiroRepository.getById(id);
-	// if(opcionalParceiro == null) {
-	// return ResponseEntity.unprocessableEntity().build();
-	// }
-
-	// Parceiro novoparceiro = parceiroRepository.save(opcionalParceiro);
-	// return ResponseEntity.ok(novoparceiro);
-
-	// }
-
-	// @DeleteMapping("/cadastro/parceiro/remover/{id}")
-	// public ResponseEntity<Map<String, Boolean>>
-	// removerParceiroPeloId(@PathVariable Long id) throws Exception{
-	// Parceiro parceiro = parceiroRepository.getById(id);
-	// if(parceiro == null) {
-	// throw new Exception("Parceiro nao encontrado" + id);
-	// }
-
-	// parceiroRepository.deleteById(id);
-	// Map<String, Boolean> responseAwait = new HashMap<>();
-	// responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-	// return ResponseEntity.ok(responseAwait);
-	// }
-
+	@DeleteMapping("/remover/{id}")
+	public ResponseEntity<Void> removerParceiroPeloId(@PathVariable Long id) throws Exception {
+		parceiroService.removerParceiro(id);
+		return ResponseEntity.ok().build();
+	}
 }

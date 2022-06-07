@@ -1,72 +1,58 @@
 package dev.locus.flatup.fotosimovel.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.locus.flatup.fotosimovel.model.FotosImovelDto;
+import dev.locus.flatup.fotosimovel.service.FotosImovelService;
+
 @RestController
+@RequestMapping(name = "/fotosimovel")
 public class FotosImovelController {
 
-	// @Autowired
-	// private FotosImovelRepository fotosImovelRepository;
+	@Autowired
+	FotosImovelService fotosImovelService;
 
-	// public FotosImovelController(FotosImovelRepository fotosImovelRepository) {
-	// super();
-	// this.fotosImovelRepository = fotosImovelRepository;
-	// }
+	@GetMapping("/lista")
+	public List<FotosImovelDto> listarFotosImoveis() {
+		return fotosImovelService.listarFotosImovels();
+	}
 
-	// @GetMapping("/listarFotosImovel")
-	// public List<FotosImovel> listarFotosImoveis(){
-	// return fotosImovelRepository.findAll();
+	@PostMapping("/salvar")
+	public ResponseEntity<FotosImovelDto> salvarFotosImovel(FotosImovelDto fotosImoveldDto) {
+		var fotosImovel = fotosImovelService.salvar(fotosImoveldDto);
+		return ResponseEntity.ok(fotosImovel);
 
-	// }
+	}
 
-	// @PostMapping(path="/salvarFotosImovel",consumes="application/json" )
-	// public ResponseEntity<FotosImovel> salvarFotosImovel(FotosImovel fotosImovel)
-	// {
+	@GetMapping("/encontrar{id}")
+	public ResponseEntity<FotosImovelDto> buscarFotosImovelPorId(@PathVariable Long id) throws Exception {
+		var fotosImovel = fotosImovelService.encontrarFotosImovel(id);
+		return ResponseEntity.ok(fotosImovel);
+	}
 
-	// fotosImovelRepository.save(fotosImovel);
+	@PutMapping("/editar/{id}")
+	public ResponseEntity<FotosImovelDto> editarFotosImovelPorId(@PathVariable("id") Long id, @RequestBody @Valid FotosImovelDto fotosImovelDto) throws Exception {
+		var novoFotoImovel = fotosImovelService.alterar(id, fotosImovelDto);
+		return ResponseEntity.ok(novoFotoImovel);
+	}
 
-	// return ResponseEntity.ok(fotosImovel);
-
-	// }
-
-	// @GetMapping("/cadastro/fotosImovel/{id}")
-	// public ResponseEntity<FotosImovel> buscarFotosImovelPorId(@PathVariable Long
-	// id) throws Exception{
-	// FotosImovel fotosImovel = fotosImovelRepository.getById(id);
-	// if(fotosImovel == null) {
-	// throw new Exception("Fotos do Imóvel nao encontrado pelo id" + id);
-	// }
-
-	// return ResponseEntity.ok(fotosImovel);
-
-	// }
-
-	// @PutMapping("/cadastro/fotosImovel/editar/{id}")
-	// public ResponseEntity<FotosImovel> editarFotosImovelPorId(@PathVariable("id")
-	// Long id, @RequestBody @Valid FotosImovel fotosImovel) throws Exception{
-
-	// FotosImovel opcionalfotosImovel = fotosImovelRepository.getById(id);
-	// if(opcionalfotosImovel == null) {
-	// return ResponseEntity.unprocessableEntity().build();
-	// }
-
-	// FotosImovel novoFotoImovel = fotosImovelRepository.save(opcionalfotosImovel);
-	// return ResponseEntity.ok(novoFotoImovel);
-
-	// }
-
-	// @DeleteMapping("/cadastro/fotosImovel/remover/{id}")
-	// public ResponseEntity<Map<String, Boolean>>
-	// removerFotosImovelPorId(@PathVariable Long id) throws Exception{
-	// FotosImovel fotosImovel = fotosImovelRepository.getById(id);
-	// if(fotosImovel == null) {
-	// throw new Exception("Fotos Do Imóvel nao encontrado" + id);
-	// }
-
-	// fotosImovelRepository.deleteById(id);
-	// Map<String, Boolean> responseAwait = new HashMap<>();
-	// responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-	// return ResponseEntity.ok(responseAwait);
-	// }
+	@DeleteMapping("/remover/{id}")
+	public ResponseEntity<Void> removerFotosImovelPorId(@PathVariable Long id) throws Exception {
+		fotosImovelService.removerFotosImovel(id);
+		return ResponseEntity.ok().build();
+	}
 
 }

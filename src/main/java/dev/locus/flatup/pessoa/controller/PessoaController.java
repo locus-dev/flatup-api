@@ -1,8 +1,6 @@
 package dev.locus.flatup.pessoa.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -14,72 +12,46 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.locus.flatup.pessoa.model.Pessoa;
-import dev.locus.flatup.pessoa.repository.PessoaRepository;
+import dev.locus.flatup.pessoa.model.PessoaDto;
+import dev.locus.flatup.pessoa.service.PessoaService;
 
 @RestController
+@RequestMapping(value = "/pessoa")
 public class PessoaController {
 
-	// @Autowired
-	// private PessoaRepository pessoaRepository;
+	@Autowired
+	private PessoaService pessoaService;
 
-	// public PessoaController(PessoaRepository pessoaRepository) {
-	// super();
-	// this.pessoaRepository = pessoaRepository;
-	// }
 
-	// @GetMapping("/listarPessoa")
-	// public List<Pessoa> listarPessoas(){
-	// return pessoaRepository.findAll();
+	@GetMapping("/listar")
+	public List<PessoaDto> listarPessoas() {
+		return pessoaService.listarPessoas();
+	}
 
-	// }
+	@PostMapping("/salvar")
+	public PessoaDto salvarPessoa(PessoaDto pessoa) {
+		return pessoaService.salvar(pessoa);
+	}
 
-	// @PostMapping("/salvarPessoa")
-	// public Pessoa salvarPessoa(Pessoa pessoa) {
-	// return pessoaRepository.save(pessoa);
+	@GetMapping("/encontrar/{id}")
+	public ResponseEntity<PessoaDto> buscarPessoaPorId(@PathVariable Long id) throws Exception {
+		var pessoa = pessoaService.encontrarPessoa(id);
+		return ResponseEntity.ok(pessoa);
+	}
 
-	// }
+	@PutMapping("/editar")
+	public ResponseEntity<PessoaDto> editarPessoa(@PathVariable Long id, @RequestBody @Valid PessoaDto pessoaDto) throws Exception {
+		var pessoaEditada = pessoaService.alterar(id, pessoaDto);
+		return ResponseEntity.ok(pessoaEditada);
+	}
 
-	// @GetMapping("/cadastro/pessoa/{id}")
-	// public ResponseEntity<Pessoa> buscarPessoaPorId(@PathVariable Long id) throws
-	// Exception{
-	// Pessoa pessoa = pessoaRepository.getById(id);
-	// if(pessoa == null) {
-	// throw new Exception("Parceiro nao encontrado pelo id" + id);
-	// }
-
-	// return ResponseEntity.ok(pessoa);
-
-	// }
-
-	// @PutMapping("/cadastro/pessoa/editar/{id}")
-	// public ResponseEntity<Pessoa> editarPessoaPorId(@PathVariable("id") Long id,
-	// @RequestBody @Valid Pessoa pessoa) throws Exception{
-
-	// Pessoa opcionalPessoa = pessoaRepository.getById(id);
-	// if(opcionalPessoa == null) {
-	// return ResponseEntity.unprocessableEntity().build();
-	// }
-
-	// Pessoa novopessoa = pessoaRepository.save(opcionalPessoa);
-	// return ResponseEntity.ok(novopessoa);
-
-	// }
-
-	// @DeleteMapping("/cadastro/pessoa/remover/{id}")
-	// public ResponseEntity<Map<String, Boolean>> removerPessoaPeloId(@PathVariable
-	// Long id) throws Exception{
-	// Pessoa pessoa = pessoaRepository.getById(id);
-	// if(pessoa == null) {
-	// throw new Exception("Pessoa nao encontrada" + id);
-	// }
-
-	// pessoaRepository.deleteById(id);
-	// Map<String, Boolean> responseAwait = new HashMap<>();
-	// responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-	// return ResponseEntity.ok(responseAwait);
-	// }
+	@DeleteMapping("/remover/{id}")
+	public ResponseEntity<Void> removerPessoaPeloId(@PathVariable Long id) throws Exception {
+		pessoaService.removerPessoa(id);
+		return ResponseEntity.ok().build();
+	}
 
 }

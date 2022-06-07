@@ -1,8 +1,6 @@
 package dev.locus.flatup.documentoimovel.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -14,73 +12,46 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-// import dev.locus.flatup.documentoImovel.movel.DocumentoImovel;
-// import dev.locus.flatup.documentoImovel.repository.DocumentoImovelRepository;
+import dev.locus.flatup.documentoimovel.model.DocumentoImovelDto;
+import dev.locus.flatup.documentoimovel.service.DocumentoService;
+
 
 @RestController
+@RequestMapping(name = "/documentoimovel")
 public class DocumentoImovelController {
 
-	// @Autowired
-	// private DocumentoImovelRepository documentoImovelRepository;
+	@Autowired
+	DocumentoService documentoImovelService;
 
-	// @GetMapping("/listarDocumentoImoveis")
-	// public List<DocumentoImovel> listarDocumentoImoveis(){
-	// return documentoImovelRepository.findAll();
+	@GetMapping("/listar")
+	public List<DocumentoImovelDto> listarDocumentoImoveis() {
+		return documentoImovelService.listarDocumentoImovels();
+	}
 
-	// }
+	@PostMapping("/salvar")
+	public ResponseEntity<DocumentoImovelDto> salvarDocumentoImovel(@RequestBody @Valid DocumentoImovelDto documentoImovelDto) {
+		var documentoImovel = documentoImovelService.salvar(documentoImovelDto);
+		return ResponseEntity.ok(documentoImovel);
+	}
 
-	// @PostMapping(path="/salvarDocumentoImovel", consumes="application/json")
-	// public ResponseEntity<DocumentoImovel> salvarDocumentoImovel(@RequestBody
-	// @Valid DocumentoImovel documentoImovel) {
+	@GetMapping("/encontrar/{id}")
+	public ResponseEntity<DocumentoImovelDto> buscarDocumentoImovelPorId(@PathVariable Long id) throws Exception {
+		var documentoImovel = documentoImovelService.encontrarDocumentoImovel(id);
+		return ResponseEntity.ok(documentoImovel);
+	}
 
-	// documentoImovelRepository.save(documentoImovel);
+	@PutMapping("/editar/{id}")
+	public ResponseEntity<DocumentoImovelDto> editarDocumentoImovelPorId(@PathVariable("id") Long id, @RequestBody @Valid DocumentoImovelDto documentoImovelDto) throws Exception {
+		var novoDocumentoImovel = documentoImovelService.alterar(id, documentoImovelDto);
+		return ResponseEntity.ok(novoDocumentoImovel);
+	}
 
-	// return ResponseEntity.ok(documentoImovel);
-	// }
-
-	// @GetMapping("/cadastro/documentoImovel/{id}")
-	// public ResponseEntity<DocumentoImovel>
-	// buscarDocumentoImovelPorId(@PathVariable Long id) throws Exception{
-	// DocumentoImovel documentoImovel = documentoImovelRepository.getById(id);
-	// if(documentoImovel == null) {
-	// throw new Exception("Documento do Imóvel nao encontrado pelo id" + id);
-	// }
-
-	// return ResponseEntity.ok(documentoImovel);
-
-	// }
-
-	// @PutMapping("/cadastro/documentoImovel/editar/{id}")
-	// public ResponseEntity<DocumentoImovel>
-	// editarDocumentoImovelPorId(@PathVariable("id") Long id, @RequestBody @Valid
-	// DocumentoImovel documentoImovel) throws Exception{
-
-	// DocumentoImovel opcionaldocumentoImovel =
-	// documentoImovelRepository.getById(id);
-	// if(opcionaldocumentoImovel == null) {
-	// return ResponseEntity.unprocessableEntity().build();
-	// }
-
-	// DocumentoImovel novoDocumentoImovel =
-	// documentoImovelRepository.save(opcionaldocumentoImovel);
-	// return ResponseEntity.ok(novoDocumentoImovel);
-
-	// }
-
-	// @DeleteMapping("/cadastro/documentoImovel/remover/{id}")
-	// public ResponseEntity<Map<String, Boolean>>
-	// removerDocumentoImovelPorId(@PathVariable Long id) throws Exception{
-	// DocumentoImovel documentoImovel = documentoImovelRepository.getById(id);
-	// if(documentoImovel == null) {
-	// throw new Exception("Documento do Imóvel nao encontrado" + id);
-	// }
-
-	// documentoImovelRepository.deleteById(id);
-	// Map<String, Boolean> responseAwait = new HashMap<>();
-	// responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-	// return ResponseEntity.ok(responseAwait);
-	// }
-
+	@DeleteMapping("/remover/{id}")
+	public ResponseEntity<Void> removerDocumentoImovelPorId(@PathVariable Long id) throws Exception {
+		documentoImovelService.removerDocumentoImovel(id);
+		return ResponseEntity.ok().build();
+	}
 }

@@ -1,8 +1,6 @@
 package dev.locus.flatup.locacao.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -14,77 +12,44 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
-import dev.locus.flatup.locacao.model.Locacao;
-import dev.locus.flatup.locacao.repository.LocacaoRepository;
+import dev.locus.flatup.locacao.model.LocacaoDto;
+import dev.locus.flatup.locacao.service.LocacaoService;
 
 @RestController
+@RequestMapping(value = "/locacao")
 public class LocacaoController {
 
-	// @Autowired
-	// private LocacaoRepository locacaoRepository;
+	@Autowired
+	LocacaoService locacaoService;
 
-	// public LocacaoController(LocacaoRepository locacaoRepository) {
-	// super();
-	// this.locacaoRepository = locacaoRepository;
-	// }
+	@GetMapping("/listar")
+	public List<LocacaoDto> listarLocacoes() {
+		return locacaoService.listarLocacaos();
+	}
 
-	// @GetMapping("/listarLocacoes")
-	// public List<Locacao> listarLocacoes(){
-	// return locacaoRepository.findAll();
+	@PostMapping("/salvar")
+	public ResponseEntity<LocacaoDto> salvarLocacao(@RequestBody @Valid LocacaoDto locacaoDto) {
+		var locacao = locacaoService.salvar(locacaoDto);
+		return ResponseEntity.ok(locacao);
+	}
 
-	// }
+	@GetMapping("/encontrar/{id}")
+	public ResponseEntity<LocacaoDto> buscarLocacaoPorId(@PathVariable Long id) throws Exception {
+		var locacao = locacaoService.encontrarLocacao(id);
+		return ResponseEntity.ok(locacao);
+	}
 
-	// @PostMapping(path="/salvarLocacao", consumes="application/json" )
-	// public ResponseEntity<Locacao> salvarLocacao(@RequestBody @Valid Locacao
-	// locacao) {
+	@PutMapping("/editar/{id}")
+	public ResponseEntity<LocacaoDto> editarLocacaoPorId(@PathVariable("id") Long id, @RequestBody @Valid LocacaoDto locacaoDto) throws Exception {
+		var novaLocacao = locacaoService.alterar(id, locacaoDto);
+		return ResponseEntity.ok(novaLocacao);
+	}
 
-	// locacaoRepository.save(locacao);
-
-	// return ResponseEntity.ok(locacao);
-
-	// }
-
-	// @GetMapping("/cadastro/locacao/{id}")
-	// public ResponseEntity<Locacao> buscarLocacaoPorId(@PathVariable Long id)
-	// throws Exception{
-	// Locacao locacao = locacaoRepository.getById(id);
-	// if(locacao == null) {
-	// throw new Exception("Locação nao encontrada pelo id" + id);
-	// }
-
-	// return ResponseEntity.ok(locacao);
-
-	// }
-
-	// @PutMapping("/cadastro/locacao/editar/{id}")
-	// public ResponseEntity<Locacao> editarLocacaoPorId(@PathVariable("id") Long
-	// id, @RequestBody @Valid Locacao locacao) throws Exception{
-
-	// Locacao opcionalLocacao = locacaoRepository.getById(id);
-	// if(opcionalLocacao == null) {
-	// return ResponseEntity.unprocessableEntity().build();
-	// }
-
-	// Locacao novoLocacao = locacaoRepository.save(opcionalLocacao);
-	// return ResponseEntity.ok(novoLocacao);
-
-	// }
-
-	// @DeleteMapping("/cadastro/locacao/remover/{id}")
-	// public ResponseEntity<Map<String, Boolean>> removerLocacaoPorId(@PathVariable
-	// Long id) throws Exception{
-	// Locacao locacao = locacaoRepository.getById(id);
-	// if(locacao == null) {
-	// throw new Exception("Locação nao encontrado" + id);
-	// }
-
-	// locacaoRepository.deleteById(id);
-	// Map<String, Boolean> responseAwait = new HashMap<>();
-	// responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-	// return ResponseEntity.ok(responseAwait);
-	// }
-
+	@DeleteMapping("/remover/{id}")
+	public ResponseEntity<Void> removerLocacaoPorId(@PathVariable Long id) throws Exception {
+		return ResponseEntity.ok().build();
+	}
 }

@@ -1,8 +1,6 @@
 package dev.locus.flatup.endereco.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -14,70 +12,46 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.locus.flatup.endereco.model.Endereco;
-import dev.locus.flatup.endereco.repository.EnderecoRepository;
+import dev.locus.flatup.endereco.model.EnderecoDto;
+import dev.locus.flatup.endereco.service.EnderecoService;
 
 @RestController
+@RequestMapping(name = "/endereco")
 public class EnderecoController {
 
-	// @Autowired
-	// private EnderecoRepository enderecoRepository;
+	@Autowired
+	EnderecoService enderecoService;
 
-	// @GetMapping("/listarEnderecos")
-	// public List<Endereco> listarEnderecos(){
-	// return enderecoRepository.findAll();
+	@GetMapping("/listar")
+	public List<EnderecoDto> listarEnderecos(){
+		return enderecoService.listarEnderecos();
+	}
 
-	// }
+	@PostMapping("/salvar")
+	public ResponseEntity<EnderecoDto> salvarEndereco(@RequestBody @Valid EnderecoDto enderecoDto) {
+		var endereco = enderecoService.salvar(enderecoDto);
+		return ResponseEntity.ok(endereco);
+	}
 
-	// @PostMapping(path="/salvarEndereco", consumes="application/json")
-	// public ResponseEntity<Endereco> salvarEndereco(@RequestBody @Valid Endereco
-	// endereco) {
+	@GetMapping("/encontrar/{id}")
+	public ResponseEntity<EnderecoDto> buscarEnderecoPorId(@PathVariable Long id) throws Exception{
+		var endereco = enderecoService.encontrarEndereco(id);
+		return ResponseEntity.ok(endereco);
+	}
 
-	// enderecoRepository.save(endereco);
+	@PutMapping("/editar/{id}")
+	public ResponseEntity<EnderecoDto> editarEnderecoPorId(@PathVariable("id") Long id, @RequestBody @Valid EnderecoDto enderecoDto) throws Exception{
+		var novoEndereco = enderecoService.alterar(id, enderecoDto);
+		return ResponseEntity.ok(novoEndereco);
+	}
 
-	// return ResponseEntity.ok(endereco);
-
-	// }
-
-	// @GetMapping("/cadastro/endereco/{id}")
-	// public ResponseEntity<Endereco> buscarEnderecoPorId(@PathVariable Long id)
-	// throws Exception{
-	// Endereco endereco = enderecoRepository.getById(id);
-	// if(endereco == null) {
-	// throw new Exception("Endereco nao encontrado pelo id" + id);
-	// }
-
-	// return ResponseEntity.ok(endereco);
-
-	// }
-
-	// @PutMapping("/cadastro/endereco/editar/{id}")
-	// public ResponseEntity<Endereco> editarEnderecoPorId(@PathVariable("id") Long
-	// id, @RequestBody @Valid Endereco endereco) throws Exception{
-
-	// Endereco opcionalendereco = enderecoRepository.getById(id);
-	// if(opcionalendereco == null) {
-	// return ResponseEntity.unprocessableEntity().build();
-	// }
-
-	// Endereco novoEndereco = enderecoRepository.save(opcionalendereco);
-	// return ResponseEntity.ok(novoEndereco);
-
-	// }
-
-	// @DeleteMapping("/cadastro/endereco/remover/{id}")
-	// public ResponseEntity<Map<String, Boolean>>
-	// RemoverEnderecoPorId(@PathVariable Long id) throws Exception{
-	// Endereco endereco = enderecoRepository.getById(id);
-	// if(endereco == null) {
-	// throw new Exception("Endereco do Imóvel nao encontrado" + id);
-	// }
-
-	// enderecoRepository.deleteById(id);
-	// Map<String, Boolean> responseAwait = new HashMap<>();
-	// responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-	// return ResponseEntity.ok(responseAwait);
-	// }
+	@DeleteMapping("/remover/{id}")
+	public ResponseEntity<Void>
+	RemoverEnderecoPorId(@PathVariable Long id) throws Exception{
+		enderecoService.removerEndereco(id);
+		return ResponseEntity.ok().build();
+	}
 }

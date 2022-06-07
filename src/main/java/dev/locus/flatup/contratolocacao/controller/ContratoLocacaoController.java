@@ -1,8 +1,6 @@
 package dev.locus.flatup.contratolocacao.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -14,74 +12,46 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
-import dev.locus.flatup.contratolocacao.repository.ContratoLocacaoRepository;
+import dev.locus.flatup.contratolocacao.model.ContratoLocacaoDto;
+import dev.locus.flatup.contratolocacao.service.ContratoLocacaoService;
 
 @RestController
+@RequestMapping(name = "/contratolocacao")
 public class ContratoLocacaoController {
 
-	// @Autowired
-	// private ContratoLocacaoRepository contratoLocacaoRepository;
+	@Autowired
+	ContratoLocacaoService contratoLocacaoService;
 
-	// @GetMapping("/listarContratoLocacoes")
-	// public List<ContratoLocacao> listarContratosLocacoes(){
-	// return contratoLocacaoRepository.findAll();
+	@GetMapping("/listar")
+	public List<ContratoLocacaoDto> listarContratosLocacoes() {
+		return contratoLocacaoService.listarContratoLocacaos();
+	}
 
-	// }
+	@PostMapping("/salvar")
+	public ResponseEntity<ContratoLocacaoDto> salvarContratoLocacao(@RequestBody @Valid ContratoLocacaoDto contratoLocacaoDto) {
+		var contratoLocacao = contratoLocacaoService.salvar(contratoLocacaoDto);
+		return ResponseEntity.ok(contratoLocacao);
+	}
 
-	// @PostMapping(path="/salvarContratoLocacao", consumes="application/json")
-	// public ResponseEntity<ContratoLocacao> salvarContratoLocacao(@RequestBody
-	// @Valid ContratoLocacao contratoLocacao) {
+	@GetMapping("/encontrar/{id}")
+	public ResponseEntity<ContratoLocacaoDto> buscarContratoLocacaoPorId(@PathVariable Long id) throws Exception {
+		var contratoLocacao = contratoLocacaoService.encontrarContratoLocacao(id);
+		return ResponseEntity.ok(contratoLocacao);
+	}
 
-	// contratoLocacaoRepository.save(contratoLocacao);
+	@PutMapping("/editar/{id}")
+	public ResponseEntity<ContratoLocacaoDto> editarContratoLocacaoPorId(@PathVariable("id") Long id, @RequestBody @Valid ContratoLocacaoDto contratoLocacaoDto) throws Exception {
+		var novoContratoLocacao = contratoLocacaoService.alterar(id, contratoLocacaoDto);
+		return ResponseEntity.ok(novoContratoLocacao);
+	}
 
-	// return ResponseEntity.ok(contratoLocacao);
-
-	// }
-
-	// @GetMapping("/cadastro/contratoLocacao/{id}")
-	// public ResponseEntity<ContratoLocacao>
-	// buscarContratoLocacaoPorId(@PathVariable Long id) throws Exception{
-	// ContratoLocacao contratoLocacao = contratoLocacaoRepository.getById(id);
-	// if(contratoLocacao == null) {
-	// throw new Exception("Contrato de Locação nao encontrado pelo id" + id);
-	// }
-
-	// return ResponseEntity.ok(contratoLocacao);
-
-	// }
-
-	// @PutMapping("/cadastro/contratoLocacao/editar/{id}")
-	// public ResponseEntity<ContratoLocacao>
-	// editarContratoLocacaoPorId(@PathVariable("id") Long id, @RequestBody @Valid
-	// ContratoLocacao contratoLocacao) throws Exception{
-
-	// ContratoLocacao opcionalcontratoLocacao =
-	// contratoLocacaoRepository.getById(id);
-	// if(opcionalcontratoLocacao == null) {
-	// return ResponseEntity.unprocessableEntity().build();
-	// }
-
-	// ContratoLocacao novoContratoLocacao =
-	// contratoLocacaoRepository.save(opcionalcontratoLocacao);
-	// return ResponseEntity.ok(novoContratoLocacao);
-
-	// }
-
-	// @DeleteMapping("/cadastro/contratoLocacao/remover/{id}")
-	// public ResponseEntity<Map<String, Boolean>>
-	// deleteContratoLocacaoById(@PathVariable Long id) throws Exception{
-	// ContratoLocacao contratoLocacao = contratoLocacaoRepository.getById(id);
-	// if(contratoLocacao == null) {
-	// throw new Exception("Contrato de Locação nao encontrado" + id);
-	// }
-
-	// contratoLocacaoRepository.deleteById(id);
-	// Map<String, Boolean> responseAwait = new HashMap<>();
-	// responseAwait.put("Removido Com Sucesso", Boolean.TRUE);
-	// return ResponseEntity.ok(responseAwait);
-	// }
+	@DeleteMapping("/remover/{id}")
+	public ResponseEntity<Void> deleteContratoLocacaoById(@PathVariable Long id) throws Exception {
+		contratoLocacaoService.removerContratoLocacao(id);
+		return ResponseEntity.ok().build();
+	}
 
 }
