@@ -28,9 +28,6 @@ public class EnderecoDto {
 	@NotBlank
 	private String cep;
 
-	@NotNull
-	private Long idPessoaFK;
-
 	@NotBlank
 	private String numero;
 
