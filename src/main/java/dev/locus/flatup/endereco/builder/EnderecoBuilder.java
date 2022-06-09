@@ -17,7 +17,6 @@ public class EnderecoBuilder {
                 .numero(endereco.getNumero())
                 .logradouro(endereco.getLogradouro())
                 .complemento(endereco.getComplemento())
-                .idPessoaFK(endereco.getIdPessoaFK().getIdPessoa())
                 .pontoReferencia(endereco.getPontoReferencia())
                 .build();
     }
