@@ -16,16 +16,16 @@ public class LocalizacaoDto {
 
 	private Long idLocalizacao;
 
-	@NotBlank
+	@NotBlank(message = "A latitude não pode ser vazia.")
 	private String latitude;
 	
-	@NotBlank
+	@NotBlank(message = "A longitude não pode ser vazia.")
 	private String longitude;
 
-	@NotNull
+	@NotNull(message = "O imóvel deve ser informado.")
 	private Long idImovelFk;
 
-	@NotNull
+@NotNull(message = "O parceiro do imóvel deve ser informado.")
 	private Long idParceiroFk;
 
 }

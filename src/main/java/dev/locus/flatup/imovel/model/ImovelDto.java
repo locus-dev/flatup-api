@@ -17,27 +17,27 @@ public class ImovelDto {
 	
 	private Long idImovel;
 
-	@NotBlank
+	@NotBlank(message = "A climatização não pode ser vazia.")
 	private String climatizado;
 
-	@NotBlank
+	@NotBlank(message = "O status da ocupação não pode ser vazia.")
 	private String statusOcupacao;
 
-	@NotNull
+	@NotNull(message = "O endereço deve ser informado.")
 	private Long idEnderecoFK;
 
-	@NotNull
+	@NotNull(message = "A quantidade de quarto deve ser informado.")
 	private Integer quantQuarto;
 
 	@NotNull
 	private Boolean areaLazer;
 
-	@NotNull
+	@NotNull(message = "A área em m2 não pode ser vazia.")
 	private Integer areaM2;
 
 	@NotNull
 	private Boolean piscina;
 
-	@NotNull
+	@NotNull(message = "A quantidade de suítes não pode ser vazia.")
 	private Integer quantSuite;
 }

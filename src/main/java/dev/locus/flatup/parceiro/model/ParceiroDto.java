@@ -16,15 +16,15 @@ public class ParceiroDto {
 
 	private Long idParceiro;
 
-	@NotBlank
+	@NotBlank(message = "A descricao não pode ser vazia.")
 	private String descricao;
 
-	@NotBlank
+	@NotBlank(message = "Nome fantasia não pode ser vazio.")
 	private String nomeFantasia;
 
-	@NotBlank
+	@NotBlank(message = "O cnpj não pode ser vazio.")
 	private String cnpj;
 
-	@NotNull
+	@NotNull(message = "O usuário deve ser informado.")
 	private Long idUsuarioFK;
 }

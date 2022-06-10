@@ -18,21 +18,21 @@ public class ContratoLocacaoDto {
 
 	private Long idLocacao;
 
-	@NotNull
+	@NotNull(message = "O imóvel deve ser informado.")
 	private Long idImovelFK;
 
-	@NotNull
+	@NotNull(message = "Os dias de locação devem ser informado.")
 	private Integer diasLocacao;
 	
-	@NotNull
+	@NotNull(message = "O valor da locação deve ser informado.")
 	private Integer valorLocacao;
 	
-	@NotNull
+	@NotNull(message = "A data de entrada deve ser informada.")
 	private LocalDateTime checkIn;
 	
-	@NotNull
+	@NotNull(message = "A data de entrada deve ser informada.")
 	private LocalDateTime checkOut;
 	
-	@NotBlank
+	@NotBlank(message = "A quantidade de pessoas deve ser informada.")
 	private String quantPessoa;
 }

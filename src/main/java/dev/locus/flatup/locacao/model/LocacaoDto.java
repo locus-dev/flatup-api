@@ -14,12 +14,16 @@ import lombok.NoArgsConstructor;
 public class LocacaoDto {
 
 	private Long idLocacao;
-	@NotNull
+	
+	@NotNull(message = "O usuário deve ser informado.")
 	private Long idUsuarioFK;
-	@NotNull
+
+	@NotNull(message = "O imóvel deve ser informado.")
 	private Long idImovelFK;
-	@NotNull
+
+	@NotNull(message = "O contto de locação não pode ser vazio.")
 	private Long idContratoLocacaoFK;
-	@NotNull
+	
+	@NotNull(message = "O status da locação não pode ser vazio.")
 	private String statusLocacao;
 }
