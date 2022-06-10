@@ -16,10 +16,10 @@ public class DocumentoImovelDto {
 	
 	private Long idDocumento;
 	
-	@NotBlank
+	@NotBlank(message = "O documento deve ser informado.")
 	private String documento;
 	
-	@NotNull
+	@NotNull(message = "O imóvel deve ser informado.")
 	private Long idImovelFK;
 }
 	
