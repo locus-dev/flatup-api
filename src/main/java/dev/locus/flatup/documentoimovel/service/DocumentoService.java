@@ -6,12 +6,14 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import dev.locus.flatup.documentoimovel.builder.DocumentoImovelBuilder;
 import dev.locus.flatup.documentoimovel.model.DocumentoImovelDto;
 import dev.locus.flatup.documentoimovel.repository.DocumentoImovelRepository;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
 
+@Service
 public class DocumentoService {
   
   @Autowired
