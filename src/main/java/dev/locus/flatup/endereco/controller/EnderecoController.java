@@ -19,7 +19,7 @@ import dev.locus.flatup.endereco.model.EnderecoDto;
 import dev.locus.flatup.endereco.service.EnderecoService;
 
 @RestController
-@RequestMapping(name = "/endereco")
+@RequestMapping(value = "/endereco")
 public class EnderecoController {
 
 	@Autowired

@@ -32,7 +32,7 @@ public class PessoaController {
 	}
 
 	@PostMapping("/salvar")
-	public PessoaDto salvarPessoa(PessoaDto pessoa) {
+	public PessoaDto salvarPessoa(@RequestBody @Valid PessoaDto pessoa) {
 		return pessoaService.salvar(pessoa);
 	}
 
