@@ -115,6 +115,13 @@ CREATE TABLE usuario (
 	CONSTRAINT usuario_pkey PRIMARY KEY (id)
 );
 
+-- DROP TABLE perfil;
+CREATE TABLE perfil (
+	id bigserial NOT NULL,
+	nome_perfil varchar(255) NULL,
+	CONSTRAINT perfil_pkey PRIMARY KEY (id)
+);
+
 
 -- contrato_locacao foreign keys
 
@@ -159,3 +166,7 @@ ALTER TABLE pessoa ADD CONSTRAINT usuario_id FOREIGN KEY (usuario_id) REFERENCES
 -- usuario foreign keys
 
 ALTER TABLE usuario ADD CONSTRAINT pessoa_id FOREIGN KEY (pessoa_id) REFERENCES pessoa(id);
+
+-- perfil foreign keys
+
+ALTER TABLE perfil ADD CONSTRAINT usuario_id FOREIGN KEY (usuario_id) REFERENCES usuario(id);
