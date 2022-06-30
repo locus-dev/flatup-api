@@ -19,7 +19,7 @@ import dev.locus.flatup.contratolocacao.model.ContratoLocacaoDto;
 import dev.locus.flatup.contratolocacao.service.ContratoLocacaoService;
 
 @RestController
-@RequestMapping(name = "/contratolocacao")
+@RequestMapping(value = "/contratolocacao")
 public class ContratoLocacaoController {
 
 	@Autowired

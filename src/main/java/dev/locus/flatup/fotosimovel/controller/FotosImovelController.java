@@ -19,19 +19,19 @@ import dev.locus.flatup.fotosimovel.model.FotosImovelDto;
 import dev.locus.flatup.fotosimovel.service.FotosImovelService;
 
 @RestController
-@RequestMapping(name = "/fotosimovel")
+@RequestMapping(value = "/fotosimovel")
 public class FotosImovelController {
 
 	@Autowired
 	FotosImovelService fotosImovelService;
 
-	@GetMapping("/lista")
+	@GetMapping("/listar")
 	public List<FotosImovelDto> listarFotosImoveis() {
 		return fotosImovelService.listarFotosImovels();
 	}
 
 	@PostMapping("/salvar")
-	public ResponseEntity<FotosImovelDto> salvarFotosImovel(FotosImovelDto fotosImoveldDto) {
+	public ResponseEntity<FotosImovelDto> salvarFotosImovel(@RequestBody @Valid FotosImovelDto fotosImoveldDto) {
 		var fotosImovel = fotosImovelService.salvar(fotosImoveldDto);
 		return ResponseEntity.ok(fotosImovel);
 

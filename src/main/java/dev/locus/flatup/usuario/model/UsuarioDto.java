@@ -4,6 +4,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,9 +21,11 @@ public class UsuarioDto {
 
     @Email
     @NotBlank(message = "O email não pode ser vazio.")
+    @JsonProperty(value = "email")
     private String email;
 
     @Size(min = 8, message = "A senha precisa ser a partir de 8 caracteres.")
     @NotBlank(message = "A senha não pode ser vazia.")
+    @JsonProperty(value = "senha")
     private String senha;
 }

@@ -20,7 +20,7 @@ import dev.locus.flatup.documentoimovel.service.DocumentoService;
 
 
 @RestController
-@RequestMapping(name = "/documentoimovel")
+@RequestMapping(value = "/documentoimovel")
 public class DocumentoImovelController {
 
 	@Autowired
