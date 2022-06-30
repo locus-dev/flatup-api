@@ -24,7 +24,7 @@ hs_err_pid*
 
 # vscode
 .vscode
-
+.idea/
 # diretórios ocultos
 .classpath
 .settings
