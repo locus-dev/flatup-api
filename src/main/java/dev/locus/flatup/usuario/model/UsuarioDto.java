@@ -4,6 +4,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -28,4 +30,8 @@ public class UsuarioDto {
     @NotBlank(message = "A senha não pode ser vazia.")
     @JsonProperty(value = "senha")
     private String senha;
+
+    public UsernamePasswordAuthenticationToken convertTo() {
+        return new UsernamePasswordAuthenticationToken(email, senha);
+    }
 }
