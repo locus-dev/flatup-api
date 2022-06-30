@@ -15,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import dev.locus.flatup.pessoa.model.Pessoa;
@@ -90,6 +89,6 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public List<Perfil> getAuthorities() {
-		return perfils;
+		return this.perfils;
 	}
 }
