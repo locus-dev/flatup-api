@@ -1,4 +1,4 @@
-package dev.locus.flatup.config;
+package dev.locus.flatup.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -49,16 +49,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
+                .antMatchers( "/swagger-ui/**").permitAll()
+                .antMatchers( "/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
+                .antMatchers(HttpMethod.POST, "/usuario/salvar").permitAll()
                 .anyRequest().authenticated().and().csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .addFilterBefore(new AuthWithTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(
+                    new AuthWithTokenFilter(tokenService, usuarioRepository), 
+                    UsernamePasswordAuthenticationFilter.class);
     }
 
     // recursos estaticos
     @Override
     public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
+        web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**","/configuration/**", "/swagger-resources/**");
     }
+    
 }
