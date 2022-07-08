@@ -18,7 +18,6 @@ import dev.locus.flatup.auth.service.TokenService;
 import dev.locus.flatup.usuario.model.UsuarioDto;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping(value = "/auth")
 public class AuthenticationController {
 
