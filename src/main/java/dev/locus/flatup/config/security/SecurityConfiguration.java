@@ -48,17 +48,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // autorização
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
+        http.cors().and().authorizeHttpRequests()
                 .antMatchers( "/swagger-ui/**").permitAll()
                 .antMatchers( "/h2-console/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
+                .antMatchers( "/auth").permitAll()
                 .antMatchers(HttpMethod.POST, "/usuario/salvar").permitAll()
                 .anyRequest().authenticated().and().csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterBefore(
                     new AuthWithTokenFilter(tokenService, usuarioRepository), 
-                    UsernamePasswordAuthenticationFilter.class).cors();
+                    UsernamePasswordAuthenticationFilter.class);
     }
 
     // recursos estaticos
