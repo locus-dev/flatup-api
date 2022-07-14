@@ -18,6 +18,7 @@ import dev.locus.flatup.auth.service.TokenService;
 import dev.locus.flatup.usuario.model.UsuarioDto;
 
 @RestController
+@CrossOrigin(maxAge = 3600)
 @RequestMapping(value = "/auth")
 public class AuthenticationController {
 
