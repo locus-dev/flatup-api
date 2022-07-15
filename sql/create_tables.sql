@@ -28,7 +28,6 @@ CREATE TABLE endereco (
 	cep varchar(255) NULL,
 	complemento varchar(255) NULL,
 	logradouro varchar(255) NULL,
-	nacionalidade varchar(255) NULL,
 	numero varchar(255) NULL,
 	ponto_referencia varchar(255) NULL,
 	uf varchar(255) NULL,
@@ -163,9 +162,6 @@ ALTER TABLE parceiro ADD CONSTRAINT usuario_id FOREIGN KEY (usuario_id) REFERENC
 
 ALTER TABLE pessoa ADD CONSTRAINT usuario_id FOREIGN KEY (usuario_id) REFERENCES usuario(id);
 
--- usuario foreign keys
-
-ALTER TABLE usuario ADD CONSTRAINT pessoa_id FOREIGN KEY (pessoa_id) REFERENCES pessoa(id);
 
 -- perfil foreign keys
 
