@@ -1,1 +1,1 @@
-web: java -jar target/FlatUp-api-0.1.0.jar.original
+web: java -jar target/FlatUp-api-0.1.0.jar
