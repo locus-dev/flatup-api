@@ -1,1 +1,1 @@
-web: java -jar target/FlatUp-api-0.1.0.jar
+web: java -Dspring.profiles.active=prod -Dserver.port=$PORT -jar target/FlatUp-api-0.1.0.jar
