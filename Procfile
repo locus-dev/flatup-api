@@ -1,0 +1,1 @@
+web: java -jar FlatUp-api-0.1.0.jar
