@@ -32,13 +32,9 @@ public class PessoaDto {
     @JsonProperty(value = "data_nascimento")
     private LocalDateTime dataNascimento;
 
-    @CPF(message = "Cpf inválido, por favor verifique os dados informados.")
-    @NotBlank(message = "O cpf deve ser preenchido")
     @JsonProperty(value = "cpf")
     private String cpf;
 
-    @CNPJ(message = "Cnpj inválido, por favor verifique os dados informados.")
-    @NotBlank(message = "O cnpj deve ser preenchido")
     @JsonProperty(value = "cnpj")
     private String cnpj;
 
