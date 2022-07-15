@@ -1,0 +1,57 @@
+[
+	{
+	  "bairro": "Setor Continental",
+	  "cep": "74993-763",
+	  "complemento": "",
+	  "endereco_id": 1,
+	  "logradouro": "Rua Maria Ribeiro Peixoto",
+	  "numero": "146",
+	  "pessoa_id": 1,
+	  "ponto_referencia": "",
+	  "uf": "PE"
+	},
+	{
+	  "bairro": "Jardim Altamira",
+	  "cep": "68376-505",
+	  "complemento": "",
+	  "endereco_id": 2,
+	  "logradouro": "Rua José Medeiros da Costa",
+	  "numero": "921",
+	  "pessoa_id": 2,
+	  "ponto_referencia": "",
+	  "uf": "PE"
+	},
+	{
+	  "bairro": "Portão",
+	  "cep": "07412-010",
+	  "complemento": "",
+	  "endereco_id": 3,
+	  "logradouro": "Avenida P.L. do Brasil",
+	  "numero": "911",
+	  "pessoa_id": 3,
+	  "ponto_referencia": "",
+	  "uf": "PE"
+	},
+	{
+	  "bairro": "Fátima Cidade Jardim",
+	  "cep": "29212-110",
+	  "complemento": "",
+	  "endereco_id": 4,
+	  "logradouro": "Rua Edson Soares Rocha",
+	  "numero": "231",
+	  "pessoa_id": 4,
+	  "ponto_referencia": "",
+	  "uf": "PE"
+	},		
+	{
+	  "bairro": "Jardim Santo Amaro",
+	  "cep": "86185-020",
+	  "complemento": "",
+	  "endereco_id": 5,
+	  "logradouro": "Rua Rio Tocantins",
+	  "numero": "384",
+	  "pessoa_id": 5,
+	  "ponto_referencia": "",
+	  "uf": "PE"
+	}
+]

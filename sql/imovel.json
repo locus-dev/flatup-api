@@ -1,0 +1,57 @@
+[
+	{
+	  "areaLazer": true,
+	  "areaM2": 30,
+	  "climatizado": "SIM",
+	  "idEnderecoFK": 1,
+	  "idImovel": 1,
+	  "piscina": true,
+	  "quantQuarto": 3,
+	  "quantSuite": 1,
+	  "statusOcupacao": "OCUPADO"
+	},
+	{
+	  "areaLazer": true,
+	  "areaM2": 40,
+	  "climatizado": "SIM",
+	  "idEnderecoFK": 2,
+	  "idImovel": 2,
+	  "piscina": true,
+	  "quantQuarto": 3,
+	  "quantSuite": 1,
+	  "statusOcupacao": "OCUPADO"
+	},
+	{
+	  "areaLazer": true,
+	  "areaM2": 50,
+	  "climatizado": "SIM",
+	  "idEnderecoFK": 3,
+	  "idImovel": 3,
+	  "piscina": true,
+	  "quantQuarto": 2,
+	  "quantSuite": 0,
+	  "statusOcupacao": "OCUPADO"
+	},
+	{
+	  "areaLazer": true,
+	  "areaM2": 60,
+	  "climatizado": "NÃO",
+	  "idEnderecoFK": 4,
+	  "idImovel": 4,
+	  "piscina": false,
+	  "quantQuarto": 3,
+	  "quantSuite": 0,
+	  "statusOcupacao": "VAGO"
+	},
+	{
+	  "areaLazer": true,
+	  "areaM2":70,
+	  "climatizado": "SIM",
+	  "idEnderecoFK": 5,
+	  "idImovel": 5,
+	  "piscina": true,
+	  "quantQuarto": 2,
+	  "quantSuite": 1,
+	  "statusOcupacao": "VAGO"
+	}
+]

@@ -1,0 +1,47 @@
+[
+	{
+	  "cnpj": "",
+	  "cpf": "772.170.870-23",
+	  "data_nascimento": "1990-02-12T21:51:10.109Z",
+	  "nome": "Yamadborgob",
+	  "pessoa_id": 1,
+	  "telefone": "(81) 9 9405-3563",
+	  "usuario_id": 1
+	},
+	{
+	  "cnpj": "",
+	  "cpf": "772.170.870-23",
+	  "data_nascimento": "2000-05-11T21:51:10.109Z",
+	  "nome": "Kiordauni",
+	  "pessoa_id": 2,
+	  "telefone": "(81) 9 8384-4830",
+	  "usuario_id": 2
+	},
+	{
+	  "cnpj": "",
+	  "cpf": "499.685.670-00",
+	  "data_nascimento": "1984-01-20T21:51:10.109Z",
+	  "nome": "Kiordauni",
+	  "pessoa_id": 3,
+	  "telefone": "(81) 9 8847-3845",
+	  "usuario_id": 3
+	},
+	{
+	  "cnpj": "",
+	  "cpf": "220.888.490-68",
+	  "data_nascimento": "2000-05-23T21:51:10.109Z",
+	  "nome": "Wekuaim",
+	  "pessoa_id": 4,
+	  "telefone": "(81) 9 9473-4943",
+	  "usuario_id": 4
+	},
+	{
+	  "cnpj": "",
+	  "cpf": "025.678.830-88",
+	  "data_nascimento": "2002-07-10T21:51:10.109Z",
+	  "nome": "Wekuaim",
+	  "pessoa_id": 5,
+	  "telefone": "(81) 9 9324-3849",
+	  "usuario_id": 5
+	}
+]
