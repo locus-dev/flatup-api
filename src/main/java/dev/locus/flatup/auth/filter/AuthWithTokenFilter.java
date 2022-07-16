@@ -43,17 +43,17 @@ public class AuthWithTokenFilter extends OncePerRequestFilter {
     private void autenticarCliente(String token) {
         var idUsuario = tokenService.getIdUsuario(token);
         var usuario = usuarioRepository.findById(idUsuario);
-        var authentication = new UsernamePasswordAuthenticationToken(usuario, null);
+        var authentication = new UsernamePasswordAuthenticationToken(usuario, null, null);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     // recupera token
     private String recuperarToken(HttpServletRequest request) {
         var token = request.getHeader("Authorization");
-        if(Objects.isNull(token) || token.startsWith("Bearer ")) {
-            return null;
+        if(Objects.nonNull(token) && token.startsWith("Bearer ")) {
+            return token.substring("Bearer ".length(), token.length());
         }
-        return token.substring(7, token.length());
+        return null;
     }
     
 }
