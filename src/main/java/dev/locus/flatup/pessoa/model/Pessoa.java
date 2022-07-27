@@ -1,5 +1,6 @@
 package dev.locus.flatup.pessoa.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -34,7 +35,7 @@ public class Pessoa {
 	private String nome;
 
 	@Column(name = "DATA_NASCIMENTO")
-	private LocalDateTime dataNascimento;
+	private LocalDate dataNascimento;
 
 	@Column(name = "CPF")
 	private String cpf;
