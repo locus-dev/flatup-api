@@ -1,0 +1,27 @@
+[
+	{
+	  "foto": "Arquivo",
+	  "foto_id": 1,
+	  "imovel_id": 1
+	},
+	{
+	  "foto": "Arquivo",
+	  "foto_id": 2,
+	  "imovel_id": 2
+	},
+	{
+	  "foto": "Arquivo",
+	  "foto_id": 3,
+	  "imovel_id": 3
+	},
+	{
+	  "foto": "Arquivo",
+	  "foto_id": 4,
+	  "imovel_id": 4
+	},
+	{
+	  "foto": "Arquivo",
+	  "foto_id": 5,
+	  "imovel_id": 5
+	}
+]

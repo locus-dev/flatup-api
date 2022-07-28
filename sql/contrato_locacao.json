@@ -1,0 +1,47 @@
+[
+	{
+	  "check_in": "2022-02-10T22:05:39.660Z",
+	  "check_out": "2022-02-13T22:05:39.660Z",
+	  "dias_locacao": 3,
+	  "imovel_id": 1,
+	  "locacao_id": 1,
+	  "quant_pessoa": "3",
+	  "valor_locacao": 1500
+	},
+	{
+	  "check_in": "2022-02-17T22:05:39.660Z",
+	  "check_out": "2022-02-22T22:05:39.660Z",
+	  "dias_locacao": 5,
+	  "imovel_id": 2,
+	  "locacao_id": 2,
+	  "quant_pessoa": "5",
+	  "valor_locacao": 2500
+	},
+	{
+	  "check_in": "2022-03-01T22:05:39.660Z",
+	  "check_out": "2022-03-08T22:05:39.660Z",
+	  "dias_locacao": 7,
+	  "imovel_id": 3,
+	  "locacao_id": 3,
+	  "quant_pessoa": "2",
+	  "valor_locacao": 3500
+	},
+	{
+	  "check_in": "2022-03-10T22:05:39.660Z",
+	  "check_out": "2022-03-14T22:05:39.660Z",
+	  "dias_locacao": 4,
+	  "imovel_id": 4,
+	  "locacao_id": 4,
+	  "quant_pessoa": "5",
+	  "valor_locacao": 2000
+	},
+	{
+	  "check_in": "2022-03-15T22:05:39.660Z",
+	  "check_out": "2022-03-25T22:05:39.660Z",
+	  "dias_locacao": 10,
+	  "imovel_id": 5,
+	  "locacao_id": 5,
+	  "quant_pessoa": "3",
+	  "valor_locacao": 5000
+	}
+]

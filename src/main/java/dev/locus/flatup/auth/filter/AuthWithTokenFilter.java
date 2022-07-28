@@ -1,6 +1,7 @@
 package dev.locus.flatup.auth.filter;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Objects;
 
 import javax.servlet.FilterChain;
@@ -50,9 +51,11 @@ public class AuthWithTokenFilter extends OncePerRequestFilter {
     // recupera token
     private String recuperarToken(HttpServletRequest request) {
         var token = request.getHeader("Authorization");
+        
         if(Objects.nonNull(token) && token.startsWith("Bearer ")) {
             return token.substring("Bearer ".length(), token.length());
         }
+
         return null;
     }
     

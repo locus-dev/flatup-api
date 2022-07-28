@@ -1,0 +1,37 @@
+[
+	{
+	  "imovel_id": 1,
+	  "latitude": "0000",
+	  "localizacao_id": 1,
+	  "longitude": "0000",
+	  "parceiro_id": 1
+	},
+	{
+	  "imovel_id": 2,
+	  "latitude": "0000",
+	  "localizacao_id": 2,
+	  "longitude": "0000",
+	  "parceiro_id": 2
+	},
+	{
+	  "imovel_id": 3,
+	  "latitude": "0000",
+	  "localizacao_id": 3,
+	  "longitude": "0000",
+	  "parceiro_id": 3
+	},
+	{
+	  "imovel_id": 4,
+	  "latitude": "4",
+	  "localizacao_id": 4,
+	  "longitude": "4",
+	  "parceiro_id": 4
+	},
+	{
+	  "imovel_id": 5,
+	  "latitude": "5",
+	  "localizacao_id": 5,
+	  "longitude": "5",
+	  "parceiro_id": 5
+	}
+]

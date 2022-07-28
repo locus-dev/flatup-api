@@ -1,14 +1,16 @@
 package dev.locus.flatup.pessoa.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,8 +31,11 @@ public class PessoaDto {
     private String nome;
 
     @NotNull(message = "A data de nascimento deve ser fornecida.")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @JsonProperty(value = "data_nascimento")
-    private LocalDateTime dataNascimento;
+    private LocalDate dataNascimento;
 
     @JsonProperty(value = "cpf")
     private String cpf;

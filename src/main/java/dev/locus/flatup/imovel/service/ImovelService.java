@@ -39,7 +39,7 @@ public class ImovelService {
 
   @Transactional
   public ImovelDto salvar(ImovelDto imovelDto) {
-    var endereco = enderecoRepository.findById(imovelDto.getIdImovel()).orElseThrow();
+    var endereco = enderecoRepository.findById(imovelDto.getIdEnderecoFK()).orElseThrow();
     var imovel = builder.builderModel(imovelDto, EnumClimatizado.valueOf(imovelDto.getClimatizado()), endereco,
         EnumStatusOcupacao.valueOf(imovelDto.getStatusOcupacao()));
     var imovelSalvo = builder.builderDto(repository.save(imovel));

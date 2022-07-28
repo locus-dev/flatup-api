@@ -1,0 +1,38 @@
+[
+	{
+	  "cnpj": "80.302.892/0001-14",
+	  "descricao": "EMPRESA1",
+	  "nome_fantasia": "EMPRESA1",
+	  "parceiro_id": 1,
+	  "usuario_id": 1
+	},
+	{
+	  "cnpj": "68.127.083/0001-18",
+	  "descricao": "EMPRESA2",
+	  "nome_fantasia": "EMPRESA2",
+	  "parceiro_id": 2,
+	  "usuario_id": 2
+	},
+	{
+	  "cnpj": "34.352.318/0001-53",
+	  "descricao": "EMPRESA3",
+	  "nome_fantasia": "EMPRESA3",
+	  "parceiro_id": 3,
+	  "usuario_id": 3
+	},
+	{
+	  "cnpj": "37.021.938/0001-06",
+	  "descricao": "EMPRESA4",
+	  "nome_fantasia": "EMPRESA4",
+	  "parceiro_id": 4,
+	  "usuario_id": 4
+	},
+	{
+	  "cnpj": "41.660.043/0001-80",
+	  "descricao": "EMPRESA5",
+	  "nome_fantasia": "EMPRESA5",
+	  "parceiro_id": 5,
+	  "usuario_id": 5
+	}
+
+]

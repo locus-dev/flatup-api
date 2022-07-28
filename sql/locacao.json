@@ -1,0 +1,37 @@
+[
+	{
+	  "contrato_locacao_id": 1,
+	  "imovel_id": 1,
+	  "locacao_id": 1,
+	  "status_locacao": "OCUPADO",
+	  "usuario_id": 1
+	},
+	{
+	  "contrato_locacao_id": 2,
+	  "imovel_id": 2,
+	  "locacao_id": 2,
+	  "status_locacao": "VAGO",
+	  "usuario_id": 2
+	},
+	{
+	  "contrato_locacao_id": 3,
+	  "imovel_id": 3,
+	  "locacao_id": 3,
+	  "status_locacao": "VAGO",
+	  "usuario_id": 3
+	},
+	{
+	  "contrato_locacao_id": 4,
+	  "imovel_id": 4,
+	  "locacao_id": 4,
+	  "status_locacao": "OCUPADO",
+	  "usuario_id": 4
+	},
+	{
+	  "contrato_locacao_id": 5,
+	  "imovel_id": 5,
+	  "locacao_id": 5,
+	  "status_locacao": "OCUPADO",
+	  "usuario_id": 5
+	}
+]
