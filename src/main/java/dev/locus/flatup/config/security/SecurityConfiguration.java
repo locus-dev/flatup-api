@@ -51,6 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().authorizeHttpRequests()
                 .antMatchers( "/swagger-ui/**").permitAll()
                 .antMatchers( "/h2-console/**").permitAll()
+                .antMatchers("/oauth/check_token").permitAll()
+                .antMatchers("/oauth/token_key").permitAll()
                 .antMatchers( "/auth").permitAll()
                 .antMatchers(HttpMethod.POST, "/usuario/salvar").permitAll()
                 .anyRequest().authenticated().and().csrf().disable()
@@ -58,7 +60,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterBefore(
                     new AuthWithTokenFilter(tokenService, usuarioRepository), 
-                    UsernamePasswordAuthenticationFilter.class);
+                    UsernamePasswordAuthenticationFilter.class)
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt());
     }
 
     // recursos estaticos
@@ -66,5 +69,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**","/configuration/**", "/swagger-resources/**");
     }
-    
 }
