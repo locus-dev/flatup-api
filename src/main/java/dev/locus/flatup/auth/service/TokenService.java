@@ -35,6 +35,19 @@ public class TokenService {
             .compact();
     }
 
+    public String gerarTokenOauth(Usuario usuarioOauth) {
+        ;
+        Date hoje = new Date();
+        Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
+
+        return Jwts.builder()
+                .setIssuer("Usuário do sistema FlatUp")
+                .setSubject(usuarioOauth.getIdUsuario().toString())
+                .setIssuedAt(new Date())
+                .setExpiration(dataExpiracao).signWith(SignatureAlgorithm.HS256, secret)
+                .compact();
+    }
+
     public boolean isTokenValido(String token) {
         try {
             Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);

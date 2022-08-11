@@ -51,17 +51,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().authorizeHttpRequests()
                 .antMatchers( "/swagger-ui/**").permitAll()
                 .antMatchers( "/h2-console/**").permitAll()
-                .antMatchers("/oauth/check_token").permitAll()
-                .antMatchers("/oauth/token_key").permitAll()
-                .antMatchers( "/auth").permitAll()
+                .antMatchers( "/auth/login").permitAll()
+                .antMatchers( "/auth/oauth").permitAll()
                 .antMatchers(HttpMethod.POST, "/usuario/salvar").permitAll()
                 .anyRequest().authenticated().and().csrf().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .addFilterBefore(
                     new AuthWithTokenFilter(tokenService, usuarioRepository), 
-                    UsernamePasswordAuthenticationFilter.class)
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt());
+                    UsernamePasswordAuthenticationFilter.class);
     }
 
     // recursos estaticos
