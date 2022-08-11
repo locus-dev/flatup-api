@@ -31,8 +31,14 @@ public class UsuarioDto {
     @JsonProperty(value = "senha")
     private String senha;
 
+    @JsonProperty("google_id")
+    private String googleUid;
+
     public UsernamePasswordAuthenticationToken convertTo() {
         return new UsernamePasswordAuthenticationToken(email, senha);
     }
-	
+
+    public UsernamePasswordAuthenticationToken convertOAuthTo() {
+        return new UsernamePasswordAuthenticationToken(email, googleUid, null);
+    }
 }

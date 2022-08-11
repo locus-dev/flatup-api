@@ -51,7 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().authorizeHttpRequests()
                 .antMatchers( "/swagger-ui/**").permitAll()
                 .antMatchers( "/h2-console/**").permitAll()
-                .antMatchers( "/auth").permitAll()
+                .antMatchers( "/auth/login").permitAll()
+                .antMatchers( "/auth/oauth").permitAll()
                 .antMatchers(HttpMethod.POST, "/usuario/salvar").permitAll()
                 .anyRequest().authenticated().and().csrf().disable()
                 .sessionManagement()
@@ -66,5 +67,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**","/configuration/**", "/swagger-resources/**");
     }
-    
 }

@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import dev.locus.flatup.pessoa.model.Pessoa;
@@ -43,6 +44,9 @@ public class Usuario implements UserDetails {
 
 	@Column(name = "SENHA")
 	private String senha;
+
+	@Column(name = "GOOGLE_ID")
+	private String googleUid;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "PESSOA_ID", referencedColumnName = "ID")

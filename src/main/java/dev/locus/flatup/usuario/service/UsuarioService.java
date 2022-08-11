@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+import dev.locus.flatup.usuario.model.Usuario;
+import dev.locus.flatup.usuario.model.UsuarioOAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -135,5 +137,13 @@ public class UsuarioService {
 		
 		
 	}
-    
+
+    public Usuario encontraUsuarioToken(UsuarioOAuth usuarioOAuth) {
+        var usuario = repository.findByEmail(usuarioOAuth.getEmail());
+        return usuario.get();
+    }
+
+    public void atualizarComUid(Usuario usuario) {
+        repository.saveAndFlush(usuario);
+    }
 }
