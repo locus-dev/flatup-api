@@ -11,6 +11,7 @@ public class ParceiroBuilder {
 
     public ParceiroDto builderDto(Parceiro parceiro) {
         return ParceiroDto.builder()
+                .idParceiro(parceiro.getIdParceiro())
                 .descricao(parceiro.getDescricao())
                 .nomeFantasia(parceiro.getNomeFantasia())
                 .cnpj(parceiro.getCnpj())

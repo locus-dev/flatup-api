@@ -11,6 +11,7 @@ public class PessoaBuilder {
 
     public PessoaDto builderDto(Pessoa pessoa) {
         return PessoaDto.builder()
+                .idPessoa(pessoa.getIdPessoa())
                 .cnpj(pessoa.getCnpj())
                 .cpf(pessoa.getCpf())
                 .dataNascimento(pessoa.getDataNascimento())

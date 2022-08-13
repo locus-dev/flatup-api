@@ -11,9 +11,10 @@ public class DocumentoImovelBuilder {
     
     public DocumentoImovelDto builderDto(DocumentoImovel documentoImovel){
         return DocumentoImovelDto.builder()
-        .idImovelFK(documentoImovel.getIdImovelFK().getIdImovel())
-        .documento(documentoImovel.getDocumento())
-        .build();
+                .idDocumento(documentoImovel.getIdDocumento())
+                .idImovelFK(documentoImovel.getIdImovelFK().getIdImovel())
+                .documento(documentoImovel.getDocumento())
+                .build();
     }
 
     public DocumentoImovel builderModel(DocumentoImovelDto documentoImovelDto, Imovel imovel){

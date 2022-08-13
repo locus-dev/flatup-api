@@ -12,6 +12,7 @@ public class LocalizacaoBuilder {
 
     public LocalizacaoDto builderDto(Localizacao localizacao) {
         return LocalizacaoDto.builder()
+                .idLocalizacao(localizacao.getIdLocalizacao())
                 .idImovelFk(localizacao.getIdImovelFk().getIdImovel())
                 .idParceiroFk(localizacao.getIdParceiroFk().getIdParceiro())
                 .latitude(localizacao.getLatitude())

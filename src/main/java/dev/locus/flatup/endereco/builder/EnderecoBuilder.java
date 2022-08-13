@@ -11,6 +11,7 @@ public class EnderecoBuilder {
 
     public EnderecoDto builderDto(Endereco endereco) {
         return EnderecoDto.builder()
+                .idEndereco(endereco.getIdEndereco())
                 .uf(endereco.getUf())
                 .cep(endereco.getCep())
                 .bairro(endereco.getBairro())

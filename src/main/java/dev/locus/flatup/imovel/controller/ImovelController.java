@@ -36,7 +36,17 @@ public class ImovelController {
 
 	@GetMapping("/listar")
 	public List<ImovelDto> listarImoveis() {
-		return imovelService.listarImovels();
+		return imovelService.listarImoveis();
+	}
+
+	@GetMapping("/listar/{id}")
+	public List<ImovelDto> listarMeusImoveis(@PathVariable("id") Long idPessoa) {
+		return imovelService.listarImoveisPessoa(idPessoa);
+	}
+
+	@GetMapping("/listar/{cidade}")
+	public List<ImovelDto> listarMeusImoveis(@PathVariable("cidade") String cidade) {
+		return imovelService.listarImoveisCidade(cidade);
 	}
 
 	@PostMapping("/salvar")
@@ -65,9 +75,8 @@ public class ImovelController {
 	}
 
 	
-	@GetMapping("/pdf")
-	public void exportPdf(HttpServletResponse response) throws DocumentException, IOException{
-		//response.setContentType("application/pdf");
+	@GetMapping("/pdf/{idPessoa}")
+	public void exportPdf(HttpServletResponse response, @PathVariable("idPessoa")  Long idPessoa) throws DocumentException, IOException{
 		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
 		
@@ -75,12 +84,8 @@ public class ImovelController {
 		String headerValue = "attachment; filename=imóveis-" + currentDateTime + ".pdf";
 		response.setHeader(headerKey, headerValue);
 		
-		List<ImovelDto> imoveisDto = imovelService.listarImovels();
-
-		ImovelService exporter = new ImovelService(imoveisDto);
-		exporter.export(response);
-		
-		
+		List<ImovelDto> imoveisDto = imovelService.listarImoveisPessoa(idPessoa);
+		imovelService.export(response, idPessoa);
 	}
 	
 }

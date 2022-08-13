@@ -39,7 +39,7 @@ public class Usuario implements UserDetails {
 	@Column(name = "ID")
 	private Long idUsuario;
 
-	@Column(name = "EMAIL")
+	@Column(name = "EMAIL", unique = true)
 	private String email;
 
 	@Column(name = "SENHA")

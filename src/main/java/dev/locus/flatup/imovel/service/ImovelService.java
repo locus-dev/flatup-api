@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+import dev.locus.flatup.imovel.model.Imovel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,16 +42,20 @@ public class ImovelService {
 	@Autowired
 	EnderecoRepository enderecoRepository;
 
-	private List<ImovelDto> listImoveisDto;
-
-	public ImovelService(List<ImovelDto> listImoveisDto) {
-		this.listImoveisDto = listImoveisDto;
-	}
-
-	public List<ImovelDto> listarImovels() {
-		List<ImovelDto> listaImovelDtos = new ArrayList<>();
+	public List<ImovelDto> listarImoveis() {
+		var listaImovelDtos = new ArrayList<ImovelDto>();
 
 		repository.findAll().forEach(Imovel -> {
+			listaImovelDtos.add(builder.builderDto(Imovel));
+		});
+
+		return listaImovelDtos;
+	}
+
+	public List<ImovelDto> listarImoveisPessoa(Long idPessoa) {
+		var listaImovelDtos = new ArrayList<ImovelDto>();
+
+		repository.findAllByIdPessoa(idPessoa).forEach(Imovel -> {
 			listaImovelDtos.add(builder.builderDto(Imovel));
 		});
 
@@ -111,7 +116,9 @@ public class ImovelService {
 		
 	}
 	
-	private void writeTableData(PdfPTable table) {
+	private void writeTableData(PdfPTable table, Long idPessoa) {
+		var listImoveisDto = retornaDtoImoveis(repository.findAllByIdPessoa(idPessoa));
+
 		for(ImovelDto imovelDto : listImoveisDto) {
 			var endereco = enderecoRepository.findById(imovelDto.getIdEnderecoFK()).orElseThrow();
 			table.addCell(String.valueOf(imovelDto.getIdImovel()));
@@ -121,8 +128,20 @@ public class ImovelService {
 			table.addCell(String.valueOf(endereco.getBairro()));
 		}
 	}
-	
-	public void export(HttpServletResponse response) throws DocumentException, IOException{
+
+	private List<ImovelDto> retornaDtoImoveis(List<Imovel> imoveis) {
+		var imovelDtos = new ArrayList<ImovelDto>();
+		imoveis.forEach(imovel -> imovelDtos.add(builder.builderDto(imovel)));
+		return imovelDtos;
+	}
+
+	public List<ImovelDto> listarImoveisCidade(String cidade) {
+		var imovelDtos = new ArrayList<ImovelDto>();
+		repository.findAllByCidade(cidade)
+				.forEach(imovel -> imovelDtos.add(builder.builderDto(imovel)));
+		return imovelDtos;
+	}
+	public void export(HttpServletResponse response, Long idPessoa) throws DocumentException, IOException{
 		Document document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document, response.getOutputStream());
 		
@@ -142,14 +161,9 @@ public class ImovelService {
 		table.setSpacingBefore(10);
 		
 		writeTableHeader(table);
-		writeTableData(table);
+		writeTableData(table, idPessoa);
 		
 		document.add(table);
 		document.close();
-		
-		
 	}
-
-	
-
 }

@@ -49,6 +49,9 @@ public class Endereco {
 	@Column(name = "COMPLEMENTO")
 	private String complemento;
 
+	@Column(name = "CIDADE")
+	private String cidade;
+
 	@Column(name = "UF")
 	private String uf;
 
