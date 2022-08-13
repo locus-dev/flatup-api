@@ -42,8 +42,8 @@ public class ImovelService {
 	@Autowired
 	EnderecoRepository enderecoRepository;
 
-	public List<ImovelDto> listarImovels() {
-		List<ImovelDto> listaImovelDtos = new ArrayList<>();
+	public List<ImovelDto> listarImoveis() {
+		var listaImovelDtos = new ArrayList<ImovelDto>();
 
 		repository.findAll().forEach(Imovel -> {
 			listaImovelDtos.add(builder.builderDto(Imovel));
@@ -52,10 +52,10 @@ public class ImovelService {
 		return listaImovelDtos;
 	}
 
-	public List<ImovelDto> listarMeusImovels() {
+	public List<ImovelDto> listarImoveisPessoa(Long idPessoa) {
 		var listaImovelDtos = new ArrayList<ImovelDto>();
 
-		repository.findAll().forEach(Imovel -> {
+		repository.findAllByIdPessoa(idPessoa).forEach(Imovel -> {
 			listaImovelDtos.add(builder.builderDto(Imovel));
 		});
 
@@ -135,6 +135,12 @@ public class ImovelService {
 		return imovelDtos;
 	}
 
+	public List<ImovelDto> listarImoveisCidade(String cidade) {
+		var imovelDtos = new ArrayList<ImovelDto>();
+		repository.findAllByCidade(cidade)
+				.forEach(imovel -> imovelDtos.add(builder.builderDto(imovel)));
+		return imovelDtos;
+	}
 	public void export(HttpServletResponse response, Long idPessoa) throws DocumentException, IOException{
 		Document document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document, response.getOutputStream());
@@ -159,7 +165,5 @@ public class ImovelService {
 		
 		document.add(table);
 		document.close();
-		
-		
 	}
 }

@@ -36,12 +36,17 @@ public class ImovelController {
 
 	@GetMapping("/listar")
 	public List<ImovelDto> listarImoveis() {
-		return imovelService.listarImovels();
+		return imovelService.listarImoveis();
 	}
 
 	@GetMapping("/listar/{id}")
-	public List<ImovelDto> listarMeusImoveis() {
-		return imovelService.listarImovels();
+	public List<ImovelDto> listarMeusImoveis(@PathVariable("id") Long idPessoa) {
+		return imovelService.listarImoveisPessoa(idPessoa);
+	}
+
+	@GetMapping("/listar/{cidade}")
+	public List<ImovelDto> listarMeusImoveis(@PathVariable("cidade") String cidade) {
+		return imovelService.listarImoveisCidade(cidade);
 	}
 
 	@PostMapping("/salvar")
@@ -79,7 +84,7 @@ public class ImovelController {
 		String headerValue = "attachment; filename=imóveis-" + currentDateTime + ".pdf";
 		response.setHeader(headerKey, headerValue);
 		
-		List<ImovelDto> imoveisDto = imovelService.listarMeusImovels();
+		List<ImovelDto> imoveisDto = imovelService.listarImoveisPessoa(idPessoa);
 		imovelService.export(response, idPessoa);
 	}
 	
