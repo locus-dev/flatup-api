@@ -1,9 +1,9 @@
 package dev.locus.flatup.auth.controller;
 
-import javax.validation.Valid;
-
-import com.nimbusds.jose.shaded.json.JSONObject;
+import dev.locus.flatup.auth.model.TokenDto;
+import dev.locus.flatup.auth.service.TokenService;
 import dev.locus.flatup.usuario.builder.UsuarioBuilder;
+import dev.locus.flatup.usuario.model.UsuarioDto;
 import dev.locus.flatup.usuario.model.UsuarioOAuth;
 import dev.locus.flatup.usuario.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import dev.locus.flatup.auth.model.TokenDto;
-import dev.locus.flatup.auth.service.TokenService;
-import dev.locus.flatup.usuario.model.UsuarioDto;
-
-import java.util.Base64;
+import javax.validation.Valid;
 import java.util.Objects;
 
 @RestController

@@ -1,23 +1,15 @@
 package dev.locus.flatup.imovel.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import dev.locus.flatup.endereco.model.Endereco;
 import dev.locus.flatup.imovel.enums.EnumClimatizado;
 import dev.locus.flatup.imovel.enums.EnumStatusOcupacao;
+import dev.locus.flatup.pessoa.model.Pessoa;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -59,4 +51,7 @@ public class Imovel {
 	@Column(name = "QUANT_SUITE")
 	private Integer quantSuite;
 
+	@ManyToOne(fetch = FetchType.EAGER,  cascade=CascadeType.ALL)
+	@JoinColumn(name = "ID_PESSOA")
+	private Pessoa idPessoa;
 }

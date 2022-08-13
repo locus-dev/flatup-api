@@ -39,6 +39,11 @@ public class ImovelController {
 		return imovelService.listarImovels();
 	}
 
+	@GetMapping("/listar/{id}")
+	public List<ImovelDto> listarMeusImoveis() {
+		return imovelService.listarImovels();
+	}
+
 	@PostMapping("/salvar")
 	public ResponseEntity<ImovelDto> salvarImovel(@RequestBody @Valid ImovelDto imovelDto) {
 		var imovel = imovelService.salvar(imovelDto);
@@ -65,9 +70,8 @@ public class ImovelController {
 	}
 
 	
-	@GetMapping("/pdf")
-	public void exportPdf(HttpServletResponse response) throws DocumentException, IOException{
-		//response.setContentType("application/pdf");
+	@GetMapping("/pdf/{idPessoa}")
+	public void exportPdf(HttpServletResponse response, @PathVariable("idPessoa")  Long idPessoa) throws DocumentException, IOException{
 		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
 		
@@ -75,12 +79,8 @@ public class ImovelController {
 		String headerValue = "attachment; filename=imóveis-" + currentDateTime + ".pdf";
 		response.setHeader(headerKey, headerValue);
 		
-		List<ImovelDto> imoveisDto = imovelService.listarImovels();
-
-		ImovelService exporter = new ImovelService(imoveisDto);
-		exporter.export(response);
-		
-		
+		List<ImovelDto> imoveisDto = imovelService.listarMeusImovels();
+		imovelService.export(response, idPessoa);
 	}
 	
 }

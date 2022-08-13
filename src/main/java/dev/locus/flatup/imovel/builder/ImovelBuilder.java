@@ -14,15 +14,16 @@ public class ImovelBuilder {
     
     public ImovelDto builderDto(Imovel imovel){
         return ImovelDto.builder()
-        .areaM2(imovel.getAreaM2())
-        .piscina(imovel.getPiscina())
-        .areaLazer(imovel.getAreaLazer())
-        .quantQuarto(imovel.getQuantQuarto())
-        .climatizado(imovel.getClimatizado().getDescricao())
-        .idEnderecoFK(imovel.getIdEnderecoFK().getIdEndereco())
-        .statusOcupacao(imovel.getStatusOcupacao().getDescricao())
-        .quantSuite(imovel.getQuantSuite())
-        .build();
+                .idImovel(imovel.getIdImovel())
+                .areaM2(imovel.getAreaM2())
+                .piscina(imovel.getPiscina())
+                .areaLazer(imovel.getAreaLazer())
+                .quantQuarto(imovel.getQuantQuarto())
+                .climatizado(imovel.getClimatizado().getDescricao())
+                .idEnderecoFK(imovel.getIdEnderecoFK().getIdEndereco())
+                .statusOcupacao(imovel.getStatusOcupacao().getDescricao())
+                .quantSuite(imovel.getQuantSuite())
+                .build();
     }
 
     public Imovel builderModel(ImovelDto imovelDto, EnumClimatizado enumClimatizado, Endereco endereco, EnumStatusOcupacao statusOcupacao){

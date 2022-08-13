@@ -12,9 +12,10 @@ public class FotosImovelBuilder {
     
     public FotosImovelDto builderDto(FotosImovel fotosImovel){
         return FotosImovelDto.builder()
-        .idImovelFK(fotosImovel.getIdImovelFK().getIdImovel())
-        .foto(fotosImovel.getFoto())
-        .build();
+                .idFoto(fotosImovel.getIdFoto())
+                .idImovelFK(fotosImovel.getIdImovelFK().getIdImovel())
+                .foto(fotosImovel.getFoto())
+                .build();
     }
 
     public FotosImovel builderModel(FotosImovelDto fotosImovelDto, Imovel imovel){
