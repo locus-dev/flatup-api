@@ -69,9 +69,9 @@ public class UsuarioController {
 	}
 	
 	
-	@GetMapping(path="/pdf")
+	@GetMapping(path="/pdf", produces="text/plain")
 	public void exportPdf( HttpServletResponse response) throws DocumentException, IOException{
-		//response.setContentType("application/pdf");
+		response.setContentType("application/pdf");
 		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
 		
