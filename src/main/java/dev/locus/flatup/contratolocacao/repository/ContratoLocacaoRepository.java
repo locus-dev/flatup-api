@@ -11,8 +11,5 @@ import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
 
 @Repository
 public interface ContratoLocacaoRepository extends JpaRepository<ContratoLocacao, Long> {
-
-    @Query(value = "SELECT cont FROM ContratoLocacao cont WHERE cont.idImovelFK = :idImovel")
-    Optional<ContratoLocacao> findContratoByImovelFk(@Param("idImovel") Long id);
-
+    Optional<ContratoLocacao> findContratoByIdImovelFK(Long id);
 }

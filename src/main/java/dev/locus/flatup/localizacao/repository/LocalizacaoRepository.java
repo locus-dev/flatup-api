@@ -12,7 +12,6 @@ import dev.locus.flatup.localizacao.model.Localizacao;
 @Repository
 public interface LocalizacaoRepository extends JpaRepository<Localizacao, Long> {
 
-    @Query(value = "SELECT loc FROM Localizacao loc WHERE loc.imovelFk = :idImovel")
-    Optional<Localizacao> findByIdImovelFk(@Param("idImovel") Long id);
+    Optional<Localizacao> findByIdImovelFk(Long id);
 
 }
