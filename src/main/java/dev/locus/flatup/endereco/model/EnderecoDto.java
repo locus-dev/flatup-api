@@ -49,4 +49,9 @@ public class EnderecoDto {
 	@NotBlank
 	@JsonProperty(value = "uf")
 	private String uf;
+
+	@NotBlank
+	@NotNull
+	private String municipio;
+
 }

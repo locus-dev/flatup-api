@@ -2,6 +2,7 @@ package dev.locus.flatup.imovel.model;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,4 +41,10 @@ public class ImovelDto {
 
 	@NotNull(message = "A quantidade de suítes não pode ser vazia.")
 	private Integer quantSuite;
+
+	@NotNull
+	private String tituloAnuncio;
+
+	@NotNull
+	private String descricao;
 }
