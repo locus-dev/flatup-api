@@ -36,7 +36,7 @@ public class ContratoLocacaoDto {
 	
 	@NotNull(message = "O valor da locação deve ser informado.")
 	@JsonProperty(value = "valor_locacao")
-	private Integer valorLocacao;
+	private Double valorLocacao;
 	
 	@NotNull(message = "A data de entrada deve ser informada.")
 	@JsonProperty(value = "check_in")

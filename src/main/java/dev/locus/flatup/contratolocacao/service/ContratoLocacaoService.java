@@ -45,9 +45,6 @@ public class ContratoLocacaoService {
   @Autowired
   ImovelRepository imovelRepository;
 
-  
-  
-  
   public List<ContratoLocacaoDto> listarContratoLocacaos() {
     List<ContratoLocacaoDto> listaContratoLocacaoDtos = new ArrayList<>();
 
@@ -57,6 +54,7 @@ public class ContratoLocacaoService {
 
     return listaContratoLocacaoDtos;
   }
+
 
   @Transactional
   public ContratoLocacaoDto salvar(ContratoLocacaoDto contratoLocacaoDto) {
@@ -153,4 +151,5 @@ public class ContratoLocacaoService {
 		document.close();
 
 	}
+
 }
