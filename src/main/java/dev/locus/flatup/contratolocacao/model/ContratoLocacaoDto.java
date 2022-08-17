@@ -1,6 +1,5 @@
 package dev.locus.flatup.contratolocacao.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
@@ -56,6 +55,6 @@ public class ContratoLocacaoDto {
 	@JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-	private LocalDate validadePromocao;
+	private LocalDateTime validadePromocao;
 
 }

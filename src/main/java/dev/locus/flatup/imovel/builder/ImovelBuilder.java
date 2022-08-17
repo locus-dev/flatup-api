@@ -23,6 +23,8 @@ public class ImovelBuilder {
                 .idEnderecoFK(imovel.getIdEnderecoFK().getIdEndereco())
                 .statusOcupacao(imovel.getStatusOcupacao().getDescricao())
                 .quantSuite(imovel.getQuantSuite())
+                .tituloAnuncio(imovel.getTituloAnuncio())
+                .descricao(imovel.getDescricao())
                 .build();
     }
 
@@ -36,6 +38,8 @@ public class ImovelBuilder {
         .idEnderecoFK(endereco)
         .statusOcupacao(statusOcupacao)
         .quantSuite(imovelDto.getQuantSuite())
+        .tituloAnuncio(imovelDto.getTituloAnuncio())
+        .descricao(imovelDto.getDescricao())
         .build();
     }
 }

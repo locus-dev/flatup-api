@@ -49,9 +49,10 @@ public class EnderecoDto {
 	@NotBlank
 	@JsonProperty(value = "uf")
 	private String uf;
-
+	
 	@NotBlank
 	@NotNull
-	private String municipio;
+	@JsonProperty(value = "cidade")
+	private String cidade;
 
 }
