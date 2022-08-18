@@ -19,6 +19,7 @@ public class EnderecoBuilder {
                 .logradouro(endereco.getLogradouro())
                 .complemento(endereco.getComplemento())
                 .pontoReferencia(endereco.getPontoReferencia())
+                .cidade(endereco.getCidade())
                 .build();
     }
 
@@ -32,6 +33,7 @@ public class EnderecoBuilder {
                 .logradouro(enderecoDto.getLogradouro())
                 .complemento(enderecoDto.getComplemento())
                 .pontoReferencia(enderecoDto.getPontoReferencia())
+                .cidade(enderecoDto.getCidade())
                 .build();
     }
 }

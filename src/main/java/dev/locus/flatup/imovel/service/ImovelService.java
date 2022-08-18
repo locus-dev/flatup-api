@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import dev.locus.flatup.imovel.model.Imovel;
+import dev.locus.flatup.imovel.model.ImovelDetalharDto;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +25,15 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
+import dev.locus.flatup.contratolocacao.repository.ContratoLocacaoRepository;
 import dev.locus.flatup.endereco.repository.EnderecoRepository;
 import dev.locus.flatup.imovel.builder.ImovelBuilder;
 import dev.locus.flatup.imovel.enums.EnumClimatizado;
 import dev.locus.flatup.imovel.enums.EnumStatusOcupacao;
 import dev.locus.flatup.imovel.model.ImovelDto;
+import dev.locus.flatup.imovel.model.ImovelListaDto;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
+import dev.locus.flatup.localizacao.repository.LocalizacaoRepository;
 
 @Service
 public class ImovelService {
@@ -40,7 +45,14 @@ public class ImovelService {
 	ImovelRepository repository;
 
 	@Autowired
+	LocalizacaoRepository localizacaoRepository;
+
+	@Autowired
 	EnderecoRepository enderecoRepository;
+
+	@Autowired
+	ContratoLocacaoRepository contratoLocacaoRepository;
+
 
 	public List<ImovelDto> listarImoveis() {
 		var listaImovelDtos = new ArrayList<ImovelDto>();
@@ -165,5 +177,27 @@ public class ImovelService {
 		
 		document.add(table);
 		document.close();
+	}
+
+    public List<ImovelListaDto> listarImoveisDescricoes() {
+		
+		var listaContratolocacao = contratoLocacaoRepository.findAll();
+		var imovelListaExibicao = new ArrayList<ImovelListaDto>();
+
+		listaContratolocacao.forEach(contrato -> {
+			var imovel = repository.findById(contrato.getIdImovelFK().getIdImovel()).orElseThrow();
+			imovelListaExibicao.add(builder.buiderImovelListagem(contrato, imovel));
+		});
+
+        return imovelListaExibicao;
+    }
+
+	public ImovelDetalharDto exibirImovelDetalhamento(Long id) {
+		
+		var imovel = repository.findById(id).orElseThrow();
+		var localizacao = localizacaoRepository.findByIdImovelFk(id).orElseThrow();
+		var contrato = contratoLocacaoRepository.findContratoByIdImovelFK(id).orElseThrow();
+
+		return builder.builderImovelDetalhar(contrato, localizacao, imovel);
 	}
 }

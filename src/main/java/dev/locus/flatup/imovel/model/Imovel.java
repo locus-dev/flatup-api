@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 import javax.persistence.*;
 
 @Data
@@ -23,6 +25,21 @@ public class Imovel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long idImovel;
+
+	@Column(name = "titulo_anuncio")
+	private String tituloAnuncio;
+
+	@Column(name = "descricao")
+	private String descricao;
+
+	@Column(name = "municipio")
+	private String municipio;
+
+	@Column(name = "valor_diaria")
+	private int valorDiaria;
+
+	@Column(name = "validade_promocao")
+	private LocalDate validadePromocao;
 
 	@Column(name = "CLIMATIZADO")
 	@Enumerated(EnumType.STRING)
