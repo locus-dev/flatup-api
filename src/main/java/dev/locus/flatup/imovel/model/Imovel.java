@@ -48,7 +48,7 @@ public class Imovel {
 	@Enumerated(EnumType.STRING)
 	private EnumStatusOcupacao statusOcupacao;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ENDERECO_ID")
 	private Endereco idEnderecoFK;
 

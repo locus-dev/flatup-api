@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +20,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import com.lowagie.text.DocumentException;
 
@@ -82,9 +84,9 @@ public class ImovelController {
 	}
 
 	//produces = { "text/plain" }
-	@GetMapping(path="/pdf/{id}", produces = {"text/plain"})
+	@GetMapping(path="/pdf/{id}")
 	public void exportPdfImovelPorPessoa(HttpServletResponse response, @PathVariable("id") Long id) throws DocumentException, IOException{
-		response.setContentType("application/pdf");
+		//response.setContentType("application/pdf");
 		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
 		
@@ -99,7 +101,7 @@ public class ImovelController {
 	}
 	
 	
-	@GetMapping(path="/pdf", produces = {"text/plain"})
+	@GetMapping(path="/pdf")
 	public void exportPdTodosOsImoveis(HttpServletResponse response) throws DocumentException, IOException{
 		response.setContentType("application/pdf");
 		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
@@ -109,10 +111,46 @@ public class ImovelController {
 		String headerValue = "attachment; filename=imóveis-" + currentDateTime + ".pdf";
 		response.setHeader(headerKey, headerValue);
 		
-		List<Imovel> imoveis = pdfServiceExport.retornaTodosImoveis();
+		List<Imovel> imoveis = imovelService.listarImoveisGERAl();
 		
 		PdfServiceExport exporter = new PdfServiceExport(imoveis);
 		exporter.exportTodosImoveis(response);
 	}
+	
+	
+//	@GetMapping("/csv")
+//    public void exportToCSV(HttpServletResponse response) throws IOException {
+//        response.setContentType("text/csv");
+//        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+//        String currentDateTime = dateFormatter.format(new Date());
+//         
+//        String headerKey = "Content-Disposition";
+//        String headerValue = "attachment; filename=Imóveis" + currentDateTime + ".csv";
+//        response.setHeader(headerKey, headerValue);
+//         
+//    	List<Imovel> imoveis = imovelService.listarImoveisGERAl();
+// 
+//        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+//        String[] csvHeader = {"ID imóvel", "Climatizado", "Status Ocupação", "Rua", "Bairro"};
+//        
+//         
+//        csvWriter.writeHeader(csvHeader);
+//         
+//        for (Imovel imov : imoveis) {
+//        	
+//        	String idImovel = String.valueOf(imov.getIdImovel());
+//			String climatizado = String.valueOf(imov.getClimatizado());
+//			String statusOcupacao = String.valueOf(imov.getStatusOcupacao());
+//			String logradouro  = String.valueOf(imov.getIdEnderecoFK().getLogradouro());
+//			String bairro = String.valueOf(imov.getIdEnderecoFK().getBairro());
+//			
+//			String[] nameMapping = {idImovel, climatizado,statusOcupacao, logradouro, bairro};
+//			
+//            csvWriter.write(imov, nameMapping);
+//        }
+//
+//        csvWriter.close();
+//         
+//    }
 	
 }

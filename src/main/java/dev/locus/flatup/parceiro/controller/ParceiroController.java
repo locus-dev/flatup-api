@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,10 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lowagie.text.DocumentException;
 
+import dev.locus.flatup.parceiro.model.Parceiro;
 import dev.locus.flatup.parceiro.model.ParceiroDto;
 import dev.locus.flatup.parceiro.service.ParceiroService;
-import dev.locus.flatup.usuario.model.UsuarioDto;
-import dev.locus.flatup.usuario.service.UsuarioService;
 
 @RestController
 @CrossOrigin(origins = "*",  allowedHeaders = "*" )
@@ -80,7 +78,7 @@ public class ParceiroController {
 		String headerValue = "attachment; filename=parceiros-" + currentDateTime + ".pdf";
 		response.setHeader(headerKey, headerValue);
 		
-		List<ParceiroDto> parceirosDto = parceiroService.listarParceiros();
+		List<Parceiro> parceirosDto = parceiroService.listarParceiroTodes();
 		
 		ParceiroService exporter = new ParceiroService(parceirosDto);
 		exporter.export(response);

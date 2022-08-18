@@ -8,7 +8,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
-import dev.locus.flatup.imovel.model.Imovel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +23,13 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 import dev.locus.flatup.endereco.model.Endereco;
+import dev.locus.flatup.endereco.model.EnderecoDto;
 import dev.locus.flatup.endereco.repository.EnderecoRepository;
+import dev.locus.flatup.endereco.service.EnderecoService;
 import dev.locus.flatup.imovel.builder.ImovelBuilder;
 import dev.locus.flatup.imovel.enums.EnumClimatizado;
 import dev.locus.flatup.imovel.enums.EnumStatusOcupacao;
+import dev.locus.flatup.imovel.model.Imovel;
 import dev.locus.flatup.imovel.model.ImovelDto;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
 
@@ -40,21 +42,25 @@ public class ImovelService {
 
 	@Autowired
 	ImovelRepository repository;
-
+	
 	@Autowired
 	EnderecoRepository enderecoRepository;
+
+	@Autowired
+	EnderecoService enderecoService;
 
 	private List<ImovelDto> listaComImoveisPorPessoa;
 	
 
 	public ImovelService(List<ImovelDto> listaComImoveisPorPessoa) {
 		this.listaComImoveisPorPessoa = listaComImoveisPorPessoa;
-		this.enderecoRepository = enderecoRepository;
-		this.repository = repository;
+	
 	}
 	
 	
-	
+	public List<Imovel> listarImoveisGERAl() {
+		return repository.findAll();
+	}
 	
 
 	public List<ImovelDto> listarImoveis() {
@@ -135,7 +141,11 @@ public class ImovelService {
 	private void writeTableData(PdfPTable table) {
 	
 		for (ImovelDto imovelDto : listaComImoveisPorPessoa) {
-			Endereco endereco = enderecoRepository.findById(imovelDto.getIdEnderecoFK()).orElseThrow();
+			
+			EnderecoDto endereco = enderecoService.encontrarEndereco(imovelDto.getIdEnderecoFK());
+			System.out.println(imovelDto  +"Lista do imovel");
+			System.out.println(endereco  +"Endereco");
+			
 			table.addCell(String.valueOf(imovelDto.getIdImovel()));
 			table.addCell(String.valueOf(imovelDto.getClimatizado()));
 			table.addCell(String.valueOf(imovelDto.getStatusOcupacao()));

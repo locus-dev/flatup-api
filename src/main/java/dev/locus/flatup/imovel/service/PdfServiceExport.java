@@ -3,6 +3,7 @@ package dev.locus.flatup.imovel.service;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -22,7 +23,9 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 import dev.locus.flatup.endereco.model.Endereco;
+import dev.locus.flatup.endereco.model.EnderecoDto;
 import dev.locus.flatup.endereco.repository.EnderecoRepository;
+import dev.locus.flatup.endereco.service.EnderecoService;
 import dev.locus.flatup.imovel.model.Imovel;
 import dev.locus.flatup.imovel.model.ImovelDto;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
@@ -32,7 +35,10 @@ import dev.locus.flatup.imovel.repository.ImovelRepository;
 public class PdfServiceExport {
 	
 	@Autowired
-	EnderecoRepository enderecoRepository;
+	EnderecoService enderecoService;
+	
+	@Autowired
+	  EnderecoRepository enderecoRepository;
 	
 	@Autowired
 	ImovelRepository repository;
@@ -40,10 +46,16 @@ public class PdfServiceExport {
 	private List<Imovel> listImovel;
 	
 	
+	
+	public PdfServiceExport() {
+		super();
+	}
+
+
 	public PdfServiceExport(List<Imovel> listImovel) {
 		super();
 		this.listImovel = listImovel;
-		
+		this.enderecoRepository = enderecoRepository;
 	}
 	
 	
@@ -80,12 +92,15 @@ public class PdfServiceExport {
 	private void writeTableDataTodosImoveis(PdfPTable table) {
 		
 		for (Imovel imovel : listImovel ) {
-			Endereco endereco = enderecoRepository.findById(imovel.getIdEnderecoFK().getIdEndereco()).orElseThrow();
+			
+			System.out.println(imovel.getIdEnderecoFK().getBairro() + "aquié o endereco");
+			//System.out.println("aqui peasd"+endereco);
 			table.addCell(String.valueOf(imovel.getIdImovel()));
 			table.addCell(String.valueOf(imovel.getClimatizado()));
 			table.addCell(String.valueOf(imovel.getStatusOcupacao()));
-			table.addCell(String.valueOf(endereco.getLogradouro()));
-			table.addCell(String.valueOf(endereco.getBairro()));
+			table.addCell(String.valueOf(imovel.getIdEnderecoFK().getLogradouro()));
+			table.addCell(String.valueOf(imovel.getIdEnderecoFK().getBairro()));
+			
 		}
 	}
 

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lowagie.text.DocumentException;
 
+import dev.locus.flatup.locacao.model.Locacao;
 import dev.locus.flatup.locacao.model.LocacaoDto;
 import dev.locus.flatup.locacao.service.LocacaoService;
 
@@ -76,7 +77,7 @@ public class LocacaoController {
 		String headerValue = "attachment; filename=locacoes-" + currentDateTime + ".pdf";
 		response.setHeader(headerKey, headerValue);
 		
-		List<LocacaoDto> locacaoDto = locacaoService.listarLocacaos();
+		List<Locacao> locacaoDto = locacaoService.listarLocacaosTodes();
 		
 		LocacaoService exporter = new LocacaoService(locacaoDto);
 		exporter.export(response);

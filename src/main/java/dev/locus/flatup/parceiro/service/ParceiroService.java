@@ -24,6 +24,7 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 import dev.locus.flatup.parceiro.builder.ParceiroBuilder;
+import dev.locus.flatup.parceiro.model.Parceiro;
 import dev.locus.flatup.parceiro.model.ParceiroDto;
 import dev.locus.flatup.parceiro.repository.ParceiroRepository;
 import dev.locus.flatup.usuario.model.Usuario;
@@ -44,16 +45,20 @@ public class ParceiroService {
 	@Autowired
 	ConfigurationInstance configurationInstance;
 
-	private List<ParceiroDto> listParceiroDto;
+	private List<Parceiro> listParceiros;
 
-	public ParceiroService(List<ParceiroDto> listParceiroDto) {
+	public ParceiroService(List<Parceiro> listParceiros) {
 		super();
-		this.listParceiroDto = listParceiroDto;
+		this.listParceiros = listParceiros;
 		this.usuarioRepository = usuarioRepository;
 		this.repository = repository;
 		this.configurationInstance = configurationInstance;
 	}
 
+	public List<Parceiro> listarParceiroTodes(){
+		return repository.findAll();
+	}
+	
 	public List<ParceiroDto> listarParceiros() {
 		List<ParceiroDto> listaParceiroDtos = new ArrayList<>();
 
@@ -116,18 +121,12 @@ public class ParceiroService {
 	}
 
 	private void writeTableData(PdfPTable table) {
-		
-		
-		
-		for (ParceiroDto parceiroDto : listParceiroDto) {
-			
-			Optional<Usuario> usuarioParceiro =  configurationInstance.retornaUsuario(parceiroDto.getIdUsuarioFK().longValue());
-			String emailDoUsuario = usuarioParceiro.get().getEmail();
-			table.addCell(String.valueOf(parceiroDto.getIdParceiro()));
-			table.addCell(String.valueOf(parceiroDto.getDescricao()));
-			table.addCell(String.valueOf(parceiroDto.getNomeFantasia()));
-			table.addCell(String.valueOf(parceiroDto.getCnpj()));
-			table.addCell(emailDoUsuario);
+		for (Parceiro parceiro : listParceiros) {
+			table.addCell(String.valueOf(parceiro.getIdParceiro()));
+			table.addCell(String.valueOf(parceiro.getDescricao()));
+			table.addCell(String.valueOf(parceiro.getNomeFantasia()));
+			table.addCell(String.valueOf(parceiro.getCnpj()));
+			table.addCell(String.valueOf(parceiro.getIdUsuarioFK().getEmail()));
 			
 		}
 	}

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -23,16 +22,13 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
-import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
 import dev.locus.flatup.contratolocacao.repository.ContratoLocacaoRepository;
-import dev.locus.flatup.imovel.model.Imovel;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
 import dev.locus.flatup.locacao.builder.LocacaoBuilder;
 import dev.locus.flatup.locacao.model.EnumStatusLocacao;
+import dev.locus.flatup.locacao.model.Locacao;
 import dev.locus.flatup.locacao.model.LocacaoDto;
 import dev.locus.flatup.locacao.repository.LocacaoRepository;
-import dev.locus.flatup.usuario.model.Usuario;
-import dev.locus.flatup.usuario.model.UsuarioDto;
 import dev.locus.flatup.usuario.repository.UsuarioRepository;
 
 @Service  
@@ -53,19 +49,24 @@ public class LocacaoService {
   @Autowired
   ContratoLocacaoRepository contratoLocacaoRepository;
 
-private List<LocacaoDto> listLocacoesDto;
+private List<Locacao> listLocacoes;
   
 
 
   
-  public LocacaoService(List<LocacaoDto> listLocacoesDto) {
+  public LocacaoService(List<Locacao> listLocacoes) {
 	super();
-	this.listLocacoesDto = listLocacoesDto;
+	this.listLocacoes = listLocacoes;
 	this.repository = repository;
 	this.imovelRepository = imovelRepository;
 	this.usuarioRepository = usuarioRepository;
 	this.contratoLocacaoRepository = contratoLocacaoRepository;
 }
+  
+  public List<Locacao> listarLocacaosTodes() {
+	    return repository.findAll();
+	  }
+  
 
 public List<LocacaoDto> listarLocacaos() {
     List<LocacaoDto> listaLocacaoDtos = new ArrayList<>();
@@ -140,21 +141,12 @@ public List<LocacaoDto> listarLocacaos() {
   
   
   private void writeTableData(PdfPTable table) {
-		for(LocacaoDto locacaoDto : listLocacoesDto) {
-			Optional<Usuario> usuarioDaLocacao = usuarioRepository.findById(locacaoDto.getIdUsuarioFK());
-			Optional<Imovel> imovelDaLocacao = imovelRepository.findById(locacaoDto.getIdImovelFK());
-			Optional<ContratoLocacao> contratoDaLocacao = contratoLocacaoRepository.findById(locacaoDto.getIdContratoLocacaoFK());
-			
-			String emailUsuarioLocacao = usuarioDaLocacao.get().getEmail();
-			String imovelDisponivel = imovelDaLocacao.get().getStatusOcupacao().toString();
-			String valorLocacao = contratoDaLocacao.get().getValorLocacao().toString();
-			
-			
-			table.addCell(String.valueOf(locacaoDto.getIdLocacao()));
-			table.addCell(emailUsuarioLocacao);
-			table.addCell(imovelDisponivel);
-			table.addCell(valorLocacao);
-			table.addCell(String.valueOf(locacaoDto.getStatusLocacao()));
+		for(Locacao locacao : listLocacoes) {
+			table.addCell(String.valueOf(locacao.getIdLocacao()));
+			table.addCell(String.valueOf(locacao.getIdUsuarioFK().getEmail()));
+			table.addCell(String.valueOf(locacao.getIdImovelFK().getStatusOcupacao()));
+			table.addCell(String.valueOf(locacao.getIdContratoLocacaoFK().getValorLocacao()));
+			table.addCell(String.valueOf(locacao.getStatusLocacao()));
 			
 		}
 	}
@@ -175,7 +167,7 @@ public List<LocacaoDto> listarLocacaos() {
 		
 		PdfPTable table = new PdfPTable(5);
 		table.setWidthPercentage(100f);
-		table.setWidths(new float[] {1.5f, 1.5f, 1.5f, 1.5f,3.5f});	
+		table.setWidths(new float[] {1.0f, 3.5f, 3.5f, 3.5f,3.0f});	
 		table.setSpacingBefore(10);
 		
 		writeTableHeader(table);
