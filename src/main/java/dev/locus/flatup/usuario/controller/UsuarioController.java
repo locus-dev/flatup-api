@@ -1,7 +1,12 @@
 package dev.locus.flatup.usuario.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +19,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.lowagie.text.DocumentException;
 
 import dev.locus.flatup.exceptions.NegocioException;
 import dev.locus.flatup.usuario.model.UsuarioDto;
 import dev.locus.flatup.usuario.service.UsuarioService;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*" )
 @RequestMapping(value = "/usuario")
 public class UsuarioController {
 
@@ -59,4 +67,26 @@ public class UsuarioController {
 		service.removerUsuario(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	
+	@GetMapping(path="/pdf", produces="text/plain")
+	public void exportPdf( HttpServletResponse response) throws DocumentException, IOException{
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=usuarios-" + currentDateTime + ".pdf";
+		response.setHeader(headerKey, headerValue);
+		
+		List<UsuarioDto> usuariosDto = service.listarUsuarios();
+		
+		UsuarioService exporter = new UsuarioService(usuariosDto);
+		exporter.export(response);
+		
+		
+	}
+	
+	
+	
 }

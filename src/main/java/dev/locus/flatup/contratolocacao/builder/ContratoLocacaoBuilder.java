@@ -11,6 +11,7 @@ public class ContratoLocacaoBuilder {
 
     public ContratoLocacaoDto builderDto(ContratoLocacao contratolocacao) {
         return ContratoLocacaoDto.builder()
+                .idLocacao(contratolocacao.getIdLocacao())
                 .idImovelFK(contratolocacao.getIdImovelFK().getIdImovel())
                 .checkIn(contratolocacao.getCheckIn())
                 .checkOut(contratolocacao.getCheckOut())

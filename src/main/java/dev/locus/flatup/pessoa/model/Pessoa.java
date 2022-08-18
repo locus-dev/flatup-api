@@ -17,6 +17,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.time.LocalDate;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -46,5 +49,6 @@ public class Pessoa {
 	private String telefone;
 
 	@OneToOne
+	@JoinColumn(name = "USUARIO", unique = true)
 	public Usuario usuario;
 }

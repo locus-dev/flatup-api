@@ -11,6 +11,7 @@ public class EnderecoBuilder {
 
     public EnderecoDto builderDto(Endereco endereco) {
         return EnderecoDto.builder()
+                .idEndereco(endereco.getIdEndereco())
                 .uf(endereco.getUf())
                 .cep(endereco.getCep())
                 .bairro(endereco.getBairro())
@@ -18,6 +19,7 @@ public class EnderecoBuilder {
                 .logradouro(endereco.getLogradouro())
                 .complemento(endereco.getComplemento())
                 .pontoReferencia(endereco.getPontoReferencia())
+                .cidade(endereco.getCidade())
                 .build();
     }
 
@@ -31,6 +33,7 @@ public class EnderecoBuilder {
                 .logradouro(enderecoDto.getLogradouro())
                 .complemento(enderecoDto.getComplemento())
                 .pontoReferencia(enderecoDto.getPontoReferencia())
+                .cidade(enderecoDto.getCidade())
                 .build();
     }
 }

@@ -12,6 +12,7 @@ public class UsuarioBuilder {
     public UsuarioDto builderDto(Usuario usuarioRecebido) {
         return UsuarioDto
                 .builder()
+                .idUsuario(usuarioRecebido.getIdUsuario())
                 .email(usuarioRecebido.getEmail())
                 .senha(new BCryptPasswordEncoder().encode(usuarioRecebido.getSenha()))
                 .build();

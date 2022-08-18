@@ -38,7 +38,7 @@ public class ContratoLocacao {
 	private Integer diasLocacao;
 
 	@Column(name = "VALOR_LOCACAO")
-	private Integer valorLocacao;
+	private Double valorLocacao;
 
 	@Column(name = "CHECK_IN")
 	private LocalDateTime checkIn;
@@ -48,4 +48,7 @@ public class ContratoLocacao {
 
 	@Column(name = "QUANT_PESSOA")
 	private String quantPessoa;
+
+	@Column(name = "VALIDADE_PROMOCAO")
+	private LocalDateTime validadePromocao;
 }
