@@ -1,20 +1,38 @@
 package dev.locus.flatup.locacao.service;
 
+import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+
 import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
 import dev.locus.flatup.contratolocacao.repository.ContratoLocacaoRepository;
+import dev.locus.flatup.imovel.model.Imovel;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
 import dev.locus.flatup.locacao.builder.LocacaoBuilder;
 import dev.locus.flatup.locacao.model.EnumStatusLocacao;
 import dev.locus.flatup.locacao.model.LocacaoDto;
 import dev.locus.flatup.locacao.repository.LocacaoRepository;
+import dev.locus.flatup.usuario.model.Usuario;
+import dev.locus.flatup.usuario.model.UsuarioDto;
 import dev.locus.flatup.usuario.repository.UsuarioRepository;
 
 @Service  
@@ -35,8 +53,21 @@ public class LocacaoService {
   @Autowired
   ContratoLocacaoRepository contratoLocacaoRepository;
 
+private List<LocacaoDto> listLocacoesDto;
+  
 
-  public List<LocacaoDto> listarLocacaos() {
+
+  
+  public LocacaoService(List<LocacaoDto> listLocacoesDto) {
+	super();
+	this.listLocacoesDto = listLocacoesDto;
+	this.repository = repository;
+	this.imovelRepository = imovelRepository;
+	this.usuarioRepository = usuarioRepository;
+	this.contratoLocacaoRepository = contratoLocacaoRepository;
+}
+
+public List<LocacaoDto> listarLocacaos() {
     List<LocacaoDto> listaLocacaoDtos = new ArrayList<>();
 
     repository.findAll().forEach(Locacao -> {
@@ -78,4 +109,83 @@ public class LocacaoService {
   public void removerLocacao(Long id) {
     repository.deleteById(id);
   }
+  
+  
+  
+  
+  private void writeTableHeader(PdfPTable table) {
+		PdfPCell cell = new PdfPCell();
+		cell.setBackgroundColor(Color.BLUE);
+		cell.setPadding(5);
+		
+		Font font =FontFactory.getFont(FontFactory.HELVETICA);
+		font.setColor(Color.WHITE);
+		
+		cell.setPhrase(new Phrase("ID", font));
+		table.addCell(cell);
+		
+		cell.setPhrase(new Phrase("E-mail Usuário", font));
+		table.addCell(cell);
+		
+		cell.setPhrase(new Phrase("Imovel Disponibilidade", font));
+		table.addCell(cell);
+		
+		cell.setPhrase(new Phrase("Valor Da Locacao", font));
+		table.addCell(cell);
+		
+		cell.setPhrase(new Phrase("Status Da Locação", font));
+		table.addCell(cell);
+		
+	}
+  
+  
+  private void writeTableData(PdfPTable table) {
+		for(LocacaoDto locacaoDto : listLocacoesDto) {
+			Optional<Usuario> usuarioDaLocacao = usuarioRepository.findById(locacaoDto.getIdUsuarioFK());
+			Optional<Imovel> imovelDaLocacao = imovelRepository.findById(locacaoDto.getIdImovelFK());
+			Optional<ContratoLocacao> contratoDaLocacao = contratoLocacaoRepository.findById(locacaoDto.getIdContratoLocacaoFK());
+			
+			String emailUsuarioLocacao = usuarioDaLocacao.get().getEmail();
+			String imovelDisponivel = imovelDaLocacao.get().getStatusOcupacao().toString();
+			String valorLocacao = contratoDaLocacao.get().getValorLocacao().toString();
+			
+			
+			table.addCell(String.valueOf(locacaoDto.getIdLocacao()));
+			table.addCell(emailUsuarioLocacao);
+			table.addCell(imovelDisponivel);
+			table.addCell(valorLocacao);
+			table.addCell(String.valueOf(locacaoDto.getStatusLocacao()));
+			
+		}
+	}
+  
+  public void export(HttpServletResponse response) throws DocumentException, IOException{
+		Document document = new Document(PageSize.A4);
+		PdfWriter.getInstance(document, response.getOutputStream());
+		
+		document.open();
+		Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+		font.setSize(18);
+		font.setColor(Color.BLUE);
+		
+		Paragraph p = new Paragraph("Lista De Locações", font);
+		p.setAlignment(Paragraph.ALIGN_CENTER);
+		
+		document.add(p);
+		
+		PdfPTable table = new PdfPTable(5);
+		table.setWidthPercentage(100f);
+		table.setWidths(new float[] {1.5f, 1.5f, 1.5f, 1.5f,3.5f});	
+		table.setSpacingBefore(10);
+		
+		writeTableHeader(table);
+		writeTableData(table);
+		
+		document.add(table);
+		document.close();
+		
+		
+	}
+  
+  
 }

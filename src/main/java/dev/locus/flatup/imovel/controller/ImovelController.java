@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,16 +24,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lowagie.text.DocumentException;
 
+import dev.locus.flatup.imovel.model.Imovel;
 import dev.locus.flatup.imovel.model.ImovelDto;
 import dev.locus.flatup.imovel.service.ImovelService;
+import dev.locus.flatup.imovel.service.PdfServiceExport;
+
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",  allowedHeaders = "*" )
 @RequestMapping(value = "/imovel")
 public class ImovelController {
 
 	@Autowired
 	ImovelService imovelService;
+	
+	@Autowired
+	PdfServiceExport pdfServiceExport;
 
 	@GetMapping("/listar")
 	public List<ImovelDto> listarImoveis() {
@@ -74,9 +81,10 @@ public class ImovelController {
 		return ResponseEntity.ok().build();
 	}
 
-	
-	@GetMapping("/pdf/{idPessoa}")
-	public void exportPdf(HttpServletResponse response, @PathVariable("idPessoa")  Long idPessoa) throws DocumentException, IOException{
+	//produces = { "text/plain" }
+	@GetMapping(path="/pdf/{id}", produces = {"text/plain"})
+	public void exportPdfImovelPorPessoa(HttpServletResponse response, @PathVariable("id") Long id) throws DocumentException, IOException{
+		response.setContentType("application/pdf");
 		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
 		
@@ -84,8 +92,27 @@ public class ImovelController {
 		String headerValue = "attachment; filename=imóveis-" + currentDateTime + ".pdf";
 		response.setHeader(headerKey, headerValue);
 		
-		List<ImovelDto> imoveisDto = imovelService.listarImoveisPessoa(idPessoa);
-		imovelService.export(response, idPessoa);
+		List<ImovelDto> imoveis = imovelService.listarImoveisPessoa(id);
+		System.out.println("Aqui é o array de imoveis por pessoa" + imoveis);
+		ImovelService exporter = new ImovelService(imoveis);
+		exporter.export(response);
+	}
+	
+	
+	@GetMapping(path="/pdf", produces = {"text/plain"})
+	public void exportPdTodosOsImoveis(HttpServletResponse response) throws DocumentException, IOException{
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=imóveis-" + currentDateTime + ".pdf";
+		response.setHeader(headerKey, headerValue);
+		
+		List<Imovel> imoveis = pdfServiceExport.retornaTodosImoveis();
+		
+		PdfServiceExport exporter = new PdfServiceExport(imoveis);
+		exporter.exportTodosImoveis(response);
 	}
 	
 }

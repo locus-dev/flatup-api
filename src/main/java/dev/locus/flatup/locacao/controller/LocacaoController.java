@@ -1,7 +1,12 @@
 package dev.locus.flatup.locacao.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lowagie.text.DocumentException;
+
 import dev.locus.flatup.locacao.model.LocacaoDto;
 import dev.locus.flatup.locacao.service.LocacaoService;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*" )
 @RequestMapping(value = "/locacao")
 public class LocacaoController {
 
@@ -53,5 +60,26 @@ public class LocacaoController {
 	@DeleteMapping("/remover/{id}")
 	public ResponseEntity<Void> removerLocacaoPorId(@PathVariable Long id) throws Exception {
 		return ResponseEntity.ok().build();
+	}
+	
+	
+	
+	
+	
+	@GetMapping(value = "/pdf" , produces = { "text/plain" })
+	public void exportPdf(HttpServletResponse response) throws DocumentException, IOException{
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=locacoes-" + currentDateTime + ".pdf";
+		response.setHeader(headerKey, headerValue);
+		
+		List<LocacaoDto> locacaoDto = locacaoService.listarLocacaos();
+		
+		LocacaoService exporter = new LocacaoService(locacaoDto);
+		exporter.export(response);
+
 	}
 }

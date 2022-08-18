@@ -40,4 +40,6 @@ public class Parceiro {
 	@ManyToOne
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario idUsuarioFK;
+	
+	
 }
