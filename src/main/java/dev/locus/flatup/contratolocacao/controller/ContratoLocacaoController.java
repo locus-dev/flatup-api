@@ -59,6 +59,19 @@ public class ContratoLocacaoController {
 	public List<ContratoLocacaoDto> listarContratosLocacoes() {
 		return contratoLocacaoService.listarContratoLocacaos();
 	}
+	
+	@GetMapping("/valorTotal")
+	public int listarValorContratosLocacoes() {
+		List<ContratoLocacaoDto> contratos = contratoLocacaoService.listarContratoLocacaos();
+		int valorTotal = 0;
+		for(int i = 0; i < contratos.size(); i++) {
+			ContratoLocacaoDto contratoDto = contratos.get(i);
+			int valorTotalLocacao = contratoDto.getValorLocacao();
+			valorTotal += valorTotalLocacao;
+		}
+			
+		return valorTotal;
+	}
 
 	@PostMapping("/salvar")
 	public ResponseEntity<ContratoLocacaoDto> salvarContratoLocacao(@RequestBody @Valid ContratoLocacaoDto contratoLocacaoDto) {
