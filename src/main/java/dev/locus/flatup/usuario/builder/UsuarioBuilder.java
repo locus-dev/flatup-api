@@ -1,5 +1,6 @@
 package dev.locus.flatup.usuario.builder;
 
+import dev.locus.flatup.usuario.model.UsuarioOAuth;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,15 @@ public class UsuarioBuilder {
                 .builder()
                 .email(usuarioDto.getEmail())
                 .senha(new BCryptPasswordEncoder().encode(usuarioDto.getSenha()))
+                .build();
+    }
+
+    public Usuario builderModel(UsuarioOAuth usuarioOAuth) {
+        return Usuario
+                .builder()
+                .email(usuarioOAuth.getEmail())
+                .senha(new BCryptPasswordEncoder().encode(usuarioOAuth.getGoogleUid()))
+                .googleUid(usuarioOAuth.getGoogleUid())
                 .build();
     }
 }

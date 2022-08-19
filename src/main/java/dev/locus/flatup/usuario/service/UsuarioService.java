@@ -66,6 +66,13 @@ public class UsuarioService {
         return usuarioSalvo;
     }
 
+    @Transactional
+    public Usuario salvarOA(UsuarioOAuth usuarioOAuth) {
+
+        var usuario = builder.builderModel(usuarioOAuth);
+        var usuarioSalvo = repository.save(usuario);
+        return usuarioSalvo;
+    }
 
     public UsuarioDto encontrarUsuario(Long idUsuario) {
         var usuario = repository.findById(idUsuario).orElseThrow();
