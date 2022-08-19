@@ -58,6 +58,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/imovel/encontrar/{id:[\\d+]}").permitAll()
                 .antMatchers( "/imovel/listar/{cidade:[\\w+]}").permitAll()
                 .antMatchers( "/imovel/listar").permitAll()
+                .antMatchers( "/imovel/listar/descricao").permitAll()
+                .antMatchers( "/imovel/listar/detalhes/{id:[\\d+]}").permitAll()
                 .antMatchers(HttpMethod.POST, "/usuario/salvar").permitAll()
                 .anyRequest().authenticated().and().csrf().disable()
                 .sessionManagement()

@@ -146,4 +146,8 @@ public class UsuarioService {
     public void atualizarComUid(Usuario usuario) {
         repository.saveAndFlush(usuario);
     }
+
+    public Usuario encontrarUsuarioEmail(String email) {
+        return repository.findByEmail(email).orElseThrow();
+    }
 }
