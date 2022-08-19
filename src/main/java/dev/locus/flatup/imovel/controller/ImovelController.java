@@ -26,8 +26,13 @@ import org.supercsv.prefs.CsvPreference;
 
 import com.lowagie.text.DocumentException;
 
+
 import dev.locus.flatup.imovel.model.Imovel;
+
+import dev.locus.flatup.contratolocacao.service.ContratoLocacaoService;
+import dev.locus.flatup.imovel.model.ImovelDetalharDto;
 import dev.locus.flatup.imovel.model.ImovelDto;
+import dev.locus.flatup.imovel.model.ImovelListaDto;
 import dev.locus.flatup.imovel.service.ImovelService;
 import dev.locus.flatup.imovel.service.PdfServiceExport;
 
@@ -43,9 +48,20 @@ public class ImovelController {
 	@Autowired
 	PdfServiceExport pdfServiceExport;
 
+
 	@GetMapping("/listar")
 	public List<ImovelDto> listarImoveis() {
 		return imovelService.listarImoveis();
+	}
+
+	@GetMapping("/listar/descricao")
+	public List<ImovelListaDto> listarImoveisDescricao() {
+		return imovelService.listarImoveisDescricoes();
+	}
+	
+	@GetMapping("/listar/detalhes/{id}")
+	public ImovelDetalharDto listarImoveisDetalhes(@PathVariable("id") Long id) {
+		return imovelService.exibirImovelDetalhamento(id);
 	}
 
 	@GetMapping("/listar/{id}")

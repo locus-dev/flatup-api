@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lowagie.text.DocumentException;
 
+import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
 import dev.locus.flatup.contratolocacao.model.ContratoLocacaoDto;
 import dev.locus.flatup.contratolocacao.service.ContratoLocacaoService;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
@@ -62,11 +63,11 @@ public class ContratoLocacaoController {
 	
 	@GetMapping("/valorTotal")
 	public int listarValorContratosLocacoes() {
-		List<ContratoLocacaoDto> contratos = contratoLocacaoService.listarContratoLocacaos();
+		List<ContratoLocacao> contratos = contratoLocacaoService.listarContratoLocacaosTodos();
 		int valorTotal = 0;
 		for(int i = 0; i < contratos.size(); i++) {
-			ContratoLocacaoDto contratoDto = contratos.get(i);
-			int valorTotalLocacao = contratoDto.getValorLocacao();
+			ContratoLocacao contratoLocacao = contratos.get(i);
+			Double valorTotalLocacao = contratoLocacao.getValorLocacao();
 			valorTotal += valorTotalLocacao;
 		}
 			

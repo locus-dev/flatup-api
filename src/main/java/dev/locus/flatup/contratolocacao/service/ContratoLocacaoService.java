@@ -23,6 +23,7 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 import dev.locus.flatup.contratolocacao.builder.ContratoLocacaoBuilder;
+import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
 import dev.locus.flatup.contratolocacao.model.ContratoLocacaoDto;
 import dev.locus.flatup.contratolocacao.repository.ContratoLocacaoRepository;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
@@ -45,9 +46,12 @@ public class ContratoLocacaoService {
   @Autowired
   ImovelRepository imovelRepository;
 
-  
-  
-  
+
+  public List<ContratoLocacao> listarContratoLocacaosTodos(){
+	  return repository.findAll();
+  }
+
+
   public List<ContratoLocacaoDto> listarContratoLocacaos() {
     List<ContratoLocacaoDto> listaContratoLocacaoDtos = new ArrayList<>();
 
@@ -57,6 +61,7 @@ public class ContratoLocacaoService {
 
     return listaContratoLocacaoDtos;
   }
+
 
   @Transactional
   public ContratoLocacaoDto salvar(ContratoLocacaoDto contratoLocacaoDto) {
@@ -153,4 +158,5 @@ public class ContratoLocacaoService {
 		document.close();
 
 	}
+
 }
