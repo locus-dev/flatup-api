@@ -139,8 +139,8 @@ public class UsuarioService {
 	}
 
     public Usuario encontraUsuarioToken(UsuarioOAuth usuarioOAuth) {
-        var usuario = repository.findByEmail(usuarioOAuth.getEmail());
-        return usuario.get();
+        var usuario = repository.findByEmail(usuarioOAuth.getEmail()).orElse(null);
+        return usuario;
     }
 
     public void atualizarComUid(Usuario usuario) {
