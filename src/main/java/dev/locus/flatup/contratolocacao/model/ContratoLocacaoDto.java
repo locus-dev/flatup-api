@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -40,10 +42,14 @@ public class ContratoLocacaoDto {
 	
 	@NotNull(message = "A data de entrada deve ser informada.")
 	@JsonProperty(value = "check_in")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime checkIn;
 	
 	@NotNull(message = "A data de entrada deve ser informada.")
 	@JsonProperty(value = "check_out")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime checkOut;
 	
 	@NotBlank(message = "A quantidade de pessoas deve ser informada.")
