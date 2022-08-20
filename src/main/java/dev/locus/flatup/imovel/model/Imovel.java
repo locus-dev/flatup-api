@@ -36,7 +36,7 @@ public class Imovel {
 	private String municipio;
 
 	@Column(name = "valor_diaria")
-	private int valorDiaria;
+	private Double valorDiaria;
 
 	@Column(name = "validade_promocao")
 	private LocalDate validadePromocao;
