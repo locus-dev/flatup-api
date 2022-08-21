@@ -53,7 +53,7 @@ public class AuthenticationController {
         var usuario = usuarioService.encontraUsuarioToken(usuarioOAuth);
 
         if(Objects.isNull(usuario)) {
-            usuario = usuarioService.salvarUsuarioOauth(usuarioOAuth);
+            usuario = usuarioService.salvarOA(usuarioOAuth);
         }
 
         if(Objects.isNull(usuario.getGoogleUid())) {
