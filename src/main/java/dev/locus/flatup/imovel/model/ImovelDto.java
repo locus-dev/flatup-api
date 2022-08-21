@@ -1,8 +1,9 @@
 package dev.locus.flatup.imovel.model;
 
+import java.time.LocalDate;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ImovelDto {
 
-	
 	private Long idImovel;
 
 	@NotBlank(message = "A climatização não pode ser vazia.")
@@ -51,4 +51,13 @@ public class ImovelDto {
 
 	@NotNull
 	private String descricao;
+
+	@NotNull
+	private String municipio;
+
+	@NotNull
+	private LocalDate validadePromocao;
+
+	@NotNull
+	private Double valorDiaria;
 }

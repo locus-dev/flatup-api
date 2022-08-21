@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -29,9 +30,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContratoLocacaoDto {
-	
-	
-	
 
 	@JsonProperty(value = "locacao_id")
 	private Long idLocacao;
@@ -43,28 +41,32 @@ public class ContratoLocacaoDto {
 	@NotNull(message = "Os dias de locação devem ser informado.")
 	@JsonProperty(value = "dias_locacao")
 	private Integer diasLocacao;
-	
+
 	@NotNull(message = "O valor da locação deve ser informado.")
 	@JsonProperty(value = "valor_locacao")
 	private Double valorLocacao;
-	
+
 	@NotNull(message = "A data de entrada deve ser informada.")
 	@JsonProperty(value = "check_in")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime checkIn;
-	
+
 	@NotNull(message = "A data de entrada deve ser informada.")
 	@JsonProperty(value = "check_out")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDateTime checkOut;
-	
+
 	@NotBlank(message = "A quantidade de pessoas deve ser informada.")
 	@JsonProperty(value = "quant_pessoa")
 	private String quantPessoa;
-	
+
 	@NotNull(message = "A validade da Promoção deve ser informada.")
 	@JsonProperty(value = "validade_promocao")
-	//@DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd")
-//    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-//    @JsonSerialize(using = LocalDateTimeSerializer.class)
+	// @DateTimeFormat(iso = ISO.DATE_TIME,pattern = "yyyy-MM-dd")
+	// @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	// @JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime validadePromocao;
 
 }

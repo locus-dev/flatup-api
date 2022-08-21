@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import dev.locus.flatup.endereco.model.Endereco;
 import dev.locus.flatup.imovel.model.Imovel;
 import dev.locus.flatup.parceiro.model.Parceiro;
 import lombok.AllArgsConstructor;
@@ -36,11 +37,6 @@ public class Localizacao {
 	private String longitude;
 
 	@OneToOne
-	@JoinColumn(name = "IMOVEL_ID")
-	private Imovel idImovelFk;
-
-	@OneToOne
-	@JoinColumn(name = "PARCEIRO_ID")
-	private Parceiro idParceiroFk;
-
+	@JoinColumn(name = "ENDERECO_ID")
+	private Endereco idEnderecoFk;
 }

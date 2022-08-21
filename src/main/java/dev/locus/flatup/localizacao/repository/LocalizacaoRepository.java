@@ -12,6 +12,5 @@ import dev.locus.flatup.localizacao.model.Localizacao;
 @Repository
 public interface LocalizacaoRepository extends JpaRepository<Localizacao, Long> {
 
-    Optional<Localizacao> findByIdImovelFk(Long id);
-
+    Optional<Localizacao> findByIdEnderecoFk(Long idEndereco);
 }
