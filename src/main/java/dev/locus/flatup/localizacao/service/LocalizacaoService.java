@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import dev.locus.flatup.endereco.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,7 @@ public class LocalizacaoService {
   LocalizacaoBuilder builder;
 
   @Autowired
-  private ImovelRepository imovelRepository;
-
-  @Autowired
-  private ParceiroRepository parceiroRepository;
+  private EnderecoRepository enderecoRepository;
 
   @Autowired
   LocalizacaoRepository repository;
@@ -41,9 +39,8 @@ public class LocalizacaoService {
 
   @Transactional
   public LocalizacaoDto salvar(LocalizacaoDto localizacaoDto) {
-    var parceiro = parceiroRepository.findById(localizacaoDto.getIdParceiroFk()).orElseThrow();
-    var imovel = imovelRepository.findById(localizacaoDto.getIdImovelFk()).orElseThrow();
-    var localizacao = builder.builderModel(localizacaoDto, imovel, parceiro);
+    var endereco = enderecoRepository.findById(localizacaoDto.getIdEnderecoFk()).orElseThrow();
+    var localizacao = builder.builderModel(localizacaoDto, endereco);
     var localizacaoSalvo = builder.builderDto(repository.save(localizacao));
     return localizacaoSalvo;
   }
@@ -55,10 +52,9 @@ public class LocalizacaoService {
 
   @Transactional
   public LocalizacaoDto alterar(Long idLocalizacao, LocalizacaoDto localizacaoDto) {
-    var parceiro = parceiroRepository.findById(localizacaoDto.getIdParceiroFk()).orElseThrow();
-    var imovel = imovelRepository.findById(localizacaoDto.getIdImovelFk()).orElseThrow();
+    var imovel = enderecoRepository.findById(localizacaoDto.getIdEnderecoFk()).orElseThrow();
     localizacaoDto.setIdLocalizacao(idLocalizacao);
-    var localizacao = builder.builderModel(localizacaoDto, imovel, parceiro);
+    var localizacao = builder.builderModel(localizacaoDto, imovel);
     return builder.builderDto(repository.save(localizacao));
   }
   

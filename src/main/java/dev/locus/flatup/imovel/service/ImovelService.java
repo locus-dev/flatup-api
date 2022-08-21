@@ -195,7 +195,7 @@ public class ImovelService {
 	public ImovelDetalharDto exibirImovelDetalhamento(Long id) {
 		
 		var imovel = repository.findById(id).orElseThrow();
-		var localizacao = localizacaoRepository.findByIdImovelFk(id).orElseThrow();
+		var localizacao = localizacaoRepository.findByIdEnderecoFk(imovel.getIdEnderecoFK().getIdEndereco()).orElseThrow();
 		var contrato = contratoLocacaoRepository.findContratoByIdImovelFK(id).orElseThrow();
 
 		return builder.builderImovelDetalhar(contrato, localizacao, imovel);
