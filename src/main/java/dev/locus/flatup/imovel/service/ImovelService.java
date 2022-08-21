@@ -196,7 +196,6 @@ public class ImovelService {
 		
 		var imovel = repository.findById(id).orElseThrow();
 		var localizacao = localizacaoRepository.findByIdImovelFk(id).orElseThrow();
-		var contrato = contratoLocacaoRepository.findContratoByIdImovelFK(id).orElseThrow();
 
 		return builder.builderImovelDetalhar(localizacao, imovel);
 	}

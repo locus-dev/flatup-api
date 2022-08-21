@@ -31,7 +31,7 @@ public class LocalizacaoDto {
 	@JsonProperty(value = "imovel_id")
 	private Long idImovelFk;
 
-	@NotNull(message = "O parceiro do imóvel deve ser informado.")
+	// @NotNull(message = "O parceiro do imóvel deve ser informado.")
 	@JsonProperty(value = "parceiro_id")
 	private Long idParceiroFk;
 
