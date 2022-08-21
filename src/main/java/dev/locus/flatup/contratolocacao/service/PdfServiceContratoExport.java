@@ -2,7 +2,6 @@ package dev.locus.flatup.contratolocacao.service;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -22,77 +21,31 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
-import dev.locus.flatup.contratolocacao.builder.ContratoLocacaoBuilder;
 import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
 import dev.locus.flatup.contratolocacao.model.ContratoLocacaoDto;
 import dev.locus.flatup.contratolocacao.repository.ContratoLocacaoRepository;
-import dev.locus.flatup.imovel.repository.ImovelRepository;
 
 @Service
-public class ContratoLocacaoService {
+@Transactional
+public class PdfServiceContratoExport {
 	
-	private List<ContratoLocacaoDto> listContratoLocacaoDto;
+	private ContratoLocacaoDto contratoLocacaoDto;
 	
-	public ContratoLocacaoService(List<ContratoLocacaoDto> listContratoLocacaoDto) {
-		this.listContratoLocacaoDto = listContratoLocacaoDto;
+	
+	@Autowired
+	  ContratoLocacaoRepository repository;
+	
+	
+	public PdfServiceContratoExport() {
+		super();
 	}
 
-  @Autowired
-  ContratoLocacaoBuilder builder;
+	public PdfServiceContratoExport(ContratoLocacaoDto contratoLocacaoDto) {
+		super();
+		this.contratoLocacaoDto = contratoLocacaoDto;
+	}
 
-  @Autowired
-  ContratoLocacaoRepository repository;
-
-  @Autowired
-  ImovelRepository imovelRepository;
-
-
-  public List<ContratoLocacao> listarContratoLocacaosTodos(){
-	  return repository.findAll();
-  }
-
-
-  public List<ContratoLocacaoDto> listarContratoLocacaos() {
-    List<ContratoLocacaoDto> listaContratoLocacaoDtos = new ArrayList<>();
-
-    repository.findAll().forEach(ContratoLocacao -> {
-      listaContratoLocacaoDtos.add(builder.builderDto(ContratoLocacao));
-    });
-
-    return listaContratoLocacaoDtos;
-  }
-
-
-  @Transactional
-  public ContratoLocacaoDto salvar(ContratoLocacaoDto contratoLocacaoDto) {
-    var imovel = imovelRepository.findById(contratoLocacaoDto.getIdImovelFK()).orElseThrow();
-    var contratoLocacao = builder.builderModel(contratoLocacaoDto, imovel);
-    var contratoLocacaoSalvo = builder.builderDto(repository.save(contratoLocacao));
-    
-    System.out.println(contratoLocacaoSalvo.getValidadePromocao() + "Validade PROMOCAO");
-    return contratoLocacaoSalvo;
-  }
-
-  public ContratoLocacaoDto encontrarContratoLocacao(Long idContratoLocacao) {
-    var contratoLocacao = repository.findById(idContratoLocacao).orElseThrow();
-    return builder.builderDto(contratoLocacao);
-  }
-
-  @Transactional
-  public ContratoLocacaoDto alterar(Long idContratoLocacao, ContratoLocacaoDto contratoLocacaoDto) {
-    contratoLocacaoDto.setIdLocacao(idContratoLocacao);
-    var imovel = imovelRepository.findById(contratoLocacaoDto.getIdImovelFK()).orElseThrow();
-    var contratoLocacao = builder.builderModel(contratoLocacaoDto, imovel);
-    return builder.builderDto(repository.save(contratoLocacao));
-  }
-
-  @Transactional
-  public void removerContratoLocacao(Long id) {
-    repository.deleteById(id);
-  }
-
-  
-  private void writeTableHeader(PdfPTable table) {
+	private void writeTableHeader(PdfPTable table) {
 		PdfPCell cell = new PdfPCell();
 		cell.setBackgroundColor(Color.BLUE);
 		cell.setPadding(5);
@@ -121,9 +74,9 @@ public class ContratoLocacaoService {
 		cell.setPhrase(new Phrase("quantPessoa", font));
 		table.addCell(cell);
 	}
-
+	
 	private void writeTableData(PdfPTable table) {
-		for (ContratoLocacaoDto contratoLocacaoDto : listContratoLocacaoDto) {
+		
 			table.addCell(String.valueOf(contratoLocacaoDto.getIdLocacao()));
 			table.addCell(String.valueOf(contratoLocacaoDto.getIdImovelFK()));
 			table.addCell(String.valueOf(contratoLocacaoDto.getDiasLocacao()));
@@ -131,7 +84,7 @@ public class ContratoLocacaoService {
 			table.addCell(String.valueOf(contratoLocacaoDto.getCheckIn()));
 			table.addCell(String.valueOf(contratoLocacaoDto.getCheckOut()));
 			table.addCell(String.valueOf(contratoLocacaoDto.getQuantPessoa()));
-		}
+		
 	}
 
 	public void export(HttpServletResponse response) throws DocumentException, IOException {
@@ -160,5 +113,4 @@ public class ContratoLocacaoService {
 		document.close();
 
 	}
-
 }

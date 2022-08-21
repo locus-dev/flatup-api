@@ -29,13 +29,14 @@ import com.lowagie.text.DocumentException;
 import dev.locus.flatup.contratolocacao.model.ContratoLocacao;
 import dev.locus.flatup.contratolocacao.model.ContratoLocacaoDto;
 import dev.locus.flatup.contratolocacao.service.ContratoLocacaoService;
+import dev.locus.flatup.contratolocacao.service.PdfServiceContratoExport;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
 import dev.locus.flatup.locacao.repository.LocacaoRepository;
 import dev.locus.flatup.parceiro.repository.ParceiroRepository;
 import dev.locus.flatup.usuario.repository.UsuarioRepository;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",allowedHeaders = "*" )
 @RequestMapping(value = "/contratolocacao")
 public class ContratoLocacaoController {
 
@@ -111,6 +112,23 @@ public class ContratoLocacaoController {
 		List<ContratoLocacaoDto> contratoLocacaoDto = contratoLocacaoService.listarContratoLocacaos();
 		
 		ContratoLocacaoService exporter = new ContratoLocacaoService(contratoLocacaoDto);
+		exporter.export(response);
+
+	}
+	
+	@GetMapping(value = "/pdf/{id}" , produces = { "text/plain" })
+	public void exportPdfEspecifico(HttpServletResponse response,@PathVariable Long id) throws DocumentException, IOException{
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=contrato-locacoes-" + currentDateTime + ".pdf";
+		response.setHeader(headerKey, headerValue);
+		
+		ContratoLocacaoDto contratoLocacaoDto = contratoLocacaoService.encontrarContratoLocacao(id);
+		
+		PdfServiceContratoExport exporter = new PdfServiceContratoExport(contratoLocacaoDto);
 		exporter.export(response);
 
 	}
