@@ -185,7 +185,7 @@ public class ImovelService {
 		var imovelListaExibicao = new ArrayList<ImovelListaDto>();
 
 		listaImoveis.forEach(imovel -> {
-			// var imovel = repository.findById(contrato.getIdImovelFK().getIdImovel()).orElseThrow();
+			// adicionar contratos de locação
 			imovelListaExibicao.add(builder.buiderImovelListagem(imovel));
 		});
 
@@ -195,7 +195,7 @@ public class ImovelService {
 	public ImovelDetalharDto exibirImovelDetalhamento(Long id) {
 		
 		var imovel = repository.findById(id).orElseThrow();
-		var localizacao = localizacaoRepository.findByIdImovelFk(id).orElseThrow();
+		var localizacao = localizacaoRepository.findByIdEnderecoFk(imovel.getIdEnderecoFK().getIdEndereco()).orElseThrow();
 
 		return builder.builderImovelDetalhar(localizacao, imovel);
 	}

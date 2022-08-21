@@ -27,11 +27,10 @@ public class LocalizacaoDto {
 	@JsonProperty(value = "longitude")
 	private String longitude;
 
-	@NotNull(message = "O imóvel deve ser informado.")
-	@JsonProperty(value = "imovel_id")
-	private Long idImovelFk;
+	@NotNull(message = "O Endereco deve ser informado.")
+	@JsonProperty(value = "endereco_id")
+	private Long idEnderecoFk;
 
-	// @NotNull(message = "O parceiro do imóvel deve ser informado.")
 	@JsonProperty(value = "parceiro_id")
 	private Long idParceiroFk;
 

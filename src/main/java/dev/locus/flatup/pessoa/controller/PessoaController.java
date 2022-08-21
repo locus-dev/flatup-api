@@ -1,6 +1,7 @@
 package dev.locus.flatup.pessoa.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.Valid;
 
@@ -44,6 +45,15 @@ public class PessoaController {
 		return ResponseEntity.ok(pessoa);
 	}
 
+	@GetMapping("/possui-user/{id}")
+	public ResponseEntity<PessoaDto> buscarPessoaPorUser(@PathVariable Long id) throws Exception {
+		var pessoa = pessoaService.possuiUser(id);
+		if(Objects.isNull(pessoa)) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(pessoa);
+	}
+
 	@PutMapping("/editar")
 	public ResponseEntity<PessoaDto> editarPessoa(@PathVariable Long id, @RequestBody @Valid PessoaDto pessoaDto) throws Exception {
 		var pessoaEditada = pessoaService.alterar(id, pessoaDto);
@@ -55,5 +65,4 @@ public class PessoaController {
 		pessoaService.removerPessoa(id);
 		return ResponseEntity.ok().build();
 	}
-
 }

@@ -1,5 +1,6 @@
 package dev.locus.flatup.localizacao.builder;
 
+import dev.locus.flatup.endereco.model.Endereco;
 import org.springframework.stereotype.Component;
 
 import dev.locus.flatup.imovel.model.Imovel;
@@ -13,17 +14,15 @@ public class LocalizacaoBuilder {
     public LocalizacaoDto builderDto(Localizacao localizacao) {
         return LocalizacaoDto.builder()
                 .idLocalizacao(localizacao.getIdLocalizacao())
-                .idImovelFk(localizacao.getIdImovelFk().getIdImovel())
-                .idParceiroFk(localizacao.getIdParceiroFk().getIdParceiro())
+                .idEnderecoFk(localizacao.getIdEnderecoFk().getIdEndereco())
                 .latitude(localizacao.getLatitude())
                 .longitude(localizacao.getLongitude())
                 .build();
     }
 
-    public Localizacao builderModel(LocalizacaoDto localizacaoDto, Imovel imovel, Parceiro parceiro) {
+    public Localizacao builderModel(LocalizacaoDto localizacaoDto, Endereco endereco) {
         return Localizacao.builder()
-                .idImovelFk(imovel)
-                .idParceiroFk(parceiro)
+                .idEnderecoFk(endereco)
                 .latitude(localizacaoDto.getLatitude())
                 .longitude(localizacaoDto.getLongitude())
                 .build();

@@ -69,7 +69,7 @@ public class UsuarioService {
     @Transactional
     public Usuario salvarOA(UsuarioOAuth usuarioOAuth) {
 
-        var usuario = builder.builderModel(usuarioOAuth);
+        var usuario = builder.builderModelFromOauth(usuarioOAuth);
         var usuarioSalvo = repository.save(usuario);
         return usuarioSalvo;
     }
@@ -146,8 +146,8 @@ public class UsuarioService {
 	}
 
     public Usuario encontraUsuarioToken(UsuarioOAuth usuarioOAuth) {
-        var usuario = repository.findByEmail(usuarioOAuth.getEmail()).orElse(null);
-        return usuario;
+        var usuario = repository.findByEmail(usuarioOAuth.getEmail());
+        return usuario.orElse(null);
     }
 
     public void atualizarComUid(Usuario usuario) {
@@ -156,5 +156,11 @@ public class UsuarioService {
 
     public Usuario encontrarUsuarioEmail(String email) {
         return repository.findByEmail(email).orElseThrow();
+    }
+
+    public Usuario salvarUsuarioOauth(UsuarioOAuth usuarioOAuth) {
+        var usuarioToSave = builder.builderModelFromOauth(usuarioOAuth);
+        var usuario = repository.saveAndFlush(usuarioToSave);
+        return usuario;
     }
 }

@@ -60,4 +60,10 @@ public class PessoaService {
   public void removerPessoa(Long id) {
     repository.deleteById(id);
   }
+
+  public PessoaDto possuiUser(Long id) {
+    var pessoa = repository.findByUsuario(id);
+    return builder.builderDto(pessoa);
+  }
+
 }

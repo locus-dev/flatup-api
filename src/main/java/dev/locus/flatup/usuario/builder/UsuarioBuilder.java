@@ -27,7 +27,7 @@ public class UsuarioBuilder {
                 .build();
     }
 
-    public Usuario builderModel(UsuarioOAuth usuarioOAuth) {
+    public Usuario builderModelFromOauth(UsuarioOAuth usuarioOAuth) {
         return Usuario
                 .builder()
                 .email(usuarioOAuth.getEmail())
