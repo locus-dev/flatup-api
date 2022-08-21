@@ -150,4 +150,10 @@ public class UsuarioService {
     public Usuario encontrarUsuarioEmail(String email) {
         return repository.findByEmail(email).orElseThrow();
     }
+
+    public Usuario salvarUsuarioOauth(UsuarioOAuth usuarioOAuth) {
+        var usuarioToSave = builder.builderModelFromOauth(usuarioOAuth);
+        var usuario = repository.saveAndFlush(usuarioToSave);
+        return usuario;
+    }
 }

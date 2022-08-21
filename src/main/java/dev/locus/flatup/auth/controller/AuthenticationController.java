@@ -53,7 +53,7 @@ public class AuthenticationController {
         var usuario = usuarioService.encontraUsuarioToken(usuarioOAuth);
 
         if(Objects.isNull(usuario)) {
-            throw new RuntimeException("Usuario não encontrado");
+            usuario = usuarioService.salvarUsuarioOauth(usuarioOAuth);
         }
 
         if(Objects.isNull(usuario.getGoogleUid())) {
