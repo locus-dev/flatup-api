@@ -52,4 +52,5 @@ public class ContratoLocacao {
 
 	@Column(name = "VALIDADE_PROMOCAO")
 	private LocalDate validadePromocao;
+
 }

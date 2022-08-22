@@ -70,7 +70,7 @@ public class ImovelController {
 	}
 
 	@GetMapping("/listar/{cidade}")
-	public List<ImovelDto> listarMeusImoveis(@PathVariable("cidade") String cidade) {
+	public List<ImovelDto> listarImoveisPorCidade(@PathVariable("cidade") String cidade) {
 		return imovelService.listarImoveisCidade(cidade);
 	}
 
