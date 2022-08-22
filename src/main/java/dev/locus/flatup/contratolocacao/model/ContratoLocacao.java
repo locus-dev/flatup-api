@@ -1,5 +1,6 @@
 package dev.locus.flatup.contratolocacao.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -41,14 +42,14 @@ public class ContratoLocacao {
 	private Double valorLocacao;
 
 	@Column(name = "CHECK_IN")
-	private LocalDateTime checkIn;
+	private LocalDate checkIn;
 
 	@Column(name = "CHECK_OUT")
-	private LocalDateTime checkOut;
+	private LocalDate checkOut;
 
 	@Column(name = "QUANT_PESSOA")
 	private String quantPessoa;
 
 	@Column(name = "VALIDADE_PROMOCAO")
-	private LocalDateTime validadePromocao;
+	private LocalDate validadePromocao;
 }
