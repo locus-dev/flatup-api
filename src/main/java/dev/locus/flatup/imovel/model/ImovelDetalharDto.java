@@ -15,6 +15,7 @@ public class ImovelDetalharDto {
     
     private Long idImovel;
     private String tituloAnuncio;
+    private String descricao;
     private Double valorDiaria;
     private LocalDate validadePromocao;
     private String logradouro;

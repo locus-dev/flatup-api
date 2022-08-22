@@ -35,7 +35,7 @@ public class ImovelBuilder {
                 .build();
             }
 
-            public Imovel builderModel(ImovelDto imovelDto, EnumClimatizado enumClimatizado, Endereco endereco, EnumStatusOcupacao statusOcupacao){
+    public Imovel builderModel(ImovelDto imovelDto, EnumClimatizado enumClimatizado, Endereco endereco, EnumStatusOcupacao statusOcupacao){
         return Imovel.builder()
         .areaM2(imovelDto.getAreaM2())
         .piscina(imovelDto.getPiscina())
@@ -62,7 +62,7 @@ public class ImovelBuilder {
             .valorDiaria(imovel.getValorDiaria())
             .validadePromocao(imovel.getValidadePromocao())
             .municipio(imovel.getMunicipio())
-            .descricaoAnuncio(imovel.getDescricao())
+            .descricao(imovel.getDescricao())
             .statusOcupacao(imovel.getStatusOcupacao())
             .tituloAnuncio(imovel.getTituloAnuncio())
             .build();
@@ -73,6 +73,7 @@ public class ImovelBuilder {
             .idImovel(imovel.getIdImovel())
             .tituloAnuncio(imovel.getTituloAnuncio())
             .valorDiaria(imovel.getValorDiaria())
+            .descricao(imovel.getDescricao())
             .municipio(imovel.getMunicipio())
             .validadePromocao(imovel.getValidadePromocao())
             .logradouro(imovel.getIdEnderecoFK().getLogradouro())

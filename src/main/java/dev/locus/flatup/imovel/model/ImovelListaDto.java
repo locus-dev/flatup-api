@@ -15,7 +15,7 @@ public class ImovelListaDto {
     
     private Long idImovel;
     private String tituloAnuncio;
-    private String descricaoAnuncio;
+    private String descricao;
     private String municipio;
     private Double valorDiaria;
     private LocalDate validadePromocao;
