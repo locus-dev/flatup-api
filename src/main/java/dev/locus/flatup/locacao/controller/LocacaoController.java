@@ -28,7 +28,7 @@ import dev.locus.flatup.locacao.model.LocacaoDto;
 import dev.locus.flatup.locacao.service.LocacaoService;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*" )
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(value = "/locacao")
 public class LocacaoController {
 
@@ -52,8 +52,15 @@ public class LocacaoController {
 		return ResponseEntity.ok(locacao);
 	}
 
+	@GetMapping("/encontrar/porUsuario/{id}")
+	public ResponseEntity<List<LocacaoDto>> buscarLocacaoPorIdDoUsuario(@PathVariable Long id) throws Exception {
+		var locacoesDoUsuarioEspecifico = locacaoService.retornaLocacoesPorUsuarioEspecifico(id);
+		return ResponseEntity.ok(locacoesDoUsuarioEspecifico);
+	}
+
 	@PutMapping("/editar/{id}")
-	public ResponseEntity<LocacaoDto> editarLocacaoPorId(@PathVariable("id") Long id, @RequestBody @Valid LocacaoDto locacaoDto) throws Exception {
+	public ResponseEntity<LocacaoDto> editarLocacaoPorId(@PathVariable("id") Long id,
+			@RequestBody @Valid LocacaoDto locacaoDto) throws Exception {
 		var novaLocacao = locacaoService.alterar(id, locacaoDto);
 		return ResponseEntity.ok(novaLocacao);
 	}
@@ -62,23 +69,19 @@ public class LocacaoController {
 	public ResponseEntity<Void> removerLocacaoPorId(@PathVariable Long id) throws Exception {
 		return ResponseEntity.ok().build();
 	}
-	
-	
-	
-	
-	
-	@GetMapping(value = "/pdf" , produces = { "text/plain" })
-	public void exportPdf(HttpServletResponse response) throws DocumentException, IOException{
+
+	@GetMapping(value = "/pdf", produces = { "text/plain" })
+	public void exportPdf(HttpServletResponse response) throws DocumentException, IOException {
 		response.setContentType("application/pdf");
 		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
-		
+
 		String headerKey = "Content-Disposition";
 		String headerValue = "attachment; filename=locacoes-" + currentDateTime + ".pdf";
 		response.setHeader(headerKey, headerValue);
-		
+
 		List<Locacao> locacaoDto = locacaoService.listarLocacaosTodes();
-		
+
 		LocacaoService exporter = new LocacaoService(locacaoDto);
 		exporter.export(response);
 

@@ -31,153 +31,154 @@ import dev.locus.flatup.locacao.model.LocacaoDto;
 import dev.locus.flatup.locacao.repository.LocacaoRepository;
 import dev.locus.flatup.usuario.repository.UsuarioRepository;
 
-@Service  
+@Service
 public class LocacaoService {
-    
-  @Autowired
-  LocacaoBuilder builder;
 
-  @Autowired
-  LocacaoRepository repository;
+	@Autowired
+	LocacaoBuilder builder;
 
-  @Autowired
-  ImovelRepository imovelRepository;
+	@Autowired
+	LocacaoRepository repository;
 
-  @Autowired
-  UsuarioRepository usuarioRepository;
+	@Autowired
+	ImovelRepository imovelRepository;
 
-  @Autowired
-  ContratoLocacaoRepository contratoLocacaoRepository;
+	@Autowired
+	UsuarioRepository usuarioRepository;
 
-private List<Locacao> listLocacoes;
-  
+	@Autowired
+	ContratoLocacaoRepository contratoLocacaoRepository;
 
+	private List<Locacao> listLocacoes;
 
-  
-  public LocacaoService(List<Locacao> listLocacoes) {
-	super();
-	this.listLocacoes = listLocacoes;
-	this.repository = repository;
-	this.imovelRepository = imovelRepository;
-	this.usuarioRepository = usuarioRepository;
-	this.contratoLocacaoRepository = contratoLocacaoRepository;
-}
-  
-  public List<Locacao> listarLocacaosTodes() {
-	    return repository.findAll();
-	  }
-  
+	public LocacaoService(List<Locacao> listLocacoes) {
+		super();
+		this.listLocacoes = listLocacoes;
+		this.repository = repository;
+		this.imovelRepository = imovelRepository;
+		this.usuarioRepository = usuarioRepository;
+		this.contratoLocacaoRepository = contratoLocacaoRepository;
+	}
 
-public List<LocacaoDto> listarLocacaos() {
-    List<LocacaoDto> listaLocacaoDtos = new ArrayList<>();
+	public List<Locacao> listarLocacaosTodes() {
+		return repository.findAll();
+	}
 
-    repository.findAll().forEach(Locacao -> {
-      listaLocacaoDtos.add(builder.builderDto(Locacao));
-    });
+	public List<LocacaoDto> listarLocacaos() {
+		List<LocacaoDto> listaLocacaoDtos = new ArrayList<>();
 
-    return listaLocacaoDtos;
-  }
+		repository.findAll().forEach(Locacao -> {
+			listaLocacaoDtos.add(builder.builderDto(Locacao));
+		});
 
-  @Transactional
-  public LocacaoDto salvar(LocacaoDto locacaoDto) {
+		return listaLocacaoDtos;
+	}
 
-    var usuario = usuarioRepository.findById(locacaoDto.getIdUsuarioFK()).orElseThrow();
-    var imovel = imovelRepository.findById(locacaoDto.getIdImovelFK()).orElseThrow();
-    var contratolocacao = contratoLocacaoRepository.findById(locacaoDto.getIdContratoLocacaoFK()).orElseThrow();
+	@Transactional
+	public LocacaoDto salvar(LocacaoDto locacaoDto) {
 
-    var locacao = builder.builderModel(locacaoDto, imovel, contratolocacao, usuario, EnumStatusLocacao.valueOf(locacaoDto.getStatusLocacao()));
-    var locacaoSalvo = builder.builderDto(repository.save(locacao));
-    return locacaoSalvo;
-  }
+		var usuario = usuarioRepository.findById(locacaoDto.getIdUsuarioFK()).orElseThrow();
+		var imovel = imovelRepository.findById(locacaoDto.getIdImovelFK()).orElseThrow();
+		var contratolocacao = contratoLocacaoRepository.findById(locacaoDto.getIdContratoLocacaoFK()).orElseThrow();
 
-  public LocacaoDto encontrarLocacao(Long idLocacao) {
-    var locacao = repository.findById(idLocacao).orElseThrow();
-    return builder.builderDto(locacao);
-  }
+		var locacao = builder.builderModel(locacaoDto, imovel, contratolocacao, usuario,
+				EnumStatusLocacao.valueOf(locacaoDto.getStatusLocacao()));
+		var locacaoSalvo = builder.builderDto(repository.save(locacao));
+		return locacaoSalvo;
+	}
 
-  @Transactional
-  public LocacaoDto alterar(Long idLocacao, LocacaoDto locacaoDto) {
-    var usuario = usuarioRepository.findById(locacaoDto.getIdUsuarioFK()).orElseThrow();
-    var imovel = imovelRepository.findById(locacaoDto.getIdImovelFK()).orElseThrow();
-    var contratolocacao = contratoLocacaoRepository.findById(locacaoDto.getIdContratoLocacaoFK()).orElseThrow();
+	public LocacaoDto encontrarLocacao(Long idLocacao) {
+		var locacao = repository.findById(idLocacao).orElseThrow();
+		return builder.builderDto(locacao);
+	}
 
-    locacaoDto.setIdLocacao(idLocacao);
-    var locacao = builder.builderModel(locacaoDto, imovel, contratolocacao, usuario, EnumStatusLocacao.valueOf(locacaoDto.getStatusLocacao()));
-    return builder.builderDto(repository.save(locacao));
-  }
+	@Transactional
+	public LocacaoDto alterar(Long idLocacao, LocacaoDto locacaoDto) {
+		var usuario = usuarioRepository.findById(locacaoDto.getIdUsuarioFK()).orElseThrow();
+		var imovel = imovelRepository.findById(locacaoDto.getIdImovelFK()).orElseThrow();
+		var contratolocacao = contratoLocacaoRepository.findById(locacaoDto.getIdContratoLocacaoFK()).orElseThrow();
 
-  @Transactional
-  public void removerLocacao(Long id) {
-    repository.deleteById(id);
-  }
-  
-  
-  
-  
-  private void writeTableHeader(PdfPTable table) {
+		locacaoDto.setIdLocacao(idLocacao);
+		var locacao = builder.builderModel(locacaoDto, imovel, contratolocacao, usuario,
+				EnumStatusLocacao.valueOf(locacaoDto.getStatusLocacao()));
+		return builder.builderDto(repository.save(locacao));
+	}
+
+	@Transactional
+	public void removerLocacao(Long id) {
+		repository.deleteById(id);
+	}
+
+	public List<LocacaoDto> retornaLocacoesPorUsuarioEspecifico(Long id) {
+		var locacao = repository.retornaLocacaoPorUsuario(id);
+		var locacaoDto = builder.builderDto(locacao);
+
+		List<LocacaoDto> listaDeLocacoes = new ArrayList<>();
+		listaDeLocacoes.add(locacaoDto);
+		return listaDeLocacoes;
+	}
+
+	private void writeTableHeader(PdfPTable table) {
 		PdfPCell cell = new PdfPCell();
 		cell.setBackgroundColor(Color.BLUE);
 		cell.setPadding(5);
-		
-		Font font =FontFactory.getFont(FontFactory.HELVETICA);
+
+		Font font = FontFactory.getFont(FontFactory.HELVETICA);
 		font.setColor(Color.WHITE);
-		
+
 		cell.setPhrase(new Phrase("ID", font));
 		table.addCell(cell);
-		
+
 		cell.setPhrase(new Phrase("E-mail Usuário", font));
 		table.addCell(cell);
-		
+
 		cell.setPhrase(new Phrase("Imovel Disponibilidade", font));
 		table.addCell(cell);
-		
+
 		cell.setPhrase(new Phrase("Valor Da Locacao", font));
 		table.addCell(cell);
-		
+
 		cell.setPhrase(new Phrase("Status Da Locação", font));
 		table.addCell(cell);
-		
+
 	}
-  
-  
-  private void writeTableData(PdfPTable table) {
-		for(Locacao locacao : listLocacoes) {
+
+	private void writeTableData(PdfPTable table) {
+		for (Locacao locacao : listLocacoes) {
 			table.addCell(String.valueOf(locacao.getIdLocacao()));
 			table.addCell(String.valueOf(locacao.getIdUsuarioFK().getEmail()));
 			table.addCell(String.valueOf(locacao.getIdImovelFK().getStatusOcupacao()));
 			table.addCell(String.valueOf(locacao.getIdContratoLocacaoFK().getValorLocacao()));
 			table.addCell(String.valueOf(locacao.getStatusLocacao()));
-			
+
 		}
 	}
-  
-  public void export(HttpServletResponse response) throws DocumentException, IOException{
+
+	public void export(HttpServletResponse response) throws DocumentException, IOException {
 		Document document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document, response.getOutputStream());
-		
+
 		document.open();
 		Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 		font.setSize(18);
 		font.setColor(Color.BLUE);
-		
+
 		Paragraph p = new Paragraph("Lista De Locações", font);
 		p.setAlignment(Paragraph.ALIGN_CENTER);
-		
+
 		document.add(p);
-		
+
 		PdfPTable table = new PdfPTable(5);
 		table.setWidthPercentage(100f);
-		table.setWidths(new float[] {1.0f, 3.5f, 3.5f, 3.5f,3.0f});	
+		table.setWidths(new float[] { 1.0f, 3.5f, 3.5f, 3.5f, 3.0f });
 		table.setSpacingBefore(10);
-		
+
 		writeTableHeader(table);
 		writeTableData(table);
-		
+
 		document.add(table);
 		document.close();
-		
-		
+
 	}
-  
-  
+
 }
