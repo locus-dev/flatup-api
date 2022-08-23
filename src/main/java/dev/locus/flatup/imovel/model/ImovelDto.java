@@ -47,4 +47,13 @@ public class ImovelDto {
 
 	@NotNull
 	private String descricao;
+
+	@NotNull
+	private String municipio;
+
+	@NotNull
+	private LocalDate validadePromocao;
+
+	@NotNull
+	private Double valorDiaria;
 }

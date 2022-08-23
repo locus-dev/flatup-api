@@ -29,8 +29,11 @@ public class ImovelBuilder {
                 .quantSuite(imovel.getQuantSuite())
                 .tituloAnuncio(imovel.getTituloAnuncio())
                 .descricao(imovel.getDescricao())
+                .valorDiaria(imovel.getValorDiaria())
+                .validadePromocao(imovel.getValidadePromocao())
+                .municipio(imovel.getMunicipio())
                 .build();
-    }
+            }
 
     public Imovel builderModel(ImovelDto imovelDto, EnumClimatizado enumClimatizado, Endereco endereco, EnumStatusOcupacao statusOcupacao){
         return Imovel.builder()
@@ -43,27 +46,36 @@ public class ImovelBuilder {
         .statusOcupacao(statusOcupacao)
         .quantSuite(imovelDto.getQuantSuite())
         .tituloAnuncio(imovelDto.getTituloAnuncio())
+        .valorDiaria(imovelDto.getValorDiaria())
+        .validadePromocao(imovelDto.getValidadePromocao())
+        .municipio(imovelDto.getMunicipio())
         .descricao(imovelDto.getDescricao())
         .build();
     }
 
-    public ImovelListaDto buiderImovelListagem(ContratoLocacao contratoLocaco, Imovel imovel) {
+    public ImovelListaDto buiderImovelListagem(Imovel imovel) {
         return ImovelListaDto.builder()
             .idImovel(imovel.getIdImovel())
-            .valorLocacao(contratoLocaco.getValorLocacao())
+            .valorDiaria(imovel.getValorDiaria())
             .municipio(imovel.getMunicipio())
-            .descricaoAnuncio(imovel.getDescricao())
+            .validadePromocao(imovel.getValidadePromocao())
+            .valorDiaria(imovel.getValorDiaria())
+            .validadePromocao(imovel.getValidadePromocao())
+            .municipio(imovel.getMunicipio())
+            .descricao(imovel.getDescricao())
             .statusOcupacao(imovel.getStatusOcupacao())
             .tituloAnuncio(imovel.getTituloAnuncio())
             .build();
     }
 
-    public ImovelDetalharDto builderImovelDetalhar(ContratoLocacao contratoLocacao, Localizacao localizacao, Imovel imovel) {
+    public ImovelDetalharDto builderImovelDetalhar(Localizacao localizacao, Imovel imovel) {
         return ImovelDetalharDto.builder()
             .idImovel(imovel.getIdImovel())
             .tituloAnuncio(imovel.getTituloAnuncio())
-            .valorLocacao(contratoLocacao.getValorLocacao())
-            .validadePromocao(contratoLocacao.getValidadePromocao())
+            .valorDiaria(imovel.getValorDiaria())
+            .descricao(imovel.getDescricao())
+            .municipio(imovel.getMunicipio())
+            .validadePromocao(imovel.getValidadePromocao())
             .logradouro(imovel.getIdEnderecoFK().getLogradouro())
             .bairro(imovel.getIdEnderecoFK().getBairro())
             .numero(imovel.getIdEnderecoFK().getNumero())

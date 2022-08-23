@@ -1,9 +1,12 @@
 package dev.locus.flatup.contratolocacao.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,21 +43,18 @@ public class ContratoLocacaoDto {
 	
 	@NotNull(message = "A data de entrada deve ser informada.")
 	@JsonProperty(value = "check_in")
-	private LocalDateTime checkIn;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate checkIn;
 	
 	@NotNull(message = "A data de entrada deve ser informada.")
 	@JsonProperty(value = "check_out")
-	private LocalDateTime checkOut;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate checkOut;
 	
 	@NotBlank(message = "A quantidade de pessoas deve ser informada.")
 	@JsonProperty(value = "quant_pessoa")
 	private String quantPessoa;
-	
-	@NotNull
-	@JsonProperty(value = "validade_promocao")
-	@JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
-	private LocalDateTime validadePromocao;
 
 }

@@ -1,6 +1,6 @@
 package dev.locus.flatup.imovel.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +15,9 @@ public class ImovelDetalharDto {
     
     private Long idImovel;
     private String tituloAnuncio;
-    private Double valorLocacao;
-    private LocalDateTime validadePromocao;
+    private String descricao;
+    private Double valorDiaria;
+    private LocalDate validadePromocao;
     private String logradouro;
     private String bairro;
     private String numero;

@@ -49,6 +49,6 @@ public class Pessoa {
 	private String telefone;
 
 	@OneToOne
-	@JoinColumn(name = "USUARIO", unique = true)
+	@JoinColumn(name = "USUARIO_ID", unique = true)
 	public Usuario usuario;
 }
