@@ -24,8 +24,15 @@ public class EnderecoService {
 
   @Autowired
   EnderecoRepository repository;
+  
+  
 
-  public List<EnderecoDto> listarEnderecos() {
+  public EnderecoService(EnderecoRepository repository) {
+	super();
+	this.repository = repository;
+}
+
+public List<EnderecoDto> listarEnderecos() {
     List<EnderecoDto> listaEnderecoDtos = new ArrayList<>();
 
     repository.findAll().forEach(endereco -> {

@@ -69,6 +69,8 @@ public class UsuarioController {
 	}
 	
 	
+
+
 	@GetMapping(path="/pdf", produces="text/plain")
 	public void exportPdf( HttpServletResponse response) throws DocumentException, IOException{
 		response.setContentType("application/pdf");

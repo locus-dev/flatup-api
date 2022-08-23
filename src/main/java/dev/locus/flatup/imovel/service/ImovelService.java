@@ -8,8 +8,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
+
+
 import dev.locus.flatup.imovel.model.Imovel;
 import dev.locus.flatup.imovel.model.ImovelDetalharDto;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,17 +28,24 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
+import dev.locus.flatup.endereco.model.Endereco;
+import dev.locus.flatup.endereco.model.EnderecoDto;
+
 import dev.locus.flatup.contratolocacao.repository.ContratoLocacaoRepository;
+
 import dev.locus.flatup.endereco.repository.EnderecoRepository;
+import dev.locus.flatup.endereco.service.EnderecoService;
 import dev.locus.flatup.imovel.builder.ImovelBuilder;
 import dev.locus.flatup.imovel.enums.EnumClimatizado;
 import dev.locus.flatup.imovel.enums.EnumStatusOcupacao;
+import dev.locus.flatup.imovel.model.Imovel;
 import dev.locus.flatup.imovel.model.ImovelDto;
 import dev.locus.flatup.imovel.model.ImovelListaDto;
 import dev.locus.flatup.imovel.repository.ImovelRepository;
 import dev.locus.flatup.localizacao.repository.LocalizacaoRepository;
 
 @Service
+@Transactional
 public class ImovelService {
 
 	@Autowired
@@ -43,7 +53,7 @@ public class ImovelService {
 
 	@Autowired
 	ImovelRepository repository;
-
+	
 	@Autowired
 	LocalizacaoRepository localizacaoRepository;
 
@@ -51,16 +61,34 @@ public class ImovelService {
 	EnderecoRepository enderecoRepository;
 
 	@Autowired
+	EnderecoService enderecoService;
+
+	private List<ImovelDto> listaComImoveisPorPessoa;
+	
+
+	public ImovelService(List<ImovelDto> listaComImoveisPorPessoa) {
+		this.listaComImoveisPorPessoa = listaComImoveisPorPessoa;
+	
+	}
+	
+	
+	public List<Imovel> listarImoveisGERAl() {
+		return repository.findAll();
+	}
+	
+
 	ContratoLocacaoRepository contratoLocacaoRepository;
 
 
+
 	public List<ImovelDto> listarImoveis() {
-		var listaImovelDtos = new ArrayList<ImovelDto>();
+		List<ImovelDto> listaImovelDtos = new ArrayList<ImovelDto>();
 
 		repository.findAll().forEach(Imovel -> {
 			listaImovelDtos.add(builder.builderDto(Imovel));
 		});
-
+		
+	
 		return listaImovelDtos;
 	}
 
@@ -71,12 +99,13 @@ public class ImovelService {
 			listaImovelDtos.add(builder.builderDto(Imovel));
 		});
 
+	
 		return listaImovelDtos;
 	}
 
 	@Transactional
 	public ImovelDto salvar(ImovelDto imovelDto) {
-		var endereco = enderecoRepository.findById(imovelDto.getIdEnderecoFK()).orElseThrow();
+		Endereco endereco = enderecoRepository.getById(imovelDto.getIdEnderecoFK());
 		var imovel = builder.builderModel(imovelDto, EnumClimatizado.valueOf(imovelDto.getClimatizado()), endereco,
 				EnumStatusOcupacao.valueOf(imovelDto.getStatusOcupacao()));
 		var imovelSalvo = builder.builderDto(repository.save(imovel));
@@ -101,38 +130,40 @@ public class ImovelService {
 	public void removerImovel(Long id) {
 		repository.deleteById(id);
 	}
-	
-	
+
 	private void writeTableHeader(PdfPTable table) {
 		PdfPCell cell = new PdfPCell();
 		cell.setBackgroundColor(Color.BLUE);
 		cell.setPadding(5);
-		
-		Font font =FontFactory.getFont(FontFactory.HELVETICA);
+
+		Font font = FontFactory.getFont(FontFactory.HELVETICA);
 		font.setColor(Color.WHITE);
-		
+
 		cell.setPhrase(new Phrase("ID", font));
 		table.addCell(cell);
-		
+
 		cell.setPhrase(new Phrase("climatizado", font));
 		table.addCell(cell);
-		
+
 		cell.setPhrase(new Phrase("statusOcupacao", font));
 		table.addCell(cell);
-		
+
 		cell.setPhrase(new Phrase("Rua", font));
 		table.addCell(cell);
-		
+
 		cell.setPhrase(new Phrase("Bairro", font));
 		table.addCell(cell);
-		
-	}
-	
-	private void writeTableData(PdfPTable table, Long idPessoa) {
-		var listImoveisDto = retornaDtoImoveis(repository.findAllByIdPessoa(idPessoa));
 
-		for(ImovelDto imovelDto : listImoveisDto) {
-			var endereco = enderecoRepository.findById(imovelDto.getIdEnderecoFK()).orElseThrow();
+	}
+
+	private void writeTableData(PdfPTable table) {
+	
+		for (ImovelDto imovelDto : listaComImoveisPorPessoa) {
+			
+			EnderecoDto endereco = enderecoService.encontrarEndereco(imovelDto.getIdEnderecoFK());
+			System.out.println(imovelDto  +"Lista do imovel");
+			System.out.println(endereco  +"Endereco");
+			
 			table.addCell(String.valueOf(imovelDto.getIdImovel()));
 			table.addCell(String.valueOf(imovelDto.getClimatizado()));
 			table.addCell(String.valueOf(imovelDto.getStatusOcupacao()));
@@ -149,35 +180,38 @@ public class ImovelService {
 
 	public List<ImovelDto> listarImoveisCidade(String cidade) {
 		var imovelDtos = new ArrayList<ImovelDto>();
-		repository.findAllByCidade(cidade)
-				.forEach(imovel -> imovelDtos.add(builder.builderDto(imovel)));
+		repository.findAllByCidade(cidade).forEach(imovel -> imovelDtos.add(builder.builderDto(imovel)));
 		return imovelDtos;
 	}
-	public void export(HttpServletResponse response, Long idPessoa) throws DocumentException, IOException{
+
+	public void export(HttpServletResponse response) throws DocumentException, IOException {
 		Document document = new Document(PageSize.A4);
 		PdfWriter.getInstance(document, response.getOutputStream());
-		
+
 		document.open();
 		Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 		font.setSize(18);
 		font.setColor(Color.BLACK);
-		
+
 		Paragraph p = new Paragraph("Lista De Imóveis", font);
 		p.setAlignment(Paragraph.ALIGN_CENTER);
-		
+
 		document.add(p);
-		
+
 		PdfPTable table = new PdfPTable(5);
 		table.setWidthPercentage(100f);
-		table.setWidths(new float[] {1.5f, 3.5f, 3.0f, 3.0f, 3.0f});	
+		table.setWidths(new float[] { 1.5f, 3.5f, 3.0f, 3.0f, 3.0f });
 		table.setSpacingBefore(10);
-		
+
 		writeTableHeader(table);
-		writeTableData(table, idPessoa);
-		
+		writeTableData(table);
+
 		document.add(table);
 		document.close();
 	}
+
+
+
 
     public List<ImovelListaDto> listarImoveisDescricoes() {
 		
@@ -199,4 +233,5 @@ public class ImovelService {
 
 		return builder.builderImovelDetalhar(localizacao, imovel);
 	}
+
 }

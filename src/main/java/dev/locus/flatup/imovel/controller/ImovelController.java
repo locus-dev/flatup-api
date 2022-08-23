@@ -20,22 +20,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import com.lowagie.text.DocumentException;
+
+
+import dev.locus.flatup.imovel.model.Imovel;
 
 import dev.locus.flatup.contratolocacao.service.ContratoLocacaoService;
 import dev.locus.flatup.imovel.model.ImovelDetalharDto;
 import dev.locus.flatup.imovel.model.ImovelDto;
 import dev.locus.flatup.imovel.model.ImovelListaDto;
 import dev.locus.flatup.imovel.service.ImovelService;
+import dev.locus.flatup.imovel.service.PdfServiceExport;
+
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",  allowedHeaders = "*" )
 @RequestMapping(value = "/imovel")
 public class ImovelController {
 
 	@Autowired
 	ImovelService imovelService;
+	
+	@Autowired
+	PdfServiceExport pdfServiceExport;
 
 
 	@GetMapping("/listar")
@@ -88,9 +99,10 @@ public class ImovelController {
 		return ResponseEntity.ok().build();
 	}
 
-	
-	@GetMapping("/pdf/{idPessoa}")
-	public void exportPdf(HttpServletResponse response, @PathVariable("idPessoa")  Long idPessoa) throws DocumentException, IOException{
+	//produces = { "text/plain" }
+	@GetMapping(path="/pdf/{id}")
+	public void exportPdfImovelPorPessoa(HttpServletResponse response, @PathVariable("id") Long id) throws DocumentException, IOException{
+		//response.setContentType("application/pdf");
 		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
 		String currentDateTime = dateFormatter.format(new Date());
 		
@@ -98,8 +110,63 @@ public class ImovelController {
 		String headerValue = "attachment; filename=imóveis-" + currentDateTime + ".pdf";
 		response.setHeader(headerKey, headerValue);
 		
-		List<ImovelDto> imoveisDto = imovelService.listarImoveisPessoa(idPessoa);
-		imovelService.export(response, idPessoa);
+		List<ImovelDto> imoveis = imovelService.listarImoveisPessoa(id);
+		System.out.println("Aqui é o array de imoveis por pessoa" + imoveis);
+		ImovelService exporter = new ImovelService(imoveis);
+		exporter.export(response);
 	}
+	
+	
+	@GetMapping(path="/pdf")
+	public void exportPdTodosOsImoveis(HttpServletResponse response) throws DocumentException, IOException{
+		response.setContentType("application/pdf");
+		DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy_HH:mm:ss");
+		String currentDateTime = dateFormatter.format(new Date());
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=imóveis-" + currentDateTime + ".pdf";
+		response.setHeader(headerKey, headerValue);
+		
+		List<Imovel> imoveis = imovelService.listarImoveisGERAl();
+		
+		PdfServiceExport exporter = new PdfServiceExport(imoveis);
+		exporter.exportTodosImoveis(response);
+	}
+	
+	
+//	@GetMapping("/csv")
+//    public void exportToCSV(HttpServletResponse response) throws IOException {
+//        response.setContentType("text/csv");
+//        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+//        String currentDateTime = dateFormatter.format(new Date());
+//         
+//        String headerKey = "Content-Disposition";
+//        String headerValue = "attachment; filename=Imóveis" + currentDateTime + ".csv";
+//        response.setHeader(headerKey, headerValue);
+//         
+//    	List<Imovel> imoveis = imovelService.listarImoveisGERAl();
+// 
+//        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+//        String[] csvHeader = {"ID imóvel", "Climatizado", "Status Ocupação", "Rua", "Bairro"};
+//        
+//         
+//        csvWriter.writeHeader(csvHeader);
+//         
+//        for (Imovel imov : imoveis) {
+//        	
+//        	String idImovel = String.valueOf(imov.getIdImovel());
+//			String climatizado = String.valueOf(imov.getClimatizado());
+//			String statusOcupacao = String.valueOf(imov.getStatusOcupacao());
+//			String logradouro  = String.valueOf(imov.getIdEnderecoFK().getLogradouro());
+//			String bairro = String.valueOf(imov.getIdEnderecoFK().getBairro());
+//			
+//			String[] nameMapping = {idImovel, climatizado,statusOcupacao, logradouro, bairro};
+//			
+//            csvWriter.write(imov, nameMapping);
+//        }
+//
+//        csvWriter.close();
+//         
+//    }
 	
 }

@@ -49,4 +49,8 @@ public class ContratoLocacao {
 
 	@Column(name = "QUANT_PESSOA")
 	private String quantPessoa;
+
+	@Column(name = "VALIDADE_PROMOCAO")
+	private LocalDate validadePromocao;
+
 }

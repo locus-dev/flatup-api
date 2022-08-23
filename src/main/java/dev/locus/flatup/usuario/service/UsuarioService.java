@@ -99,7 +99,8 @@ public class UsuarioService {
 		Font font =FontFactory.getFont(FontFactory.HELVETICA);
 		font.setColor(Color.WHITE);
 		
-		
+		cell.setPhrase(new Phrase("ID", font));
+		table.addCell(cell);
 		
 		cell.setPhrase(new Phrase("E-mail", font));
 		table.addCell(cell);
@@ -112,6 +113,7 @@ public class UsuarioService {
     
     private void writeTableData(PdfPTable table) {
 		for(UsuarioDto usuarioDto : listUsuariosDto) {
+			table.addCell(usuarioDto.getIdUsuario().toString());
 			table.addCell(usuarioDto.getEmail());
 			table.addCell(usuarioDto.getSenha());
 		}
@@ -131,9 +133,9 @@ public class UsuarioService {
 		
 		document.add(p);
 		
-		PdfPTable table = new PdfPTable(2);
+		PdfPTable table = new PdfPTable(3);
 		table.setWidthPercentage(100f);
-		table.setWidths(new float[] {1.5f, 3.5f});	
+		table.setWidths(new float[] {1.5f, 1.5f,3.5f});	
 		table.setSpacingBefore(10);
 		
 		writeTableHeader(table);
